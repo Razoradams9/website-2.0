@@ -1,0 +1,1245 @@
+// ─────────────────────────────────────────────────────────────────
+//  CBSE School Portal — Full Prisma Schema
+//  Database: PostgreSQL
+//  ORM: Prisma 5.x
+// ─────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")  -- uncomment if using a connection pooler (Supabase, PgBouncer, etc.)
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 1 — CORE & AUTH
+// ═══════════════════════════════════════════════════════════════
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  TEACHER
+  STUDENT
+  PARENT
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING_VERIFICATION
+}
+
+model User {
+  id            String        @id @default(cuid())
+  name          String?
+  email         String        @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?       // bcrypt hashed
+  role          Role          @default(STUDENT)
+  status        AccountStatus @default(PENDING_VERIFICATION)
+  phone         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  lastLoginAt   DateTime?
+
+  // NextAuth relations
+  accounts      Account[]
+  sessions      Session[]
+
+  // Profile relations (one of these will be populated based on role)
+  studentProfile  StudentProfile?
+  teacherProfile  TeacherProfile?
+  parentProfile   ParentProfile?
+
+  // Activity
+  auditLogs       AuditLog[]
+  grievances      Grievance[]     @relation("GrievanceSubmitter")
+  assignedGrievances Grievance[]  @relation("GrievanceAssignee")
+
+  @@map("users")
+}
+
+// NextAuth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@map("password_reset_tokens")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  action     String   // e.g. "USER_CREATED", "CONTENT_UPDATED"
+  entity     String   // e.g. "User", "News", "Notice"
+  entityId   String?
+  oldValues  Json?
+  newValues  Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 2 — CMS (Content Management System)
+// ═══════════════════════════════════════════════════════════════
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model SiteSettings {
+  id                    String  @id @default(cuid())
+  schoolName            String  @default("School Name")
+  schoolTagline         String?
+  schoolAddress         String?
+  schoolPhone           String?
+  schoolEmail           String?
+  schoolAffilNo         String?
+  schoolCode            String?
+  logoUrl               String?
+  faviconUrl            String?
+  bannerUrl             String?
+  principalName         String?
+  principalMessage      String? @db.Text
+  chairmanName          String?
+  chairmanMessage       String? @db.Text
+  facebookUrl           String?
+  twitterUrl            String?
+  instagramUrl          String?
+  youtubeUrl            String?
+  whatsappNumber        String?
+  googleMapsEmbedUrl    String?
+  footerText            String?
+  metaTitle             String?
+  metaDescription       String?
+  metaKeywords          String?
+  maintenanceMode       Boolean @default(false)
+  admissionsOpen        Boolean @default(true)
+  updatedAt             DateTime @updatedAt
+
+  // Section toggles — enable/disable public site sections
+  showHeroSlider        Boolean @default(true)
+  showNewsTicker        Boolean @default(true)
+  showAchievements      Boolean @default(true)
+  showTestimonials      Boolean @default(true)
+  showGallery           Boolean @default(true)
+  showEvents            Boolean @default(true)
+  showAlumni            Boolean @default(true)
+  showCareers           Boolean @default(true)
+  showAdmissionBanner   Boolean @default(true)
+
+  @@map("site_settings")
+}
+
+model SliderItem {
+  id          String        @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String?       @db.Text
+  imageUrl    String
+  linkUrl     String?
+  linkText    String?
+  sortOrder   Int           @default(0)
+  status      PublishStatus @default(PUBLISHED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("slider_items")
+}
+
+model Page {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  content     String        @db.Text
+  excerpt     String?
+  featuredImage String?
+  metaTitle   String?
+  metaDescription String?
+  status      PublishStatus @default(DRAFT)
+  parentSlug  String?
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([slug])
+  @@map("pages")
+}
+
+model Notice {
+  id          String        @id @default(cuid())
+  title       String
+  content     String        @db.Text
+  category    String        @default("GENERAL") // GENERAL, EXAM, ADMISSION, HOLIDAY, URGENT
+  fileUrl     String?
+  isMarquee   Boolean       @default(false)      // show in news ticker
+  isPinned    Boolean       @default(false)
+  targetAudience String     @default("ALL")       // ALL, STUDENT, PARENT, TEACHER, STAFF
+  publishedAt DateTime?
+  expiresAt   DateTime?
+  status      PublishStatus @default(PUBLISHED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+  @@map("notices")
+}
+
+model News {
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  content       String        @db.Text
+  excerpt       String?
+  featuredImage String?
+  tags          String[]
+  status        PublishStatus @default(DRAFT)
+  publishedAt   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([status, publishedAt])
+  @@map("news")
+}
+
+model Event {
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  description   String        @db.Text
+  shortDesc     String?
+  featuredImage String?
+  venue         String?
+  startDate     DateTime
+  endDate       DateTime?
+  status        PublishStatus @default(DRAFT)
+  isImportant   Boolean       @default(false)
+  tags          String[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([startDate])
+  @@map("events")
+}
+
+enum GalleryType {
+  PHOTO
+  VIDEO
+}
+
+enum GalleryCategory {
+  ANNUAL_DAY
+  SPORTS_DAY
+  CULTURAL
+  ACADEMICS
+  TOURS_TRIPS
+  INFRASTRUCTURE
+  ACHIEVEMENTS
+  GENERAL
+}
+
+model GalleryItem {
+  id          String          @id @default(cuid())
+  title       String
+  description String?
+  mediaUrl    String
+  thumbnailUrl String?
+  type        GalleryType     @default(PHOTO)
+  category    GalleryCategory @default(GENERAL)
+  albumId     String?
+  album       GalleryAlbum?   @relation(fields: [albumId], references: [id], onDelete: SetNull)
+  sortOrder   Int             @default(0)
+  status      PublishStatus   @default(PUBLISHED)
+  takenAt     DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("gallery_items")
+}
+
+model GalleryAlbum {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  coverImage  String?
+  category    GalleryCategory @default(GENERAL)
+  status      PublishStatus   @default(PUBLISHED)
+  items       GalleryItem[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("gallery_albums")
+}
+
+model Testimonial {
+  id          String        @id @default(cuid())
+  name        String
+  role        String        // e.g. "Parent of Class X Student", "Alumni 2022"
+  content     String        @db.Text
+  rating      Int           @default(5)
+  avatarUrl   String?
+  sortOrder   Int           @default(0)
+  status      PublishStatus @default(PUBLISHED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("testimonials")
+}
+
+enum StaffCategory {
+  TEACHING
+  NON_TEACHING
+  ADMINISTRATIVE
+  MANAGEMENT
+}
+
+model StaffMember {
+  id           String        @id @default(cuid())
+  name         String
+  designation  String
+  qualification String?
+  department   String?
+  category     StaffCategory @default(TEACHING)
+  photoUrl     String?
+  email        String?
+  phone        String?
+  bio          String?       @db.Text
+  joinedDate   DateTime?
+  sortOrder    Int           @default(0)
+  showOnWebsite Boolean      @default(true)
+  status       PublishStatus @default(PUBLISHED)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("staff_members")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 3 — CBSE MANDATORY DISCLOSURE
+// ═══════════════════════════════════════════════════════════════
+
+enum DisclosureCategory {
+  GENERAL_INFO
+  DOCUMENTS_AND_CERTIFICATES
+  RESULT_AND_ACADEMICS
+  STAFF_DETAILS
+  SCHOOL_INFRASTRUCTURE
+  FEE_STRUCTURE
+  CBSE_SELF_DECLARATION
+}
+
+model MandatoryDisclosure {
+  id          String              @id @default(cuid())
+  title       String
+  description String?
+  category    DisclosureCategory
+  fileUrl     String?
+  externalUrl String?
+  isPublic    Boolean             @default(true)
+  sortOrder   Int                 @default(0)
+  updatedAt   DateTime            @updatedAt
+  createdAt   DateTime            @default(now())
+
+  @@index([category])
+  @@map("mandatory_disclosures")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 4 — ADMISSIONS & ENQUIRIES
+// ═══════════════════════════════════════════════════════════════
+
+enum ApplicationStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  SHORTLISTED
+  APPROVED
+  REJECTED
+  WAITLISTED
+  ENROLLED
+  CANCELLED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model AdmissionEnquiry {
+  id                 String            @id @default(cuid())
+  applicationNo      String            @unique @default(cuid())
+  studentName        String
+  dateOfBirth        DateTime
+  gender             Gender
+  nationality        String            @default("Indian")
+  religion           String?
+  category           String            @default("GENERAL") // GENERAL, OBC, SC, ST, EWS
+  applyingForClass   String            // e.g. "Class 1", "Class 6"
+  academicYear       String
+  previousSchool     String?
+  previousClass      String?
+  previousPercentage Decimal?          @db.Decimal(5, 2)
+  fatherName         String
+  fatherOccupation   String?
+  fatherPhone        String
+  fatherEmail        String?
+  motherName         String
+  motherOccupation   String?
+  motherPhone        String?
+  motherEmail        String?
+  address            String
+  city               String
+  state              String
+  pinCode            String
+  howDidYouHear      String?           // referral source
+  specialNeeds       String?
+  notes              String?           @db.Text
+  status             ApplicationStatus @default(SUBMITTED)
+  assignedTo         String?           // admin userId
+  reviewNotes        String?           @db.Text
+  documents          DocumentUpload[]
+  feePaid            Boolean           @default(false)
+  feeAmount          Decimal?          @db.Decimal(10, 2)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  @@index([status])
+  @@index([applyingForClass, academicYear])
+  @@map("admission_enquiries")
+}
+
+enum DocumentType {
+  BIRTH_CERTIFICATE
+  TRANSFER_CERTIFICATE
+  MARK_SHEET
+  AADHAR_CARD
+  PASSPORT_PHOTO
+  ADDRESS_PROOF
+  CASTE_CERTIFICATE
+  DISABILITY_CERTIFICATE
+  MEDICAL_CERTIFICATE
+  OTHER
+}
+
+model DocumentUpload {
+  id           String       @id @default(cuid())
+  enquiryId    String?
+  studentId    String?
+  fileName     String
+  fileUrl      String
+  fileType     String       // MIME type
+  fileSize     Int          // bytes
+  docType      DocumentType @default(OTHER)
+  isVerified   Boolean      @default(false)
+  uploadedAt   DateTime     @default(now())
+
+  enquiry  AdmissionEnquiry? @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  student  StudentProfile?   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("document_uploads")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 5 — ACADEMIC STRUCTURE
+// ═══════════════════════════════════════════════════════════════
+
+model AcademicYear {
+  id          String    @id @default(cuid())
+  name        String    @unique // e.g. "2025-2026"
+  startDate   DateTime
+  endDate     DateTime
+  isCurrent   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  sections    Section[]
+  feeStructures FeeStructure[]
+  examSchedules ExamSchedule[]
+  attendances Attendance[]
+
+  @@map("academic_years")
+}
+
+model GradeLevel {
+  id          String    @id @default(cuid())
+  name        String    @unique // e.g. "Class 1", "Class 12"
+  level       Int       @unique // numeric sort: 1-12
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  sections    Section[]
+  subjects    GradeSubject[]
+  feeStructures FeeStructure[]
+  timetables  Timetable[]
+
+  @@map("grade_levels")
+}
+
+model Section {
+  id             String   @id @default(cuid())
+  name           String   // e.g. "A", "B", "C"
+  gradeLevelId   String
+  academicYearId String
+  classTeacherId String?
+  roomNumber     String?
+  capacity       Int      @default(40)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  gradeLevel   GradeLevel   @relation(fields: [gradeLevelId], references: [id])
+  academicYear AcademicYear @relation(fields: [academicYearId], references: [id])
+  classTeacher TeacherProfile? @relation("ClassTeacher", fields: [classTeacherId], references: [id], onDelete: SetNull)
+  students     StudentProfile[]
+  timetables   Timetable[]
+  attendances  Attendance[]
+  examResults  ExamResult[]
+  homeworks    Homework[]
+
+  @@unique([gradeLevelId, name, academicYearId])
+  @@map("sections")
+}
+
+model Subject {
+  id          String   @id @default(cuid())
+  name        String
+  code        String   @unique
+  description String?
+  isElective  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  gradeSubjects  GradeSubject[]
+  timetables     Timetable[]
+  homeworks      Homework[]
+  examResults    ExamResult[]
+  teacherSubjects TeacherSubject[]
+
+  @@map("subjects")
+}
+
+model GradeSubject {
+  id           String   @id @default(cuid())
+  gradeLevelId String
+  subjectId    String
+  isCompulsory Boolean  @default(true)
+  maxMarks     Int      @default(100)
+  passMarks    Int      @default(33)
+  theoryMarks  Int      @default(80)
+  practicalMarks Int    @default(20)
+  createdAt    DateTime @default(now())
+
+  gradeLevel GradeLevel @relation(fields: [gradeLevelId], references: [id], onDelete: Cascade)
+  subject    Subject    @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  @@unique([gradeLevelId, subjectId])
+  @@map("grade_subjects")
+}
+
+model Timetable {
+  id           String   @id @default(cuid())
+  gradeLevelId String
+  sectionId    String
+  subjectId    String
+  teacherId    String
+  dayOfWeek    Int      // 1=Mon, 2=Tue, ..., 6=Sat
+  periodNumber Int
+  startTime    String   // "09:00"
+  endTime      String   // "09:45"
+  roomNumber   String?
+  effectiveFrom DateTime @default(now())
+  effectiveTo   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  gradeLevel GradeLevel     @relation(fields: [gradeLevelId], references: [id])
+  section    Section        @relation(fields: [sectionId], references: [id])
+  subject    Subject        @relation(fields: [subjectId], references: [id])
+  teacher    TeacherProfile @relation(fields: [teacherId], references: [id])
+
+  @@unique([sectionId, dayOfWeek, periodNumber, effectiveFrom])
+  @@map("timetables")
+}
+
+model Homework {
+  id           String    @id @default(cuid())
+  title        String
+  description  String    @db.Text
+  sectionId    String
+  subjectId    String
+  teacherId    String
+  assignedDate DateTime  @default(now())
+  dueDate      DateTime
+  fileUrls     String[]
+  isHoliday    Boolean   @default(false) // holiday homework flag
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  section Section        @relation(fields: [sectionId], references: [id])
+  subject Subject        @relation(fields: [subjectId], references: [id])
+  teacher TeacherProfile @relation(fields: [teacherId], references: [id])
+
+  @@index([sectionId, dueDate])
+  @@map("homeworks")
+}
+
+model Circular {
+  id             String        @id @default(cuid())
+  title          String
+  content        String        @db.Text
+  circularNo     String        @unique
+  fileUrl        String?
+  targetAudience String        @default("ALL") // ALL, STUDENT, PARENT, TEACHER
+  issueDate      DateTime      @default(now())
+  status         PublishStatus @default(PUBLISHED)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@map("circulars")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 6 — EXAMINATION SYSTEM
+// ═══════════════════════════════════════════════════════════════
+
+enum ExamType {
+  UNIT_TEST
+  MID_TERM
+  HALF_YEARLY
+  ANNUAL
+  BOARD_EXAM
+  INTERNAL_ASSESSMENT
+  PRACTICAL
+  OLYMPIAD
+}
+
+model ExamSchedule {
+  id             String       @id @default(cuid())
+  name           String       // e.g. "Half Yearly Exam 2025"
+  examType       ExamType
+  academicYearId String
+  startDate      DateTime
+  endDate        DateTime
+  gradeLevelIds  String[]     // applicable grade levels
+  status         PublishStatus @default(DRAFT)
+  instructions   String?      @db.Text
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  academicYear AcademicYear @relation(fields: [academicYearId], references: [id])
+  examDates    ExamDate[]
+  results      ExamResult[]
+
+  @@map("exam_schedules")
+}
+
+model ExamDate {
+  id             String       @id @default(cuid())
+  examScheduleId String
+  subjectId      String?
+  subjectName    String       // denormalized for flexibility
+  gradeLevelId   String?
+  gradeName      String
+  examDate       DateTime
+  startTime      String
+  endTime        String
+  maxMarks       Int
+  passingMarks   Int
+  venue          String?
+
+  examSchedule ExamSchedule @relation(fields: [examScheduleId], references: [id], onDelete: Cascade)
+
+  @@map("exam_dates")
+}
+
+model ExamResult {
+  id              String   @id @default(cuid())
+  studentId       String
+  examScheduleId  String
+  sectionId       String
+  subjectId       String
+  marksObtained   Decimal  @db.Decimal(6, 2)
+  maxMarks        Int
+  grade           String?  // A+, A, B+, B, C, D, E, F
+  gradePoint      Decimal? @db.Decimal(4, 2)
+  remarks         String?
+  isAbsent        Boolean  @default(false)
+  practicalMarks  Decimal? @db.Decimal(6, 2)
+  internalMarks   Decimal? @db.Decimal(6, 2)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  student      StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  examSchedule ExamSchedule   @relation(fields: [examScheduleId], references: [id])
+  section      Section        @relation(fields: [sectionId], references: [id])
+  subject      Subject        @relation(fields: [subjectId], references: [id])
+
+  @@unique([studentId, examScheduleId, subjectId])
+  @@index([studentId])
+  @@map("exam_results")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 7 — STUDENT, TEACHER & PARENT PROFILES
+// ═══════════════════════════════════════════════════════════════
+
+model StudentProfile {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  admissionNo       String    @unique
+  rollNo            String?
+  sectionId         String?
+  dateOfBirth       DateTime
+  gender            Gender
+  bloodGroup        String?
+  nationality       String    @default("Indian")
+  religion          String?
+  category          String    @default("GENERAL")
+  aadharNo          String?   @unique
+  photoUrl          String?
+  address           String?
+  city              String?
+  state             String?
+  pinCode           String?
+  admissionDate     DateTime  @default(now())
+  isActive          Boolean   @default(true)
+  busRouteId        String?
+  libraryCardNo     String?
+  houseColor        String?   // e.g. "RED", "BLUE", "GREEN", "YELLOW" (house system)
+  medicalInfo       String?   @db.Text
+  emergencyContact  String?
+  emergencyPhone    String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  section       Section?         @relation(fields: [sectionId], references: [id], onDelete: SetNull)
+  busRoute      TransportRoute?  @relation(fields: [busRouteId], references: [id], onDelete: SetNull)
+  parents       ParentStudent[]
+  documents     DocumentUpload[]
+  attendances   Attendance[]
+  examResults   ExamResult[]
+  feeTransactions FeeTransaction[]
+  libraryIssuances LibraryIssuance[]
+
+  @@index([admissionNo])
+  @@map("student_profiles")
+}
+
+model TeacherProfile {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  employeeId      String    @unique
+  designation     String
+  qualification   String?
+  experience      Int?      // years
+  specialization  String?
+  photoUrl        String?
+  joiningDate     DateTime?
+  dateOfBirth     DateTime?
+  gender          Gender?
+  bloodGroup      String?
+  aadharNo        String?   @unique
+  panNo           String?
+  bankAccount     String?
+  ifscCode        String?
+  address         String?
+  isClassTeacher  Boolean   @default(false)
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  classTeacher  Section[]        @relation("ClassTeacher")
+  timetables    Timetable[]
+  homeworks     Homework[]
+  subjects      TeacherSubject[]
+  attendances   Attendance[]
+
+  @@map("teacher_profiles")
+}
+
+model TeacherSubject {
+  id          String   @id @default(cuid())
+  teacherId   String
+  subjectId   String
+  gradeLevelId String?
+  isPrimary   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  teacher    TeacherProfile @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  subject    Subject        @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, subjectId])
+  @@map("teacher_subjects")
+}
+
+model ParentProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  fatherName      String?
+  fatherPhone     String?
+  fatherEmail     String?
+  fatherOccupation String?
+  fatherPhotoUrl  String?
+  motherName      String?
+  motherPhone     String?
+  motherEmail     String?
+  motherOccupation String?
+  motherPhotoUrl  String?
+  guardianName    String?
+  guardianPhone   String?
+  guardianRelation String?
+  address         String?
+  city            String?
+  state           String?
+  pinCode         String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  students ParentStudent[]
+
+  @@map("parent_profiles")
+}
+
+model ParentStudent {
+  id         String   @id @default(cuid())
+  parentId   String
+  studentId  String
+  relation   String   @default("PARENT") // FATHER, MOTHER, GUARDIAN
+
+  parent  ParentProfile  @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  student StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([parentId, studentId])
+  @@map("parent_students")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 8 — ATTENDANCE
+// ═══════════════════════════════════════════════════════════════
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  HALF_DAY
+  HOLIDAY
+  LEAVE
+}
+
+model Attendance {
+  id             String           @id @default(cuid())
+  date           DateTime         @db.Date
+  studentId      String?
+  teacherId      String?
+  sectionId      String
+  academicYearId String
+  status         AttendanceStatus @default(PRESENT)
+  remarks        String?
+  markedBy       String?          // teacher userId
+  markedAt       DateTime         @default(now())
+
+  student      StudentProfile?  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacher      TeacherProfile?  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  section      Section          @relation(fields: [sectionId], references: [id])
+  academicYear AcademicYear     @relation(fields: [academicYearId], references: [id])
+
+  @@unique([date, studentId, sectionId])
+  @@index([date, sectionId])
+  @@map("attendances")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 9 — FEE MANAGEMENT
+// ═══════════════════════════════════════════════════════════════
+
+enum FeeCategory {
+  TUITION
+  ADMISSION
+  DEVELOPMENT
+  COMPUTER
+  SPORTS
+  TRANSPORT
+  LIBRARY
+  EXAMINATION
+  MISCELLANEOUS
+  ANNUAL_CHARGES
+  LATE_FEE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  PARTIAL
+  OVERDUE
+  WAIVED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  CHEQUE
+  ONLINE
+  NEFT
+  UPI
+  RAZORPAY
+  DEMAND_DRAFT
+}
+
+model FeeStructure {
+  id             String      @id @default(cuid())
+  name           String
+  gradeLevelId   String
+  academicYearId String
+  category       FeeCategory
+  amount         Decimal     @db.Decimal(10, 2)
+  dueDay         Int?        // day of month
+  frequency      String      @default("MONTHLY") // MONTHLY, QUARTERLY, ANNUALLY, ONE_TIME
+  isCompulsory   Boolean     @default(true)
+  description    String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  gradeLevel   GradeLevel   @relation(fields: [gradeLevelId], references: [id])
+  academicYear AcademicYear @relation(fields: [academicYearId], references: [id])
+  transactions FeeTransaction[]
+
+  @@map("fee_structures")
+}
+
+model FeeTransaction {
+  id              String        @id @default(cuid())
+  receiptNo       String        @unique
+  studentId       String
+  feeStructureId  String?
+  amount          Decimal       @db.Decimal(10, 2)
+  discount        Decimal       @default(0) @db.Decimal(10, 2)
+  lateFee         Decimal       @default(0) @db.Decimal(10, 2)
+  totalAmount     Decimal       @db.Decimal(10, 2)
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethod   PaymentMethod?
+  transactionId   String?       // gateway transaction id
+  paymentDate     DateTime?
+  forMonth        String?       // "April 2025"
+  remarks         String?
+  collectedBy     String?       // staff userId
+  receiptFileUrl  String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  student      StudentProfile @relation(fields: [studentId], references: [id])
+  feeStructure FeeStructure?  @relation(fields: [feeStructureId], references: [id], onDelete: SetNull)
+
+  @@index([studentId])
+  @@index([paymentStatus])
+  @@map("fee_transactions")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 10 — TRANSPORT MANAGEMENT
+// ═══════════════════════════════════════════════════════════════
+
+model TransportRoute {
+  id           String   @id @default(cuid())
+  routeName    String
+  routeNo      String   @unique
+  vehicleNo    String?
+  driverName   String?
+  driverPhone  String?
+  conductorName String?
+  conductorPhone String?
+  capacity     Int      @default(40)
+  monthlyFee   Decimal  @db.Decimal(10, 2)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  stops    TransportStop[]
+  students StudentProfile[]
+
+  @@map("transport_routes")
+}
+
+model TransportStop {
+  id          String   @id @default(cuid())
+  routeId     String
+  stopName    String
+  stopOrder   Int
+  pickupTime  String?  // "07:30"
+  dropTime    String?  // "14:30"
+  landmark    String?
+  createdAt   DateTime @default(now())
+
+  route TransportRoute @relation(fields: [routeId], references: [id], onDelete: Cascade)
+
+  @@map("transport_stops")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 11 — LIBRARY MANAGEMENT
+// ═══════════════════════════════════════════════════════════════
+
+enum BookStatus {
+  AVAILABLE
+  ISSUED
+  RESERVED
+  LOST
+  DAMAGED
+  UNDER_REPAIR
+}
+
+model LibraryBook {
+  id             String     @id @default(cuid())
+  accessionNo    String     @unique
+  title          String
+  author         String
+  publisher      String?
+  isbn           String?    @unique
+  edition        String?
+  publishYear    Int?
+  category       String?    // "FICTION", "NON-FICTION", "REFERENCE", "TEXTBOOK"
+  subject        String?
+  language       String     @default("English")
+  totalCopies    Int        @default(1)
+  availableCopies Int       @default(1)
+  location       String?    // shelf/rack number
+  coverImageUrl  String?
+  description    String?    @db.Text
+  status         BookStatus @default(AVAILABLE)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  issuances LibraryIssuance[]
+
+  @@index([title, author])
+  @@map("library_books")
+}
+
+model LibraryIssuance {
+  id           String    @id @default(cuid())
+  bookId       String
+  studentId    String
+  issueDate    DateTime  @default(now())
+  dueDate      DateTime
+  returnDate   DateTime?
+  fine         Decimal   @default(0) @db.Decimal(10, 2)
+  finePaid     Boolean   @default(false)
+  remarks      String?
+  issuedBy     String?   // staff userId
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  book    LibraryBook    @relation(fields: [bookId], references: [id])
+  student StudentProfile @relation(fields: [studentId], references: [id])
+
+  @@index([studentId])
+  @@map("library_issuances")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 12 — GRIEVANCE SYSTEM
+// ═══════════════════════════════════════════════════════════════
+
+enum GrievanceCategory {
+  ACADEMIC
+  ADMINISTRATIVE
+  BULLYING
+  HARASSMENT_POSH
+  CHILD_PROTECTION
+  INFRASTRUCTURE
+  TRANSPORTATION
+  FEE_RELATED
+  STAFF_BEHAVIOUR
+  OTHER
+}
+
+enum GrievanceStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  REJECTED
+}
+
+enum GrievancePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Grievance {
+  id           String            @id @default(cuid())
+  ticketNo     String            @unique
+  submitterId  String
+  title        String
+  description  String            @db.Text
+  category     GrievanceCategory
+  priority     GrievancePriority @default(MEDIUM)
+  status       GrievanceStatus   @default(OPEN)
+  assigneeId   String?
+  resolution   String?           @db.Text
+  isAnonymous  Boolean           @default(false)
+  attachments  String[]
+  resolvedAt   DateTime?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  submitter  User  @relation("GrievanceSubmitter", fields: [submitterId], references: [id])
+  assignee   User? @relation("GrievanceAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  comments   GrievanceComment[]
+
+  @@index([status, category])
+  @@map("grievances")
+}
+
+model GrievanceComment {
+  id          String   @id @default(cuid())
+  grievanceId String
+  authorId    String
+  content     String   @db.Text
+  isInternal  Boolean  @default(false) // internal admin note vs public reply
+  createdAt   DateTime @default(now())
+
+  grievance Grievance @relation(fields: [grievanceId], references: [id], onDelete: Cascade)
+
+  @@map("grievance_comments")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 13 — ALUMNI & CAREERS
+// ═══════════════════════════════════════════════════════════════
+
+model AlumniProfile {
+  id              String   @id @default(cuid())
+  name            String
+  passOutYear     Int
+  classSection    String?
+  currentOccupation String?
+  currentEmployer String?
+  achievements    String?  @db.Text
+  testimonial     String?  @db.Text
+  photoUrl        String?
+  linkedinUrl     String?
+  email           String?
+  phone           String?
+  city            String?
+  isVerified      Boolean  @default(false)
+  showOnWebsite   Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("alumni_profiles")
+}
+
+model CareerOpening {
+  id              String        @id @default(cuid())
+  title           String
+  department      String
+  qualification   String?
+  experience      String?
+  description     String        @db.Text
+  vacancies       Int           @default(1)
+  applicationDeadline DateTime?
+  salary          String?
+  status          PublishStatus @default(PUBLISHED)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  applications CareerApplication[]
+
+  @@map("career_openings")
+}
+
+model CareerApplication {
+  id            String   @id @default(cuid())
+  openingId     String
+  applicantName String
+  email         String
+  phone         String
+  resumeUrl     String?
+  coverLetter   String?  @db.Text
+  status        String   @default("RECEIVED") // RECEIVED, SHORTLISTED, REJECTED, HIRED
+  createdAt     DateTime @default(now())
+
+  opening CareerOpening @relation(fields: [openingId], references: [id], onDelete: Cascade)
+
+  @@map("career_applications")
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTION 14 — CONTACT FORM
+// ═══════════════════════════════════════════════════════════════
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  repliedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
