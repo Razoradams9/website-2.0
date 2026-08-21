@@ -4,7 +4,7 @@ import type { Role, AccountStatus, PublishStatus } from "@prisma/client";
 declare module "next-auth" {
   interface User {
     id: string;
-    role: Role;
+    role: string;
   }
   interface Session {
     user: {
@@ -12,15 +12,8 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      role: Role;
+      role: string;
     };
-  }
-}
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    id: string;
-    role: Role;
   }
 }
 
