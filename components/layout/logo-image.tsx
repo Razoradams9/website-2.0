@@ -2,7 +2,7 @@
 import React from "react"
 import { cn } from "@/lib/utils"
 
-const LOGO_URL = "https://lh3.googleusercontent.com/d/1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi"
+const LOGO_URL = "/images/logo.jpeg"
 
 export function LogoImage({ className }: { className?: string }) {
   return (

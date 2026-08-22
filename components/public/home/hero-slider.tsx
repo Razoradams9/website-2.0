@@ -84,7 +84,7 @@ export function HeroSlider() {
             {/* Logo showcase on first slide */}
             {current === 0 && (
               <div className="mb-8 animate-fade-in">
-                <img src="https://lh3.googleusercontent.com/d/1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi" alt="Guru Gorakshnath Gyanasthali" className="w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-2xl" />
+                <img src="/images/logo.jpeg" alt="Guru Gorakshnath Gyanasthali" className="w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-2xl" />
               </div>
             )}
 

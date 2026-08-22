@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "https://lh3.googleusercontent.com/d/1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi",
-    shortcut: "https://lh3.googleusercontent.com/d/1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi",
-    apple: "https://lh3.googleusercontent.com/d/1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi",
+    icon: "/images/logo.jpeg",
+    shortcut: "/images/logo.jpeg",
+    apple: "/images/logo.jpeg",
   },
   manifest: "/manifest.json",
 };
