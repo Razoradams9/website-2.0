@@ -1,43 +1,51 @@
 "use client"
 import React, { useState, useEffect } from "react"
-import { Camera, Video, Play, Plus, Trash2, Save, X, Link as LinkIcon } from "lucide-react"
+import { Camera, Video, Play, Plus, Trash2, Save, X, Upload, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ImageUpload as ImageUploadComponent } from "@/components/ui/image-upload"
+import { ImageUpload } from "@/components/ui/image-upload"
 
 interface GalleryImage {
   id: string
   title: string
   imageUrl: string
+  thumbnailUrl: string
+  placement: string
   category: string
 }
 
-const categories = ["All", "Campus", "Events", "Cultural", "Sports", "Academics", "Infrastructure", "Other"]
-
-const placeholderImages = [
-  { id: "p1", title: "Annual Day Celebration 2024", category: "Cultural", color: "from-pink-500 to-rose-600" },
-  { id: "p2", title: "Republic Day Flag Hoisting", category: "Events", color: "from-orange-500 to-amber-600" },
-  { id: "p3", title: "Science Exhibition Projects", category: "Academics", color: "from-blue-500 to-indigo-600" },
-  { id: "p4", title: "Sports Day — March Past", category: "Sports", color: "from-emerald-500 to-teal-600" },
-  { id: "p5", title: "Classroom Learning Activities", category: "Academics", color: "from-purple-500 to-violet-600" },
-  { id: "p6", title: "Art & Craft Exhibition", category: "Cultural", color: "from-fuchsia-500 to-pink-600" },
-  { id: "p7", title: "School Building", category: "Infrastructure", color: "from-slate-500 to-gray-600" },
-  { id: "p8", title: "Campus Green Area", category: "Campus", color: "from-green-500 to-lime-600" },
+const placements = [
+  { value: "gallery-annual-day", label: "Gallery — Annual Day" },
+  { value: "gallery-sports-day", label: "Gallery — Sports Day" },
+  { value: "gallery-cultural", label: "Gallery — Cultural Events" },
+  { value: "gallery-academics", label: "Gallery — Academics" },
+  { value: "gallery-campus", label: "Gallery — Campus & Infrastructure" },
+  { value: "gallery-events", label: "Gallery — General Events" },
+  { value: "gallery-national-day", label: "Gallery — National Day Celebrations" },
+  { value: "hero-slider", label: "Homepage — Hero Slider" },
+  { value: "about-page", label: "About Us Page" },
+  { value: "other", label: "Other" },
 ]
 
+const categories = ["All", "Annual Day", "Sports Day", "Cultural", "Academics", "Campus", "Events", "National Day"]
+
 export default function GalleryPage() {
-  const [uploadedImages, setUploadedImages] = useState<GalleryImage[]>([])
+  const [images, setImages] = useState<GalleryImage[]>([])
   const [filterCat, setFilterCat] = useState("All")
   const [isAdmin, setIsAdmin] = useState(false)
   const [showAdd, setShowAdd] = useState(false)
-  const [newTitle, setNewTitle] = useState("")
-  const [newUrl, setNewUrl] = useState("")
-  const [newCategory, setNewCategory] = useState("Other")
+
+  // Form
+  const [title, setTitle] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+  const [thumbnailUrl, setThumbnailUrl] = useState("")
+  const [placement, setPlacement] = useState("gallery-events")
 
   useEffect(() => {
-    const saved = localStorage.getItem("ggg_gallery")
-    if (saved) setUploadedImages(JSON.parse(saved))
+    // Load saved images
+    const saved = localStorage.getItem("ggg_gallery_v2")
+    if (saved) setImages(JSON.parse(saved))
 
     // Check admin
     const admin = localStorage.getItem("ggg_admin")
@@ -50,28 +58,48 @@ export default function GalleryPage() {
   }, [])
 
   function saveImages(imgs: GalleryImage[]) {
-    setUploadedImages(imgs)
-    localStorage.setItem("ggg_gallery", JSON.stringify(imgs))
+    setImages(imgs)
+    localStorage.setItem("ggg_gallery_v2", JSON.stringify(imgs))
   }
 
-  function handleAddImage() {
-    if (!newTitle.trim() || !newUrl.trim()) return
-    const img: GalleryImage = { id: Date.now().toString(), title: newTitle.trim(), imageUrl: newUrl.trim(), category: newCategory }
-    saveImages([img, ...uploadedImages])
-    setNewTitle("")
-    setNewUrl("")
-    setNewCategory("Other")
-    setShowAdd(false)
+  function getCategoryFromPlacement(p: string): string {
+    if (p.includes("annual")) return "Annual Day"
+    if (p.includes("sports")) return "Sports Day"
+    if (p.includes("cultural")) return "Cultural"
+    if (p.includes("academics")) return "Academics"
+    if (p.includes("campus")) return "Campus"
+    if (p.includes("national")) return "National Day"
+    return "Events"
+  }
+
+  function handleAdd() {
+    if (!title.trim() || !imageUrl) return
+    const img: GalleryImage = {
+      id: Date.now().toString(),
+      title: title.trim(),
+      imageUrl,
+      thumbnailUrl: thumbnailUrl || imageUrl,
+      placement,
+      category: getCategoryFromPlacement(placement),
+    }
+    saveImages([img, ...images])
+    resetForm()
   }
 
   function handleDelete(id: string) {
     if (!confirm("Delete this image?")) return
-    saveImages(uploadedImages.filter((img) => img.id !== id))
+    saveImages(images.filter((i) => i.id !== id))
   }
 
-  const hasUploaded = uploadedImages.length > 0
-  const filteredUploaded = filterCat === "All" ? uploadedImages : uploadedImages.filter((img) => img.category === filterCat)
-  const filteredPlaceholders = filterCat === "All" ? placeholderImages : placeholderImages.filter((img) => img.category === filterCat)
+  function resetForm() {
+    setTitle("")
+    setImageUrl("")
+    setThumbnailUrl("")
+    setPlacement("gallery-events")
+    setShowAdd(false)
+  }
+
+  const filtered = filterCat === "All" ? images : images.filter((img) => img.category === filterCat)
 
   return (
     <>
@@ -92,8 +120,8 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Filter Tabs + Admin Add Button */}
-      <section className="py-6 border-b border-gray-200 sticky top-20 lg:top-24 bg-white/95 backdrop-blur-sm z-30">
+      {/* Filter + Admin Controls */}
+      <section className="py-6 border-b border-gray-200 sticky top-16 lg:top-[72px] bg-white/95 backdrop-blur-sm z-30">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
             <div className="flex gap-2 overflow-x-auto scrollbar-hide py-1">
@@ -114,36 +142,63 @@ export default function GalleryPage() {
             )}
           </div>
 
-          {/* Add Image Form (admin only) */}
+          {/* Upload Form (admin only) */}
           {isAdmin && showAdd && (
-            <div className="mt-4 p-5 bg-[#fffdf5] border border-[#FF9933]/30 rounded-xl">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="sm:col-span-2">
-                  <Label className="text-xs font-semibold">Upload Photo from your PC</Label>
-                  <div className="mt-1">
-                    <ImageUploadComponent onUploaded={(url) => setNewUrl(url)} />
-                  </div>
-                </div>
-                <div>
-                  <Label className="text-xs">Title *</Label>
-                  <Input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Photo title" className="mt-1 h-9 text-sm" />
-                </div>
-                <div>
-                  <Label className="text-xs">Category</Label>
-                  <select value={newCategory} onChange={(e) => setNewCategory(e.target.value)} className="mt-1 w-full h-9 px-3 rounded-lg border border-gray-200 text-sm bg-white">
-                    {categories.filter((c) => c !== "All").map((c) => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                </div>
+            <div className="mt-5 p-6 bg-[#fffdf5] border border-[#FF9933]/30 rounded-xl">
+              <h3 className="font-bold text-[#138808] text-base mb-4">Upload New Photo</h3>
+
+              {/* Step 1: Where */}
+              <div className="mb-4">
+                <Label className="text-sm font-semibold flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#FF9933]" /> Where should this photo appear?
+                </Label>
+                <select
+                  value={placement}
+                  onChange={(e) => setPlacement(e.target.value)}
+                  className="mt-1.5 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#138808]"
+                >
+                  {placements.map((p) => (
+                    <option key={p.value} value={p.value}>{p.label}</option>
+                  ))}
+                </select>
               </div>
-              {newUrl && (
-                <p className="text-xs text-emerald-600 mt-2 font-medium">✓ Image uploaded successfully</p>
-              )}
-              <div className="flex gap-2 mt-3">
-                <Button size="sm" onClick={handleAddImage} disabled={!newTitle.trim() || !newUrl.trim()}>
-                  <Save className="w-3.5 h-3.5" /> Add to Gallery
+
+              {/* Step 2: Main Photo */}
+              <div className="mb-4">
+                <Label className="text-sm font-semibold flex items-center gap-1.5">
+                  <Upload className="w-3.5 h-3.5 text-[#FF9933]" /> Main Photo (full size)
+                </Label>
+                <div className="mt-1.5">
+                  <ImageUpload onUploaded={(url) => setImageUrl(url)} />
+                </div>
+                {imageUrl && <p className="text-xs text-emerald-600 mt-1 font-medium">✓ Photo uploaded</p>}
+              </div>
+
+              {/* Step 3: Thumbnail */}
+              <div className="mb-4">
+                <Label className="text-sm font-semibold flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-[#FF9933]" /> Thumbnail (small preview — optional)
+                </Label>
+                <p className="text-[10px] text-gray-400 mb-1.5">If not provided, the main photo will be used as thumbnail too.</p>
+                <div className="mt-1">
+                  <ImageUpload onUploaded={(url) => setThumbnailUrl(url)} />
+                </div>
+                {thumbnailUrl && <p className="text-xs text-emerald-600 mt-1 font-medium">✓ Thumbnail uploaded</p>}
+              </div>
+
+              {/* Step 4: Title */}
+              <div className="mb-4">
+                <Label className="text-sm font-semibold">Photo Title</Label>
+                <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Annual Day 2024 — Group Performance" className="mt-1.5" />
+              </div>
+
+              {/* Submit */}
+              <div className="flex gap-3 pt-2">
+                <Button onClick={handleAdd} disabled={!title.trim() || !imageUrl}>
+                  <Save className="w-4 h-4" /> Add to Gallery
                 </Button>
-                <Button size="sm" variant="ghost" onClick={() => { setShowAdd(false); setNewUrl(""); setNewTitle("") }}>
-                  <X className="w-3.5 h-3.5" /> Cancel
+                <Button variant="ghost" onClick={resetForm}>
+                  <X className="w-4 h-4" /> Cancel
                 </Button>
               </div>
             </div>
@@ -154,12 +209,12 @@ export default function GalleryPage() {
       {/* Gallery Grid */}
       <section className="py-14">
         <div className="container mx-auto px-4">
-          {/* Uploaded Images */}
-          {hasUploaded && filteredUploaded.length > 0 && (
+          {/* Uploaded photos */}
+          {filtered.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
-              {filteredUploaded.map((img) => (
+              {filtered.map((img) => (
                 <div key={img.id} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer hover:shadow-xl transition-all">
-                  <img src={img.imageUrl} alt={img.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={img.thumbnailUrl || img.imageUrl} alt={img.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                     <div>
                       <p className="text-white text-sm font-semibold">{img.title}</p>
@@ -179,14 +234,25 @@ export default function GalleryPage() {
             </div>
           )}
 
-          {/* Placeholder Images (shown when no uploads or as fallback) */}
-          {(!hasUploaded || filteredUploaded.length === 0) && (
+          {/* Placeholder images (shown when no uploads in that category) */}
+          {filtered.length === 0 && (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredPlaceholders.map((img) => (
-                <div key={img.id} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer hover:shadow-xl transition-all">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${img.color} opacity-85 group-hover:opacity-95 transition-opacity`} />
+              {[
+                { title: "Annual Day Celebration", category: "Annual Day", color: "from-pink-500 to-rose-600" },
+                { title: "Republic Day Celebration", category: "National Day", color: "from-orange-500 to-amber-600" },
+                { title: "Science Exhibition", category: "Academics", color: "from-blue-500 to-indigo-600" },
+                { title: "Sports Day", category: "Sports Day", color: "from-emerald-500 to-teal-600" },
+                { title: "Classroom Activities", category: "Academics", color: "from-purple-500 to-violet-600" },
+                { title: "Art Exhibition", category: "Cultural", color: "from-fuchsia-500 to-pink-600" },
+                { title: "School Building", category: "Campus", color: "from-slate-500 to-gray-600" },
+                { title: "Green Campus", category: "Campus", color: "from-green-500 to-lime-600" },
+              ]
+              .filter((p) => filterCat === "All" || p.category === filterCat)
+              .map((img, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-2xl aspect-square">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${img.color} opacity-85`} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
-                    <Camera className="w-8 h-8 mb-2 opacity-50 group-hover:opacity-80 group-hover:scale-110 transition-all" />
+                    <Camera className="w-8 h-8 mb-2 opacity-50" />
                     <p className="text-sm font-bold leading-tight">{img.title}</p>
                     <span className="text-[10px] mt-2 bg-white/20 px-2 py-0.5 rounded-full">{img.category}</span>
                   </div>
