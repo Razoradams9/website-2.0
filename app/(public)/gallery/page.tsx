@@ -4,6 +4,7 @@ import { Camera, Video, Play, Plus, Trash2, Save, X, Link as LinkIcon } from "lu
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ImageUpload as ImageUploadComponent } from "@/components/ui/image-upload"
 
 interface GalleryImage {
   id: string
@@ -116,14 +117,16 @@ export default function GalleryPage() {
           {/* Add Image Form (admin only) */}
           {isAdmin && showAdd && (
             <div className="mt-4 p-5 bg-[#fffdf5] border border-[#FF9933]/30 rounded-xl">
-              <div className="grid sm:grid-cols-3 gap-3">
-                <div>
-                  <Label className="text-xs">Title</Label>
-                  <Input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Photo title" className="mt-1 h-9 text-sm" />
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <Label className="text-xs font-semibold">Upload Photo from your PC</Label>
+                  <div className="mt-1">
+                    <ImageUploadComponent onUploaded={(url) => setNewUrl(url)} />
+                  </div>
                 </div>
                 <div>
-                  <Label className="text-xs">Image URL</Label>
-                  <Input value={newUrl} onChange={(e) => setNewUrl(e.target.value)} placeholder="Paste image link" className="mt-1 h-9 text-sm" />
+                  <Label className="text-xs">Title *</Label>
+                  <Input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Photo title" className="mt-1 h-9 text-sm" />
                 </div>
                 <div>
                   <Label className="text-xs">Category</Label>
@@ -132,11 +135,14 @@ export default function GalleryPage() {
                   </select>
                 </div>
               </div>
+              {newUrl && (
+                <p className="text-xs text-emerald-600 mt-2 font-medium">✓ Image uploaded successfully</p>
+              )}
               <div className="flex gap-2 mt-3">
                 <Button size="sm" onClick={handleAddImage} disabled={!newTitle.trim() || !newUrl.trim()}>
-                  <Save className="w-3.5 h-3.5" /> Save
+                  <Save className="w-3.5 h-3.5" /> Add to Gallery
                 </Button>
-                <Button size="sm" variant="ghost" onClick={() => setShowAdd(false)}>
+                <Button size="sm" variant="ghost" onClick={() => { setShowAdd(false); setNewUrl(""); setNewTitle("") }}>
                   <X className="w-3.5 h-3.5" /> Cancel
                 </Button>
               </div>
