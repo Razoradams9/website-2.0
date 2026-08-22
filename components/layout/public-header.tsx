@@ -14,7 +14,7 @@ import { siteConfig } from "@/config/site"
 function LogoImage({ className }: { className?: string }) {
   return (
     <img
-      src="https://drive.google.com/uc?export=view&id=1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi"
+      src="https://lh3.googleusercontent.com/d/1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi"
       alt="Guru Gorakshnath Gyanasthali"
       className={cn("object-contain drop-shadow-md", className)}
     />
