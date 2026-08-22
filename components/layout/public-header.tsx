@@ -12,19 +12,11 @@ import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 
 function LogoImage({ className }: { className?: string }) {
-  const [src, setSrc] = useState("/images/logo.png")
-
-  useEffect(() => {
-    const stored = localStorage.getItem("ggg_logo_url")
-    if (stored) setSrc(stored)
-  }, [])
-
   return (
     <img
-      src={src}
+      src="https://i.ibb.co/ZRJG6kqY/logo.png"
       alt="Guru Gorakshnath Gyanasthali"
       className={cn("object-contain drop-shadow-md", className)}
-      onError={(e) => { (e.target as HTMLImageElement).style.display = "none" }}
     />
   )
 }

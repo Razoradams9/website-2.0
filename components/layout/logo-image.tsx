@@ -1,21 +1,15 @@
 "use client"
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { cn } from "@/lib/utils"
 
+const LOGO_URL = "https://i.ibb.co/ZRJG6kqY/logo.png"
+
 export function LogoImage({ className }: { className?: string }) {
-  const [src, setSrc] = useState("/images/logo.png")
-
-  useEffect(() => {
-    const stored = localStorage.getItem("ggg_logo_url")
-    if (stored) setSrc(stored)
-  }, [])
-
   return (
     <img
-      src={src}
+      src={LOGO_URL}
       alt="Guru Gorakshnath Gyanasthali"
       className={cn("object-contain", className)}
-      onError={(e) => { (e.target as HTMLImageElement).style.display = "none" }}
     />
   )
 }

@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "/images/logo.png",
-    shortcut: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: "https://i.ibb.co/ZRJG6kqY/logo.png",
+    shortcut: "https://i.ibb.co/ZRJG6kqY/logo.png",
+    apple: "https://i.ibb.co/ZRJG6kqY/logo.png",
   },
   manifest: "/manifest.json",
 };

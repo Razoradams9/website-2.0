@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md relative">
         {/* Logo */}
         <div className="text-center mb-8">
-          <img src="/images/logo.png" alt="GGG" className="w-20 h-20 mx-auto mb-4 drop-shadow-2xl" />
+          <img src="https://i.ibb.co/ZRJG6kqY/logo.png" alt="GGG" className="w-20 h-20 mx-auto mb-4 drop-shadow-2xl" />
           <h1 className="text-xl font-black text-white">Guru Gorakshnath Gyanasthali</h1>
           <p className="text-white/60 text-sm mt-1">School Administration</p>
         </div>
