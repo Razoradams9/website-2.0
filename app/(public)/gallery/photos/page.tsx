@@ -38,7 +38,7 @@ export default function PhotoGalleryPage() {
             {["All", "Cultural", "Sports", "Academics", "National Day", "Infrastructure", "Events"].map((tab, i) => (
               <button
                 key={tab}
-                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${i === 0 ? "bg-[#1a3c6e] text-white" : "bg-[#f0f4ff] text-[#1a3c6e] hover:bg-[#1a3c6e] hover:text-white"}`}
+                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${i === 0 ? "bg-[#138808] text-white" : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"}`}
               >
                 {tab}
               </button>

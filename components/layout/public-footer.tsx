@@ -22,7 +22,7 @@ const academicLinks = [
 
 export function PublicFooter() {
   return (
-    <footer className="bg-[#0d1f3c] text-white">
+    <footer className="bg-[#0a4d0a] text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -40,11 +40,11 @@ export function PublicFooter() {
               A new-age CBSE school in Siddharthnagar dedicated to nurturing young minds with quality education, modern facilities, and strong values rooted in Indian tradition.
             </p>
             <div className="space-y-3 text-sm">
-              <a href="tel:9794335475" className="flex items-start gap-3 text-gray-400 hover:text-[#c8a951] transition-colors group">
+              <a href="tel:9794335475" className="flex items-start gap-3 text-gray-400 hover:text-[#FF9933] transition-colors group">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span>9794335475</span>
               </a>
-              <a href="mailto:gggprincipal@gmail.com" className="flex items-start gap-3 text-gray-400 hover:text-[#c8a951] transition-colors group">
+              <a href="mailto:gggprincipal@gmail.com" className="flex items-start gap-3 text-gray-400 hover:text-[#FF9933] transition-colors group">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span>gggprincipal@gmail.com</span>
               </a>
@@ -66,7 +66,7 @@ export function PublicFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#c8a951] flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#FF9933] flex items-center justify-center transition-colors"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -76,11 +76,11 @@ export function PublicFooter() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-white mb-5 text-base relative pl-3 before:absolute before:left-0 before:top-0.5 before:h-4 before:w-0.5 before:bg-[#c8a951] before:rounded">Quick Links</h4>
+            <h4 className="font-bold text-white mb-5 text-base relative pl-3 before:absolute before:left-0 before:top-0.5 before:h-4 before:w-0.5 before:bg-[#FF9933] before:rounded">Quick Links</h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#c8a951] transition-colors group">
+                  <Link href={link.href} className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#FF9933] transition-colors group">
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     {link.label}
                   </Link>
@@ -91,11 +91,11 @@ export function PublicFooter() {
 
           {/* Academics */}
           <div>
-            <h4 className="font-bold text-white mb-5 text-base relative pl-3 before:absolute before:left-0 before:top-0.5 before:h-4 before:w-0.5 before:bg-[#c8a951] before:rounded">Academics</h4>
+            <h4 className="font-bold text-white mb-5 text-base relative pl-3 before:absolute before:left-0 before:top-0.5 before:h-4 before:w-0.5 before:bg-[#FF9933] before:rounded">Academics</h4>
             <ul className="space-y-2.5">
               {academicLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#c8a951] transition-colors group">
+                  <Link href={link.href} className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#FF9933] transition-colors group">
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     {link.label}
                   </Link>
@@ -106,7 +106,7 @@ export function PublicFooter() {
 
           {/* Find Us */}
           <div>
-            <h4 className="font-bold text-white mb-5 text-base relative pl-3 before:absolute before:left-0 before:top-0.5 before:h-4 before:w-0.5 before:bg-[#c8a951] before:rounded">Find Us</h4>
+            <h4 className="font-bold text-white mb-5 text-base relative pl-3 before:absolute before:left-0 before:top-0.5 before:h-4 before:w-0.5 before:bg-[#FF9933] before:rounded">Find Us</h4>
             <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4">
               <p className="text-white font-semibold text-sm mb-1">📍 Our Address</p>
               <p className="text-gray-400 text-xs leading-relaxed">Deoria (Vrindavan), Domariaganj, Siddharthnagar, Uttar Pradesh</p>
@@ -114,7 +114,7 @@ export function PublicFooter() {
                 href="https://share.google/CeejVfHG7kE03kE5n"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#c8a951] text-xs font-semibold mt-2 hover:underline"
+                className="inline-flex items-center gap-1 text-[#FF9933] text-xs font-semibold mt-2 hover:underline"
               >
                 Open in Google Maps →
               </a>

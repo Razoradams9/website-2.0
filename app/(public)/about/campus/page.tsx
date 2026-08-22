@@ -24,7 +24,7 @@ export default function CampusPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-14">
-            <h2 className="text-3xl font-black text-[#1a3c6e] mb-4">Explore Our <span className="text-[#c8a951]">Campus</span></h2>
+            <h2 className="text-3xl font-black text-[#138808] mb-4">Explore Our <span className="text-[#FF9933]">Campus</span></h2>
             <p className="text-gray-600 leading-relaxed">
               Located in Domariaganj, Siddharthnagar, our campus is designed with children in mind — spacious, safe, and filled with natural light and greenery. Every corner encourages learning, play, and personal growth.
             </p>
@@ -46,11 +46,11 @@ export default function CampusPage() {
       </section>
 
       {/* Campus Highlights */}
-      <section className="py-20 bg-[#f8f9ff]">
+      <section className="py-20 bg-[#f7fdf9]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-black text-[#1a3c6e]">Campus <span className="text-[#c8a951]">Highlights</span></h2>
+              <h2 className="text-2xl font-black text-[#138808]">Campus <span className="text-[#FF9933]">Highlights</span></h2>
             </div>
             <div className="grid sm:grid-cols-2 gap-6">
               {[
@@ -62,11 +62,11 @@ export default function CampusPage() {
                 const Icon = item.icon
                 return (
                   <div key={item.title} className="flex gap-4 p-5 bg-white rounded-xl border border-gray-100 shadow-sm">
-                    <div className="w-11 h-11 rounded-lg bg-[#1a3c6e]/10 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-[#1a3c6e]" />
+                    <div className="w-11 h-11 rounded-lg bg-[#138808]/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5 text-[#138808]" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-[#1a3c6e] text-sm mb-1">{item.title}</h4>
+                      <h4 className="font-bold text-[#138808] text-sm mb-1">{item.title}</h4>
                       <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>

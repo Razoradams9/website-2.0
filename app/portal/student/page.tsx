@@ -11,8 +11,8 @@ export default function StudentPortalPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Welcome */}
-      <div className="bg-gradient-to-r from-[#1a3c6e] to-[#0d1f3c] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#c8a951]/10 rounded-full blur-3xl" />
+      <div className="bg-gradient-to-r from-[#138808] to-[#0a4d0a] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF9933]/10 rounded-full blur-3xl" />
         <div className="relative">
           <Badge variant="gold" className="mb-3">Class 9A — Roll No: 01</Badge>
           <h1 className="text-2xl md:text-3xl font-black">Welcome back, Rahul!</h1>
@@ -34,7 +34,7 @@ export default function StudentPortalPage() {
               <div className={`w-10 h-10 rounded-lg ${item.color} flex items-center justify-center mb-3`}>
                 <Icon className="w-5 h-5" />
               </div>
-              <p className="text-2xl font-black text-[#1a3c6e]">{item.value}</p>
+              <p className="text-2xl font-black text-[#138808]">{item.value}</p>
               <p className="text-xs text-gray-500 mt-0.5">{item.label}</p>
             </div>
           )
@@ -46,7 +46,7 @@ export default function StudentPortalPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <BookOpen className="w-5 h-5 text-[#c8a951]" /> Pending Homework
+              <BookOpen className="w-5 h-5 text-[#FF9933]" /> Pending Homework
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -72,7 +72,7 @@ export default function StudentPortalPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Calendar className="w-5 h-5 text-[#c8a951]" /> Today's Schedule
+              <Calendar className="w-5 h-5 text-[#FF9933]" /> Today's Schedule
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -90,7 +90,7 @@ export default function StudentPortalPage() {
                 <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm ${slot.subject === "BREAK" ? "bg-amber-50 text-amber-700" : "hover:bg-gray-50"}`}>
                   <span className="w-6 text-center text-xs font-bold text-gray-400">{slot.period}</span>
                   <span className="w-24 text-xs text-gray-500 flex-shrink-0">{slot.time}</span>
-                  <span className="font-medium text-[#1a3c6e] flex-1">{slot.subject}</span>
+                  <span className="font-medium text-[#138808] flex-1">{slot.subject}</span>
                   <span className="text-xs text-gray-400 hidden sm:block">{slot.teacher}</span>
                 </div>
               ))}
@@ -102,7 +102,7 @@ export default function StudentPortalPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <TrendingUp className="w-5 h-5 text-[#c8a951]" /> Recent Exam Results
+              <TrendingUp className="w-5 h-5 text-[#FF9933]" /> Recent Exam Results
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -117,9 +117,9 @@ export default function StudentPortalPage() {
                 <div key={r.subject} className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50">
                   <span className="text-sm font-medium text-gray-700 w-32">{r.subject}</span>
                   <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#1a3c6e] rounded-full" style={{ width: `${r.percent}%` }} />
+                    <div className="h-full bg-[#138808] rounded-full" style={{ width: `${r.percent}%` }} />
                   </div>
-                  <span className="text-sm font-bold text-[#1a3c6e] w-16 text-right">{r.marks}</span>
+                  <span className="text-sm font-bold text-[#138808] w-16 text-right">{r.marks}</span>
                   <Badge variant={r.percent >= 90 ? "success" : r.percent >= 75 ? "info" : "warning"} className="text-[10px] w-8 justify-center">{r.grade}</Badge>
                 </div>
               ))}
@@ -131,7 +131,7 @@ export default function StudentPortalPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <FileText className="w-5 h-5 text-[#c8a951]" /> Recent Circulars
+              <FileText className="w-5 h-5 text-[#FF9933]" /> Recent Circulars
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -143,8 +143,8 @@ export default function StudentPortalPage() {
                 { title: "PTM for Classes 9–11 on Aug 30", date: "Aug 12, 2025", category: "PTM" },
               ].map((c) => (
                 <div key={c.title} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                  <div className="w-9 h-9 rounded-lg bg-[#1a3c6e] flex items-center justify-center flex-shrink-0">
-                    <FileText className="w-4 h-4 text-[#c8a951]" />
+                  <div className="w-9 h-9 rounded-lg bg-[#138808] flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-4 h-4 text-[#FF9933]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-800 truncate">{c.title}</p>

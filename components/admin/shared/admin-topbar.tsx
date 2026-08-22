@@ -21,7 +21,7 @@ export function AdminTopbar() {
         </button>
 
         <div className="flex items-center gap-2.5 pl-3 border-l border-gray-200">
-          <div className="w-8 h-8 rounded-lg bg-[#1a3c6e] flex items-center justify-center text-white font-bold text-xs">SA</div>
+          <div className="w-8 h-8 rounded-lg bg-[#138808] flex items-center justify-center text-white font-bold text-xs">SA</div>
           <div className="hidden md:block">
             <p className="text-xs font-semibold text-gray-800 leading-tight">Super Admin</p>
             <p className="text-[10px] text-gray-400">superadmin@dav...</p>

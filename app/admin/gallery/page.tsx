@@ -65,8 +65,8 @@ export default function AdminGalleryPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#1a3c6e] flex items-center gap-2">
-            <ImageIcon className="w-6 h-6 text-[#c8a951]" /> Gallery Manager
+          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+            <ImageIcon className="w-6 h-6 text-[#FF9933]" /> Gallery Manager
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Upload images to display on the school website gallery.</p>
         </div>
@@ -77,9 +77,9 @@ export default function AdminGalleryPage() {
 
       {/* Add Form */}
       {showAdd && (
-        <Card className="border-[#c8a951]/30 bg-[#fffdf5]">
+        <Card className="border-[#FF9933]/30 bg-[#fffdf5]">
           <CardContent className="p-6">
-            <h3 className="font-bold text-[#1a3c6e] mb-4">Add New Image</h3>
+            <h3 className="font-bold text-[#138808] mb-4">Add New Image</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
                 <Label>Image Title *</Label>
@@ -92,7 +92,7 @@ export default function AdminGalleryPage() {
                   <Input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="Paste image link here (Google Drive, Imgur, etc.)" className="pl-10" />
                 </div>
                 <p className="text-[10px] text-gray-400 mt-1.5">
-                  How to get a link: Upload image to <a href="https://imgur.com" target="_blank" rel="noopener noreferrer" className="text-[#c8a951] underline">Imgur</a>, <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" className="text-[#c8a951] underline">Google Drive</a> (make public), or <a href="https://postimages.org" target="_blank" rel="noopener noreferrer" className="text-[#c8a951] underline">PostImages</a> — then paste the direct image link here.
+                  How to get a link: Upload image to <a href="https://imgur.com" target="_blank" rel="noopener noreferrer" className="text-[#FF9933] underline">Imgur</a>, <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" className="text-[#FF9933] underline">Google Drive</a> (make public), or <a href="https://postimages.org" target="_blank" rel="noopener noreferrer" className="text-[#FF9933] underline">PostImages</a> — then paste the direct image link here.
                 </p>
               </div>
               <div>
@@ -100,7 +100,7 @@ export default function AdminGalleryPage() {
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1a3c6e]"
+                  className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#138808]"
                 >
                   {categories.filter((c) => c !== "All").map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -151,7 +151,7 @@ export default function AdminGalleryPage() {
           <button
             key={cat}
             onClick={() => setFilterCat(cat)}
-            className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${filterCat === cat ? "bg-[#1a3c6e] text-white" : "bg-[#f0f4ff] text-[#1a3c6e] hover:bg-[#1a3c6e] hover:text-white"}`}
+            className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${filterCat === cat ? "bg-[#138808] text-white" : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"}`}
           >
             {cat}
           </button>
@@ -173,7 +173,7 @@ export default function AdminGalleryPage() {
                 <img src={img.imageUrl} alt={img.title} className="w-full h-full object-cover" />
               </div>
               <div className="p-3">
-                <p className="text-xs font-semibold text-[#1a3c6e] truncate">{img.title}</p>
+                <p className="text-xs font-semibold text-[#138808] truncate">{img.title}</p>
                 <Badge variant="outline" className="text-[9px] mt-1">{img.category}</Badge>
               </div>
               {/* Delete button */}

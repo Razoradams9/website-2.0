@@ -30,8 +30,8 @@ export default function AdminAdmissionsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#1a3c6e] flex items-center gap-2">
-            <ClipboardList className="w-6 h-6 text-[#c8a951]" /> Admission Enquiries
+          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+            <ClipboardList className="w-6 h-6 text-[#FF9933]" /> Admission Enquiries
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Review and manage admission applications.</p>
         </div>
@@ -46,9 +46,9 @@ export default function AdminAdmissionsPage() {
           { label: "Total", value: "23", color: "bg-gray-50 text-gray-700" },
           { label: "Submitted", value: "8", color: "bg-blue-50 text-blue-700" },
           { label: "Under Review", value: "5", color: "bg-amber-50 text-amber-700" },
-          { label: "Shortlisted", value: "4", color: "bg-[#c8a951]/10 text-[#c8a951]" },
+          { label: "Shortlisted", value: "4", color: "bg-[#FF9933]/10 text-[#FF9933]" },
           { label: "Approved", value: "4", color: "bg-emerald-50 text-emerald-700" },
-          { label: "Enrolled", value: "2", color: "bg-[#1a3c6e]/10 text-[#1a3c6e]" },
+          { label: "Enrolled", value: "2", color: "bg-[#138808]/10 text-[#138808]" },
         ].map((s) => (
           <div key={s.label} className={`rounded-xl p-3 text-center ${s.color}`}>
             <p className="text-xl font-black">{s.value}</p>
@@ -107,9 +107,9 @@ export default function AdminAdmissionsPage() {
                 {enquiries.map((e) => {
                   const config = statusConfig[e.status] || statusConfig["SUBMITTED"]
                   return (
-                    <tr key={e.id} className="hover:bg-[#f8f9ff] transition-colors">
+                    <tr key={e.id} className="hover:bg-[#f7fdf9] transition-colors">
                       <td className="px-5 py-3">
-                        <span className="text-xs font-mono font-medium text-[#1a3c6e]">{e.appNo}</span>
+                        <span className="text-xs font-mono font-medium text-[#138808]">{e.appNo}</span>
                       </td>
                       <td className="px-3 py-3 font-medium text-gray-800">{e.name}</td>
                       <td className="text-center px-3 py-3 text-gray-600">{e.class}</td>
@@ -141,7 +141,7 @@ export default function AdminAdmissionsPage() {
           <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
             <p className="text-xs text-gray-500">Showing 1–6 of 23 enquiries</p>
             <div className="flex gap-1">
-              <button className="px-3 py-1.5 rounded-md text-xs font-medium bg-[#1a3c6e] text-white">1</button>
+              <button className="px-3 py-1.5 rounded-md text-xs font-medium bg-[#138808] text-white">1</button>
               <button className="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:bg-gray-100">2</button>
               <button className="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:bg-gray-100">3</button>
               <button className="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:bg-gray-100">4</button>

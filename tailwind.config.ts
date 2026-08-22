@@ -50,13 +50,13 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        /* School brand palette */
+        /* School brand palette — Indian Flag */
         school: {
-          primary: "#1a3c6e",   /* Deep Navy Blue */
-          secondary: "#c8a951", /* School Gold */
-          accent: "#e63946",    /* Accent Red */
-          light: "#f0f4ff",     /* Light background */
-          dark: "#0d1f3c",      /* Dark Navy */
+          primary: "#138808",   /* India Green (saffron-green flag) */
+          secondary: "#FF9933", /* Saffron / Orange */
+          accent: "#000080",    /* Navy Blue (Ashoka Chakra) */
+          light: "#fff7ed",     /* Light saffron tint */
+          dark: "#0a4d0a",      /* Dark Green */
         },
       },
       borderRadius: {
@@ -105,7 +105,7 @@ const config: Config = {
       },
       backgroundImage: {
         "gradient-school":
-          "linear-gradient(135deg, #1a3c6e 0%, #0d1f3c 50%, #1a3c6e 100%)",
+          "linear-gradient(135deg, #138808 0%, #0a4d0a 50%, #138808 100%)",
       },
     },
   },

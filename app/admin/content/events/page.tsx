@@ -20,8 +20,8 @@ export default function AdminEventsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#1a3c6e] flex items-center gap-2">
-            <Calendar className="w-6 h-6 text-[#c8a951]" /> Events
+          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+            <Calendar className="w-6 h-6 text-[#FF9933]" /> Events
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Schedule and manage school events, programs, and important dates.</p>
         </div>
@@ -42,7 +42,7 @@ export default function AdminEventsPage() {
           <Card key={event.id} className="group hover:shadow-lg transition-all hover:-translate-y-0.5">
             <CardContent className="p-0">
               {/* Top Color Bar */}
-              <div className="h-2 bg-gradient-to-r from-[#1a3c6e] to-[#c8a951] rounded-t-xl" />
+              <div className="h-2 bg-gradient-to-r from-[#138808] to-[#FF9933] rounded-t-xl" />
               <div className="p-5">
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <Badge variant={event.status === "PUBLISHED" ? "success" : "warning"} className="text-[10px]">
@@ -51,19 +51,19 @@ export default function AdminEventsPage() {
                   {event.important && <Badge variant="gold" className="text-[10px]">Important</Badge>}
                 </div>
 
-                <h3 className="font-bold text-[#1a3c6e] text-base leading-tight mb-3">{event.title}</h3>
+                <h3 className="font-bold text-[#138808] text-base leading-tight mb-3">{event.title}</h3>
 
                 <div className="space-y-2 text-xs text-gray-500">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-3.5 h-3.5 text-[#c8a951]" />
+                    <Calendar className="w-3.5 h-3.5 text-[#FF9933]" />
                     <span>{event.date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-3.5 h-3.5 text-[#c8a951]" />
+                    <Clock className="w-3.5 h-3.5 text-[#FF9933]" />
                     <span>{event.time}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-[#c8a951]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#FF9933]" />
                     <span>{event.venue}</span>
                   </div>
                 </div>
@@ -83,10 +83,10 @@ export default function AdminEventsPage() {
         ))}
 
         {/* Add New Card */}
-        <div className="border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center min-h-[220px] hover:border-[#c8a951] hover:bg-[#c8a951]/5 transition-colors cursor-pointer group">
+        <div className="border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center min-h-[220px] hover:border-[#FF9933] hover:bg-[#FF9933]/5 transition-colors cursor-pointer group">
           <div className="text-center">
-            <Plus className="w-8 h-8 text-gray-300 group-hover:text-[#c8a951] mx-auto mb-2 transition-colors" />
-            <p className="text-sm font-medium text-gray-400 group-hover:text-[#c8a951] transition-colors">Add New Event</p>
+            <Plus className="w-8 h-8 text-gray-300 group-hover:text-[#FF9933] mx-auto mb-2 transition-colors" />
+            <p className="text-sm font-medium text-gray-400 group-hover:text-[#FF9933] transition-colors">Add New Event</p>
           </div>
         </div>
       </div>

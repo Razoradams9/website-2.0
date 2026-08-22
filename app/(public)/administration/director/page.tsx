@@ -17,17 +17,17 @@ export default function DirectorPage() {
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-[280px_1fr] gap-10 items-start">
               <div className="text-center">
-                <div className="w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center shadow-xl mb-5">
-                  <span className="text-[#c8a951] font-black text-6xl">PS</span>
+                <div className="w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center shadow-xl mb-5">
+                  <span className="text-[#FF9933] font-black text-6xl">PS</span>
                 </div>
-                <h3 className="font-black text-[#1a3c6e] text-xl">Shri Pradeep Kumar Singh</h3>
-                <p className="text-[#c8a951] font-semibold text-sm">Director</p>
+                <h3 className="font-black text-[#138808] text-xl">Shri Pradeep Kumar Singh</h3>
+                <p className="text-[#FF9933] font-semibold text-sm">Director</p>
                 <p className="text-xs text-gray-500 mt-1">Guru Gorakshnath Gyanasthali</p>
               </div>
 
               <div>
-                <div className="relative bg-[#f8f9ff] rounded-2xl p-8 border border-gray-100">
-                  <Quote className="absolute top-4 right-4 w-12 h-12 text-[#1a3c6e]/5" />
+                <div className="relative bg-[#f7fdf9] rounded-2xl p-8 border border-gray-100">
+                  <Quote className="absolute top-4 right-4 w-12 h-12 text-[#138808]/5" />
                   <div className="space-y-4 text-gray-700 leading-relaxed relative z-10">
                     <p>Dear Parents and Students,</p>
                     <p>
@@ -42,7 +42,7 @@ export default function DirectorPage() {
                     <p>
                       We are just getting started, and every day we learn, improve, and grow — just like our students. I am grateful for the trust that families have placed in us, and I assure you that we will work sincerely to honour it.
                     </p>
-                    <p className="font-semibold text-[#1a3c6e] pt-4">
+                    <p className="font-semibold text-[#138808] pt-4">
                       With best wishes,<br />
                       Shri Pradeep Kumar Singh<br />
                       <span className="text-sm font-normal text-gray-500">Director, Guru Gorakshnath Gyanasthali</span>

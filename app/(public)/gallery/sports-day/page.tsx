@@ -30,13 +30,13 @@ export default function SportsDayGalleryPage() {
       <section className="py-14">
         <div className="container mx-auto px-4">
           {/* Info */}
-          <div className="bg-[#f0f4ff] rounded-2xl p-6 border border-[#1a3c6e]/10 mb-10 max-w-3xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-3 text-[#c8a951] mb-2">
+          <div className="bg-[#f0fdf4] rounded-2xl p-6 border border-[#138808]/10 mb-10 max-w-3xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-3 text-[#FF9933] mb-2">
               <Medal className="w-5 h-5" />
               <Trophy className="w-6 h-6" />
               <Medal className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#1a3c6e] text-lg">Annual Sports Day 2024</h3>
+            <h3 className="font-bold text-[#138808] text-lg">Annual Sports Day 2024</h3>
             <p className="text-sm text-gray-600 mt-1">November 15, 2024 • School Sports Ground • 600+ participants from 4 houses</p>
           </div>
 

@@ -20,8 +20,8 @@ export default function AdminNewsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#1a3c6e] flex items-center gap-2">
-            <Newspaper className="w-6 h-6 text-[#c8a951]" /> News Articles
+          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+            <Newspaper className="w-6 h-6 text-[#FF9933]" /> News Articles
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Manage school news and announcements published on the website.</p>
         </div>
@@ -43,9 +43,9 @@ export default function AdminNewsPage() {
             <CardContent className="p-5">
               <div className="flex gap-4">
                 {/* Thumbnail */}
-                <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center flex-shrink-0">
+                <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center flex-shrink-0">
                   {item.image ? (
-                    <Newspaper className="w-8 h-8 text-[#c8a951]/50" />
+                    <Newspaper className="w-8 h-8 text-[#FF9933]/50" />
                   ) : (
                     <span className="text-gray-500 text-xs">No Image</span>
                   )}
@@ -55,7 +55,7 @@ export default function AdminNewsPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <h3 className="font-bold text-[#1a3c6e] text-base truncate">{item.title}</h3>
+                      <h3 className="font-bold text-[#138808] text-base truncate">{item.title}</h3>
                       <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-2">
                         <span className="flex items-center gap-1">
                           <ExternalLink className="w-3 h-3" /> /{item.slug}

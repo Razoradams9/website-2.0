@@ -18,19 +18,19 @@ export function SectionHeading({ label, title, titleAccent, description, center 
         <div className={cn(
           "inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-3",
           center && "justify-center",
-          light ? "text-[#c8a951]" : "text-[#c8a951]"
+          light ? "text-[#FF9933]" : "text-[#FF9933]"
         )}>
-          <span className="w-8 h-0.5 bg-[#c8a951] rounded" />
+          <span className="w-8 h-0.5 bg-[#FF9933] rounded" />
           {label}
-          <span className="w-8 h-0.5 bg-[#c8a951] rounded" />
+          <span className="w-8 h-0.5 bg-[#FF9933] rounded" />
         </div>
       )}
       <h2 className={cn(
         "text-3xl sm:text-4xl font-black leading-tight",
-        light ? "text-white" : "text-[#1a3c6e]"
+        light ? "text-white" : "text-[#138808]"
       )}>
         {title}{" "}
-        {titleAccent && <span className={cn(light ? "text-[#c8a951]" : "text-[#c8a951]")}>{titleAccent}</span>}
+        {titleAccent && <span className={cn(light ? "text-[#FF9933]" : "text-[#FF9933]")}>{titleAccent}</span>}
       </h2>
       {description && (
         <p className={cn("mt-4 text-base leading-relaxed max-w-2xl", center && "mx-auto", light ? "text-gray-300" : "text-gray-600")}>

@@ -43,16 +43,16 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left — Brand Panel */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#1a3c6e] via-[#0d1f3c] to-[#0a1628] relative overflow-hidden items-center justify-center p-12">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#138808] via-[#0a4d0a] to-[#063d06] relative overflow-hidden items-center justify-center p-12">
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "20px 20px" }}
         />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#c8a951]/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-md text-center">
           <img src="/images/logo.png" alt="GGG" className="w-28 h-28 mx-auto mb-8 drop-shadow-2xl" />
           <h1 className="text-2xl font-black text-white mb-2">Guru Gorakshnath Gyanasthali</h1>
-          <p className="text-[#c8a951] font-semibold text-sm mb-6">Executive Portal</p>
+          <p className="text-[#FF9933] font-semibold text-sm mb-6">Executive Portal</p>
           <p className="text-gray-300 text-sm leading-relaxed">
             Secure access for school leadership to manage content, view reports, and oversee school operations.
           </p>
@@ -64,18 +64,18 @@ export default function LoginPage() {
       </div>
 
       {/* Right — Login Form */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-12 bg-[#f8f9ff]">
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-12 bg-[#f7fdf9]">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
             <img src="/images/logo.png" alt="GGG" className="w-16 h-16 mx-auto mb-3" />
-            <h2 className="text-lg font-black text-[#1a3c6e]">Guru Gorakshnath Gyanasthali</h2>
+            <h2 className="text-lg font-black text-[#138808]">Guru Gorakshnath Gyanasthali</h2>
             <p className="text-xs text-gray-500">Executive Portal</p>
           </div>
 
           <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
             <div className="mb-8">
-              <h2 className="text-2xl font-black text-[#1a3c6e]">Executive Login</h2>
+              <h2 className="text-2xl font-black text-[#138808]">Executive Login</h2>
               <p className="text-sm text-gray-500 mt-1">Sign in to access the admin panel</p>
             </div>
 
@@ -135,8 +135,8 @@ export default function LoginPage() {
                   { role: "Director", email: "director2@ggg.edu.in" },
                   { role: "Admin", email: "admin@ggg.edu.in" },
                 ].map((d) => (
-                  <div key={d.email} className="bg-[#f0f4ff] rounded-lg p-2 text-center">
-                    <p className="font-bold text-[#1a3c6e]">{d.role}</p>
+                  <div key={d.email} className="bg-[#f0fdf4] rounded-lg p-2 text-center">
+                    <p className="font-bold text-[#138808]">{d.role}</p>
                     <p className="text-gray-500 text-[10px] truncate">{d.email}</p>
                   </div>
                 ))}
@@ -146,7 +146,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-xs text-gray-400 mt-6">
-            <Link href="/" className="hover:text-[#1a3c6e] transition-colors">← Back to School Website</Link>
+            <Link href="/" className="hover:text-[#138808] transition-colors">← Back to School Website</Link>
           </p>
         </div>
       </div>

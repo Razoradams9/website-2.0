@@ -79,14 +79,14 @@ export function PublicHeader() {
   return (
     <>
       {/* Top Bar */}
-      <div className="hidden lg:block bg-[#0d1f3c] text-white text-xs">
+      <div className="hidden lg:block bg-[#0a4d0a] text-white text-xs">
         <div className="container mx-auto flex items-center justify-between py-2 px-4">
           <div className="flex items-center gap-6">
-            <a href={`tel:${siteConfig.contact.phone}`} className="flex items-center gap-1.5 hover:text-[#c8a951] transition-colors">
+            <a href={`tel:${siteConfig.contact.phone}`} className="flex items-center gap-1.5 hover:text-[#FF9933] transition-colors">
               <Phone className="w-3 h-3" />
               {siteConfig.contact.phone}
             </a>
-            <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-1.5 hover:text-[#c8a951] transition-colors">
+            <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-1.5 hover:text-[#FF9933] transition-colors">
               <Mail className="w-3 h-3" />
               {siteConfig.contact.email}
             </a>
@@ -99,7 +99,7 @@ export function PublicHeader() {
                 { icon: Facebook, href: "https://www.facebook.com/61555972687989/" },
                 { icon: Instagram, href: "https://www.instagram.com/gurugorakshnathgyansthali/" },
               ].map(({ icon: Icon, href }, i) => (
-                <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-[#c8a951] transition-colors">
+                <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-[#FF9933] transition-colors">
                   <Icon className="w-3.5 h-3.5" />
                 </a>
               ))}
@@ -121,8 +121,8 @@ export function PublicHeader() {
             <Link href="/" className="flex items-center gap-3 group">
               <img src="/images/logo.png" alt="Guru Gorakshnath Gyanasthali" className="w-14 h-14 lg:w-16 lg:h-16 object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
               <div className="hidden sm:block">
-                <p className="font-black text-[#1a3c6e] text-sm lg:text-[15px] leading-tight tracking-tight">GURU GORAKSHNATH</p>
-                <p className="font-black text-[#1a3c6e] text-sm lg:text-[15px] leading-tight tracking-tight">GYANASTHALI</p>
+                <p className="font-black text-[#138808] text-sm lg:text-[15px] leading-tight tracking-tight">GURU GORAKSHNATH</p>
+                <p className="font-black text-[#138808] text-sm lg:text-[15px] leading-tight tracking-tight">GYANASTHALI</p>
                 <p className="text-[10px] text-gray-500 leading-tight mt-0.5">Inspiring Excellence, Creating Values</p>
               </div>
             </Link>
@@ -141,8 +141,8 @@ export function PublicHeader() {
                       className={cn(
                         "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                         pathname.startsWith(item.href) && item.href !== "#"
-                          ? "text-[#1a3c6e] bg-[#f0f4ff]"
-                          : "text-gray-700 hover:text-[#1a3c6e] hover:bg-[#f0f4ff]"
+                          ? "text-[#138808] bg-[#f0fdf4]"
+                          : "text-gray-700 hover:text-[#138808] hover:bg-[#f0fdf4]"
                       )}
                     >
                       {item.label}
@@ -154,8 +154,8 @@ export function PublicHeader() {
                       className={cn(
                         "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                         pathname === item.href
-                          ? "text-[#1a3c6e] bg-[#f0f4ff]"
-                          : "text-gray-700 hover:text-[#1a3c6e] hover:bg-[#f0f4ff]"
+                          ? "text-[#138808] bg-[#f0fdf4]"
+                          : "text-gray-700 hover:text-[#138808] hover:bg-[#f0fdf4]"
                       )}
                     >
                       {item.label}
@@ -172,13 +172,13 @@ export function PublicHeader() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#f0f4ff] group transition-colors"
+                              className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#f0fdf4] group transition-colors"
                             >
-                              <div className="mt-0.5 w-7 h-7 rounded-md bg-[#1a3c6e]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#1a3c6e]/20 transition-colors">
-                                <Icon className="w-3.5 h-3.5 text-[#1a3c6e]" />
+                              <div className="mt-0.5 w-7 h-7 rounded-md bg-[#138808]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#138808]/20 transition-colors">
+                                <Icon className="w-3.5 h-3.5 text-[#138808]" />
                               </div>
                               <div>
-                                <p className="text-sm font-semibold text-gray-800 group-hover:text-[#1a3c6e] transition-colors">{child.label}</p>
+                                <p className="text-sm font-semibold text-gray-800 group-hover:text-[#138808] transition-colors">{child.label}</p>
                                 {child.desc && <p className="text-xs text-gray-500 mt-0.5">{child.desc}</p>}
                               </div>
                             </Link>
@@ -222,18 +222,18 @@ export function PublicHeader() {
                     <>
                       <button
                         onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
-                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#f0f4ff] hover:text-[#1a3c6e] transition-colors"
+                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#f0fdf4] hover:text-[#138808] transition-colors"
                       >
                         {item.label}
                         <ChevronDown className={cn("w-4 h-4 transition-transform", mobileExpanded === item.label && "rotate-180")} />
                       </button>
                       {mobileExpanded === item.label && (
-                        <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#1a3c6e]/20 pl-3">
+                        <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#138808]/20 pl-3">
                           {item.children.map((child) => (
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="block px-3 py-2 text-sm text-gray-600 hover:text-[#1a3c6e] hover:bg-[#f0f4ff] rounded-lg transition-colors"
+                              className="block px-3 py-2 text-sm text-gray-600 hover:text-[#138808] hover:bg-[#f0fdf4] rounded-lg transition-colors"
                             >
                               {child.label}
                             </Link>
@@ -242,7 +242,7 @@ export function PublicHeader() {
                       )}
                     </>
                   ) : (
-                    <Link href={item.href} className="block px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#f0f4ff] hover:text-[#1a3c6e] transition-colors">
+                    <Link href={item.href} className="block px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#f0fdf4] hover:text-[#138808] transition-colors">
                       {item.label}
                     </Link>
                   )}

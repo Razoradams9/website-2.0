@@ -38,13 +38,13 @@ export default function GalleryPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-[#1a3c6e] via-[#0d1f3c] to-[#1a3c6e] text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#138808] via-[#0a4d0a] to-[#138808] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
         <div className="container mx-auto px-4 py-16 md:py-20 relative">
           <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-4">
             <a href="/" className="hover:text-white">Home</a>
             <span className="text-gray-600">›</span>
-            <span className="text-[#c8a951]">Gallery</span>
+            <span className="text-[#FF9933]">Gallery</span>
           </nav>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight">Photo & Video Gallery</h1>
           <p className="mt-3 text-gray-300 text-base md:text-lg max-w-2xl">Capturing moments of learning, celebration, and achievement at Guru Gorakshnath Gyanasthali.</p>
@@ -62,7 +62,7 @@ export default function GalleryPage() {
               <button
                 key={cat}
                 onClick={() => setFilterCat(cat)}
-                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${filterCat === cat ? "bg-[#1a3c6e] text-white" : "bg-[#f0f4ff] text-[#1a3c6e] hover:bg-[#1a3c6e] hover:text-white"}`}
+                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${filterCat === cat ? "bg-[#138808] text-white" : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"}`}
               >
                 {cat}
               </button>
@@ -109,8 +109,8 @@ export default function GalleryPage() {
 
           {/* Video Section */}
           <div className="mt-16">
-            <h3 className="text-2xl font-black text-[#1a3c6e] mb-6 flex items-center gap-3">
-              <Video className="w-6 h-6 text-[#c8a951]" /> Video Gallery
+            <h3 className="text-2xl font-black text-[#138808] mb-6 flex items-center gap-3">
+              <Video className="w-6 h-6 text-[#FF9933]" /> Video Gallery
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
@@ -119,14 +119,14 @@ export default function GalleryPage() {
                 { title: "Sports Day Celebrations", duration: "4:10" },
               ].map((video) => (
                 <div key={video.title} className="bg-gray-100 rounded-2xl overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
-                  <div className="aspect-video bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center relative">
+                  <div className="aspect-video bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center relative">
                     <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Play className="w-6 h-6 text-white fill-white ml-1" />
                     </div>
                     <span className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-0.5 rounded">{video.duration}</span>
                   </div>
                   <div className="p-4">
-                    <p className="font-semibold text-[#1a3c6e] text-sm">{video.title}</p>
+                    <p className="font-semibold text-[#138808] text-sm">{video.title}</p>
                   </div>
                 </div>
               ))}

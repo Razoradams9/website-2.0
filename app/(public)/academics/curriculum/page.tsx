@@ -16,7 +16,7 @@ export default function CurriculumPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-black text-[#1a3c6e] mb-6">CBSE <span className="text-[#c8a951]">Framework</span></h2>
+            <h2 className="text-3xl font-black text-[#138808] mb-6">CBSE <span className="text-[#FF9933]">Framework</span></h2>
             <p className="text-gray-600 leading-relaxed mb-6">
               Guru Gorakshnath Gyanasthali follows the curriculum prescribed by the Central Board of Secondary Education (CBSE), New Delhi. All subjects are taught using NCERT textbooks, supplemented with additional resources where needed to strengthen understanding.
             </p>
@@ -38,7 +38,7 @@ export default function CurriculumPage() {
                 "Continuous and Comprehensive Evaluation (CCE) pattern followed",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3 text-sm text-gray-700">
-                  <CheckCircle2 className="w-4 h-4 text-[#c8a951] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#FF9933] mt-0.5 flex-shrink-0" />
                   {item}
                 </div>
               ))}
@@ -48,10 +48,10 @@ export default function CurriculumPage() {
       </section>
 
       {/* Teaching Methodology */}
-      <section className="py-20 bg-[#f8f9ff]">
+      <section className="py-20 bg-[#f7fdf9]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-black text-[#1a3c6e]">How We <span className="text-[#c8a951]">Teach</span></h2>
+            <h2 className="text-3xl font-black text-[#138808]">How We <span className="text-[#FF9933]">Teach</span></h2>
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">Our teachers are trained to make every lesson engaging and meaningful for children of all ages.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -64,10 +64,10 @@ export default function CurriculumPage() {
               const Icon = item.icon
               return (
                 <div key={item.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center">
-                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#1a3c6e]/10 flex items-center justify-center mb-3">
-                    <Icon className="w-6 h-6 text-[#1a3c6e]" />
+                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#138808]/10 flex items-center justify-center mb-3">
+                    <Icon className="w-6 h-6 text-[#138808]" />
                   </div>
-                  <h4 className="font-bold text-[#1a3c6e] text-sm mb-2">{item.title}</h4>
+                  <h4 className="font-bold text-[#138808] text-sm mb-2">{item.title}</h4>
                   <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               )
@@ -80,10 +80,10 @@ export default function CurriculumPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-black text-[#1a3c6e] mb-6">Medium of <span className="text-[#c8a951]">Instruction</span></h2>
-            <div className="bg-[#f0f4ff] rounded-xl p-6 border border-[#1a3c6e]/10">
+            <h2 className="text-2xl font-black text-[#138808] mb-6">Medium of <span className="text-[#FF9933]">Instruction</span></h2>
+            <div className="bg-[#f0fdf4] rounded-xl p-6 border border-[#138808]/10">
               <p className="text-gray-600 text-sm leading-relaxed">
-                The primary medium of instruction is <strong className="text-[#1a3c6e]">English</strong>, with <strong className="text-[#1a3c6e]">Hindi</strong> used to support understanding where needed, especially in junior classes. We believe a bilingual approach helps children from diverse backgrounds feel comfortable while gradually building English proficiency. From Class VI onwards, English is the primary language for all subjects except Hindi and Sanskrit.
+                The primary medium of instruction is <strong className="text-[#138808]">English</strong>, with <strong className="text-[#138808]">Hindi</strong> used to support understanding where needed, especially in junior classes. We believe a bilingual approach helps children from diverse backgrounds feel comfortable while gradually building English proficiency. From Class VI onwards, English is the primary language for all subjects except Hindi and Sanskrit.
               </p>
             </div>
           </div>

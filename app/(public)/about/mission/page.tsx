@@ -16,10 +16,10 @@ export default function MissionPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-[#c8a951] flex items-center justify-center mb-6">
-              <Target className="w-8 h-8 text-[#1a3c6e]" />
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-[#FF9933] flex items-center justify-center mb-6">
+              <Target className="w-8 h-8 text-[#138808]" />
             </div>
-            <h2 className="text-3xl font-black text-[#1a3c6e] mb-4">Our <span className="text-[#c8a951]">Mission</span></h2>
+            <h2 className="text-3xl font-black text-[#138808] mb-4">Our <span className="text-[#FF9933]">Mission</span></h2>
             <p className="text-lg text-gray-700 italic leading-relaxed">
               "To provide a nurturing and stimulating environment where every child receives quality education, develops strong values, and grows into a confident, compassionate individual ready to contribute to society."
             </p>
@@ -28,10 +28,10 @@ export default function MissionPage() {
       </section>
 
       {/* Objectives */}
-      <section className="py-20 bg-[#f8f9ff]">
+      <section className="py-20 bg-[#f7fdf9]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-black text-[#1a3c6e]">Our <span className="text-[#c8a951]">Objectives</span></h2>
+            <h2 className="text-3xl font-black text-[#138808]">Our <span className="text-[#FF9933]">Objectives</span></h2>
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">Everything we do is guided by these core objectives.</p>
           </div>
 
@@ -50,7 +50,7 @@ export default function MissionPage() {
                   <div className={`w-12 h-12 rounded-xl ${obj.color} flex items-center justify-center mb-4`}>
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold text-[#1a3c6e] text-base mb-2">{obj.title}</h3>
+                  <h3 className="font-bold text-[#138808] text-base mb-2">{obj.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{obj.desc}</p>
                 </div>
               )
@@ -60,9 +60,9 @@ export default function MissionPage() {
       </section>
 
       {/* Motto */}
-      <section className="py-16 bg-gradient-to-r from-[#1a3c6e] to-[#0d1f3c] text-white text-center">
+      <section className="py-16 bg-gradient-to-r from-[#138808] to-[#0a4d0a] text-white text-center">
         <div className="container mx-auto px-4">
-          <p className="text-sm text-[#c8a951] font-bold uppercase tracking-widest mb-3">Our Motto</p>
+          <p className="text-sm text-[#FF9933] font-bold uppercase tracking-widest mb-3">Our Motto</p>
           <h3 className="text-3xl sm:text-4xl font-black italic">"ज्ञानं परम् बलम्"</h3>
           <p className="text-gray-300 mt-3 max-w-lg mx-auto text-base">Knowledge is the Greatest Strength</p>
           <p className="text-gray-400 mt-2 text-sm max-w-lg mx-auto">Inspired by the teachings of Guru Gorakshnath, this motto reminds us that true strength comes from wisdom, discipline, and continuous learning.</p>

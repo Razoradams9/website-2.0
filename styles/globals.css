@@ -10,8 +10,8 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 145 85% 28%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
@@ -22,7 +22,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 145 85% 28%;
     --radius: 0.5rem;
 
     /* School brand */
@@ -70,51 +70,51 @@
 @layer components {
   /* School-specific utility classes */
   .school-gradient {
-    @apply bg-gradient-to-r from-[#1a3c6e] to-[#0d1f3c];
+    @apply bg-gradient-to-r from-[#138808] to-[#0a4d0a];
   }
   .school-gold-gradient {
-    @apply bg-gradient-to-r from-[#c8a951] to-[#e8c97a];
+    @apply bg-gradient-to-r from-[#FF9933] to-[#ffb366];
   }
   .section-heading {
-    @apply text-3xl font-bold text-[#1a3c6e] relative pb-3 mb-6;
+    @apply text-3xl font-bold text-[#138808] relative pb-3 mb-6;
   }
   .section-heading::after {
     content: "";
-    @apply absolute bottom-0 left-0 w-16 h-1 bg-[#c8a951] rounded-full;
+    @apply absolute bottom-0 left-0 w-16 h-1 bg-[#FF9933] rounded-full;
   }
   .section-heading-center {
-    @apply text-3xl font-bold text-[#1a3c6e] relative pb-3 mb-6 text-center;
+    @apply text-3xl font-bold text-[#138808] relative pb-3 mb-6 text-center;
   }
   .section-heading-center::after {
     content: "";
-    @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#c8a951] rounded-full;
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#FF9933] rounded-full;
   }
   .card-hover {
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
   .btn-school-primary {
-    @apply bg-[#1a3c6e] hover:bg-[#0d1f3c] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
+    @apply bg-[#138808] hover:bg-[#0a4d0a] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
   }
   .btn-school-gold {
-    @apply bg-[#c8a951] hover:bg-[#b8993f] text-[#1a3c6e] font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
+    @apply bg-[#FF9933] hover:bg-[#e68a2e] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
   }
   .nav-link {
-    @apply text-sm font-medium text-gray-700 hover:text-[#1a3c6e] transition-colors duration-200;
+    @apply text-sm font-medium text-gray-700 hover:text-[#138808] transition-colors duration-200;
   }
   .admin-sidebar-link {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-[#1a3c6e] hover:text-white transition-all duration-200;
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-[#138808] hover:text-white transition-all duration-200;
   }
   .admin-sidebar-link.active {
-    @apply bg-[#1a3c6e] text-white;
+    @apply bg-[#138808] text-white;
   }
   .ticker-wrap {
-    @apply overflow-hidden whitespace-nowrap bg-[#1a3c6e] text-white py-2;
+    @apply overflow-hidden whitespace-nowrap bg-[#138808] text-white py-2;
   }
   .ticker-item {
     @apply inline-block animate-ticker;
   }
   .page-hero {
-    @apply relative bg-gradient-to-r from-[#1a3c6e] to-[#0d1f3c] text-white py-16 px-4;
+    @apply relative bg-gradient-to-r from-[#138808] to-[#0a4d0a] text-white py-16 px-4;
   }
 }
 

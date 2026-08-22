@@ -26,15 +26,15 @@ export default function VideoGalleryPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
               <div key={video.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm group cursor-pointer hover:shadow-lg transition-all hover:-translate-y-0.5">
-                <div className="aspect-video bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center relative">
-                  <div className="w-16 h-16 rounded-full bg-white/15 border-2 border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#c8a951]/30 transition-all">
+                <div className="aspect-video bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center relative">
+                  <div className="w-16 h-16 rounded-full bg-white/15 border-2 border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#FF9933]/30 transition-all">
                     <Play className="w-7 h-7 text-white fill-white ml-1" />
                   </div>
                   <span className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-0.5 rounded font-medium">{video.duration}</span>
-                  <span className="absolute top-3 left-3 bg-[#c8a951]/90 text-[#1a3c6e] text-[10px] px-2 py-0.5 rounded font-bold">{video.category}</span>
+                  <span className="absolute top-3 left-3 bg-[#FF9933]/90 text-[#138808] text-[10px] px-2 py-0.5 rounded font-bold">{video.category}</span>
                 </div>
                 <div className="p-4">
-                  <p className="font-semibold text-[#1a3c6e] text-sm group-hover:text-[#c8a951] transition-colors">{video.title}</p>
+                  <p className="font-semibold text-[#138808] text-sm group-hover:text-[#FF9933] transition-colors">{video.title}</p>
                 </div>
               </div>
             ))}
