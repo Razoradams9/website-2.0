@@ -1,7 +1,9 @@
+"use client"
 import React from "react"
 import Link from "next/link"
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle, ArrowRight } from "lucide-react"
 import { siteConfig } from "@/config/site"
+import { LogoImage } from "./logo-image"
 
 const quickLinks = [
   { label: "About Us", href: "/about" },
@@ -29,7 +31,7 @@ export function PublicFooter() {
           {/* School Info */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <img src="/images/logo.png" alt="Guru Gorakshnath Gyanasthali" className="w-14 h-14 object-contain" />
+              <LogoImage className="w-14 h-14" />
               <div>
                 <p className="font-black text-white text-sm leading-tight">GURU GORAKSHNATH</p>
                 <p className="font-black text-white text-sm leading-tight">GYANASTHALI</p>

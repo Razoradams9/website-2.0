@@ -11,6 +11,24 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 
+function LogoImage({ className }: { className?: string }) {
+  const [src, setSrc] = useState("/images/logo.png")
+
+  useEffect(() => {
+    const stored = localStorage.getItem("ggg_logo_url")
+    if (stored) setSrc(stored)
+  }, [])
+
+  return (
+    <img
+      src={src}
+      alt="Guru Gorakshnath Gyanasthali"
+      className={cn("object-contain drop-shadow-md", className)}
+      onError={(e) => { (e.target as HTMLImageElement).style.display = "none" }}
+    />
+  )
+}
+
 const navLinks = [
   { label: "Home", href: "/" },
   {
@@ -119,7 +137,7 @@ export function PublicHeader() {
           <div className="flex h-20 lg:h-24 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <img src="/images/logo.png" alt="Guru Gorakshnath Gyanasthali" className="w-14 h-14 lg:w-16 lg:h-16 object-contain drop-shadow-md group-hover:scale-105 transition-transform" />
+              <LogoImage className="w-14 h-14 lg:w-16 lg:h-16" />
               <div className="hidden sm:block">
                 <p className="font-black text-[#138808] text-sm lg:text-[15px] leading-tight tracking-tight">GURU GORAKSHNATH</p>
                 <p className="font-black text-[#138808] text-sm lg:text-[15px] leading-tight tracking-tight">GYANASTHALI</p>
