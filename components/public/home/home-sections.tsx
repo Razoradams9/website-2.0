@@ -182,9 +182,7 @@ export function Facilities() {
     { icon: Library, label: "Library", desc: "10,000+ books" },
     { icon: Dumbbell, label: "Sports Complex", desc: "Indoor & outdoor" },
     { icon: Music, label: "Music Room", desc: "Instruments & vocals" },
-    { icon: Bus, label: "Transport", desc: "50+ routes" },
-    { icon: Wifi, label: "Smart Classes", desc: "Digital learning" },
-    { icon: GraduationCap, label: "Hostel", desc: "Boys & Girls" },
+    { icon: Bus, label: "Transport", desc: "Safe bus service" },
     { icon: Shield, label: "CCTV Security", desc: "24×7 surveillance" },
   ]
 
