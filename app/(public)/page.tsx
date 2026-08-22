@@ -12,32 +12,41 @@ import {
 import { getMarqueeNotices, getPublishedNews, getUpcomingEvents, getPublishedTestimonials } from "@/lib/db/queries"
 
 export default async function HomePage() {
-  const [marqueeNotices, news, events, testimonials] = await Promise.all([
-    getMarqueeNotices(),
-    getPublishedNews(3),
-    getUpcomingEvents(4),
-    getPublishedTestimonials(),
-  ])
+  let tickerItems: { id: string; title: string; category: string }[] = []
+  let newsItems: any[] = []
+  let eventItems: any[] = []
+  let testimonialItems: any[] = []
 
-  const tickerItems = marqueeNotices.map((n) => ({
-    id: n.id,
-    title: n.title,
-    category: n.category,
-  }))
+  try {
+    const [marqueeNotices, news, events, testimonials] = await Promise.all([
+      getMarqueeNotices(),
+      getPublishedNews(3),
+      getUpcomingEvents(4),
+      getPublishedTestimonials(),
+    ])
+
+    tickerItems = marqueeNotices.map((n) => ({
+      id: n.id,
+      title: n.title,
+      category: n.category,
+    }))
+    newsItems = news.map((n) => ({ id: n.id, title: n.title, publishedAt: n.publishedAt, excerpt: n.excerpt, featuredImage: n.featuredImage }))
+    eventItems = events.map((e) => ({ id: e.id, title: e.title, startDate: e.startDate, venue: e.venue, shortDesc: e.shortDesc }))
+    testimonialItems = testimonials.map((t) => ({ id: t.id, name: t.name, role: t.role, content: t.content, rating: t.rating, avatarUrl: t.avatarUrl }))
+  } catch {
+    // Database not available — show page without dynamic content
+  }
 
   return (
     <>
       <HeroSlider />
-      <NewsTicker items={tickerItems} />
+      {tickerItems.length > 0 && <NewsTicker items={tickerItems} />}
       <PrincipalMessage />
       <WhyChooseUs />
       <AcademicPrograms />
       <Facilities />
-      <NewsEventsPreview
-        news={news.map((n) => ({ id: n.id, title: n.title, publishedAt: n.publishedAt, excerpt: n.excerpt, featuredImage: n.featuredImage }))}
-        events={events.map((e) => ({ id: e.id, title: e.title, startDate: e.startDate, venue: e.venue, shortDesc: e.shortDesc }))}
-      />
-      <Testimonials items={testimonials.map((t) => ({ id: t.id, name: t.name, role: t.role, content: t.content, rating: t.rating, avatarUrl: t.avatarUrl }))} />
+      <NewsEventsPreview news={newsItems} events={eventItems} />
+      <Testimonials items={testimonialItems} />
       <CTABanner />
     </>
   )
