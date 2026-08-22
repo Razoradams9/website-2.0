@@ -63,7 +63,7 @@ export function AdminSidebar() {
       <div className="h-16 lg:h-20 flex items-center justify-between px-4 border-b border-gray-100 flex-shrink-0">
         {!collapsed && (
           <Link href="/admin/dashboard" className="flex items-center gap-2.5">
-            <img src="https://i.ibb.co/ZRJG6kqY/logo.png" alt="GGG" className="w-9 h-9 rounded-lg object-contain" />
+            <img src="https://drive.google.com/uc?export=view&id=1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi" alt="GGG" className="w-9 h-9 rounded-lg object-contain" />
             <div>
               <p className="text-sm font-black text-[#138808] leading-tight">GGG Admin</p>
               <p className="text-[10px] text-gray-400">Control Panel</p>

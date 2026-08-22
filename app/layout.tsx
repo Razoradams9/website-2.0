@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "https://i.ibb.co/ZRJG6kqY/logo.png",
-    shortcut: "https://i.ibb.co/ZRJG6kqY/logo.png",
-    apple: "https://i.ibb.co/ZRJG6kqY/logo.png",
+    icon: "https://drive.google.com/uc?export=view&id=1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi",
+    shortcut: "https://drive.google.com/uc?export=view&id=1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi",
+    apple: "https://drive.google.com/uc?export=view&id=1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi",
   },
   manifest: "/manifest.json",
 };

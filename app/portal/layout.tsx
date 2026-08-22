@@ -8,7 +8,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <img src="https://i.ibb.co/ZRJG6kqY/logo.png" alt="GGG" className="w-8 h-8 rounded-lg object-contain" />
+            <img src="https://drive.google.com/uc?export=view&id=1sIthpiMwvMfJRQ-bAibcvKZrOMZqB0Pi" alt="GGG" className="w-8 h-8 rounded-lg object-contain" />
             <span className="font-bold text-[#138808] text-sm hidden sm:block">Guru Gorakshnath Gyanasthali</span>
           </Link>
           <div className="flex items-center gap-3">
