@@ -193,6 +193,9 @@ export function PublicHeader() {
 
             {/* CTA - simplified */}
             <div className="hidden lg:flex items-center gap-2">
+              <Link href="/login">
+                <Button variant="outline" size="sm">Executive Login</Button>
+              </Link>
               <Link href="/contact">
                 <Button variant="gold" size="sm">Contact Us</Button>
               </Link>
@@ -245,7 +248,10 @@ export function PublicHeader() {
                   )}
                 </div>
               ))}
-              <div className="pt-4 border-t border-gray-100 mt-4">
+              <div className="pt-4 border-t border-gray-100 mt-4 space-y-2">
+                <Link href="/login" className="block">
+                  <Button variant="outline" className="w-full">Executive Login</Button>
+                </Link>
                 <Link href="/contact" className="block">
                   <Button variant="gold" className="w-full">Contact Us</Button>
                 </Link>
