@@ -31,7 +31,7 @@ export function PublicFooter() {
           {/* School Info */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <LogoImage className="w-14 h-14" />
+              <LogoImage className="w-12 h-12 rounded-full border-2 border-white/20 p-0.5 bg-white/10" />
               <div>
                 <p className="font-black text-white text-sm leading-tight">GURU GORAKSHNATH</p>
                 <p className="font-black text-white text-sm leading-tight">GYANASTHALI</p>

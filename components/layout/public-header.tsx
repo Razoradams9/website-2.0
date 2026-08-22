@@ -126,14 +126,14 @@ export function PublicHeader() {
           : "bg-white shadow-sm"
       )}>
         <div className="container mx-auto px-4">
-          <div className="flex h-20 lg:h-24 items-center justify-between">
+          <div className="flex h-16 lg:h-18 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <LogoImage className="w-14 h-14 lg:w-16 lg:h-16" />
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <LogoImage className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 border-[#138808]/20 p-0.5 bg-white shadow-sm" />
               <div className="hidden sm:block">
-                <p className="font-black text-[#138808] text-sm lg:text-[15px] leading-tight tracking-tight">GURU GORAKSHNATH</p>
-                <p className="font-black text-[#138808] text-sm lg:text-[15px] leading-tight tracking-tight">GYANASTHALI</p>
-                <p className="text-[10px] text-gray-500 leading-tight mt-0.5">Inspiring Excellence, Creating Values</p>
+                <p className="font-black text-[#138808] text-xs lg:text-sm leading-tight tracking-tight">GURU GORAKSHNATH</p>
+                <p className="font-black text-[#138808] text-xs lg:text-sm leading-tight tracking-tight">GYANASTHALI</p>
+                <p className="text-[9px] lg:text-[10px] text-gray-500 leading-tight mt-0.5">Inspiring Excellence, Creating Values</p>
               </div>
             </Link>
 
