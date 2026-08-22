@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { FileText, Download, Pencil, Save, X, Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -86,7 +86,7 @@ const initialSections: Section[] = [
   },
 ]
 
-function EditableRow({ row, onSave }: { row: DisclosureRow; onSave: (detail: string, fileUrl: string) => void }) {
+function EditableRow({ row, onSave, canEdit }: { row: DisclosureRow; onSave: (detail: string, fileUrl: string) => void; canEdit: boolean }) {
   const [editing, setEditing] = useState(false)
   const [detail, setDetail] = useState(row.detail)
   const [fileUrl, setFileUrl] = useState(row.fileUrl || "")
@@ -145,7 +145,7 @@ function EditableRow({ row, onSave }: { row: DisclosureRow; onSave: (detail: str
           </div>
           <button
             onClick={() => setEditing(true)}
-            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-md hover:bg-[#FF9933]/10 text-gray-400 hover:text-[#FF9933] transition-all"
+            className={`${canEdit ? "opacity-0 group-hover:opacity-100" : "hidden"} p-1.5 rounded-md hover:bg-[#FF9933]/10 text-gray-400 hover:text-[#FF9933] transition-all`}
             title="Edit this item"
           >
             <Pencil className="w-3.5 h-3.5" />
@@ -158,6 +158,19 @@ function EditableRow({ row, onSave }: { row: DisclosureRow; onSave: (detail: str
 
 export default function CBSEDisclosurePage() {
   const [sections, setSections] = useState(initialSections)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    const stored = localStorage.getItem("ggg_admin")
+    if (stored) {
+      try {
+        const data = JSON.parse(stored)
+        if (data.loggedIn && data.email === "razoradams9@gmail.com") {
+          setIsAdmin(true)
+        }
+      } catch {}
+    }
+  }, [])
 
   function handleRowSave(sectionId: string, rowNo: string, newDetail: string, newFileUrl: string) {
     setSections((prev) =>
@@ -199,13 +212,15 @@ export default function CBSEDisclosurePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-12">
 
-            {/* Info box */}
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
-              <Pencil className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-              <p className="text-sm text-amber-800">
-                <strong>Editable:</strong> Hover over any row and click the <Pencil className="w-3 h-3 inline" /> icon to edit details or upload documents. Changes are saved locally for now.
-              </p>
-            </div>
+            {/* Info box — only visible to admin */}
+            {isAdmin && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+                <Pencil className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-amber-800">
+                  <strong>Admin mode:</strong> Hover over any row and click the <Pencil className="w-3 h-3 inline" /> icon to edit details or upload documents.
+                </p>
+              </div>
+            )}
 
             {sections.map((section) => (
               <div key={section.id}>
@@ -227,6 +242,7 @@ export default function CBSEDisclosurePage() {
                         <EditableRow
                           key={`${section.id}-${row.no}`}
                           row={row}
+                          canEdit={isAdmin}
                           onSave={(detail, fileUrl) => handleRowSave(section.id, row.no, detail, fileUrl)}
                         />
                       ))}

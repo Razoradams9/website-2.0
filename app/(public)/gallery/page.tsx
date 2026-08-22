@@ -1,6 +1,9 @@
 "use client"
 import React, { useState, useEffect } from "react"
-import { Camera, Video, Play } from "lucide-react"
+import { Camera, Video, Play, Plus, Trash2, Save, X, Link as LinkIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 interface GalleryImage {
   id: string
@@ -25,11 +28,45 @@ const placeholderImages = [
 export default function GalleryPage() {
   const [uploadedImages, setUploadedImages] = useState<GalleryImage[]>([])
   const [filterCat, setFilterCat] = useState("All")
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [showAdd, setShowAdd] = useState(false)
+  const [newTitle, setNewTitle] = useState("")
+  const [newUrl, setNewUrl] = useState("")
+  const [newCategory, setNewCategory] = useState("Other")
 
   useEffect(() => {
     const saved = localStorage.getItem("ggg_gallery")
     if (saved) setUploadedImages(JSON.parse(saved))
+
+    // Check admin
+    const admin = localStorage.getItem("ggg_admin")
+    if (admin) {
+      try {
+        const data = JSON.parse(admin)
+        if (data.loggedIn && data.email === "razoradams9@gmail.com") setIsAdmin(true)
+      } catch {}
+    }
   }, [])
+
+  function saveImages(imgs: GalleryImage[]) {
+    setUploadedImages(imgs)
+    localStorage.setItem("ggg_gallery", JSON.stringify(imgs))
+  }
+
+  function handleAddImage() {
+    if (!newTitle.trim() || !newUrl.trim()) return
+    const img: GalleryImage = { id: Date.now().toString(), title: newTitle.trim(), imageUrl: newUrl.trim(), category: newCategory }
+    saveImages([img, ...uploadedImages])
+    setNewTitle("")
+    setNewUrl("")
+    setNewCategory("Other")
+    setShowAdd(false)
+  }
+
+  function handleDelete(id: string) {
+    if (!confirm("Delete this image?")) return
+    saveImages(uploadedImages.filter((img) => img.id !== id))
+  }
 
   const hasUploaded = uploadedImages.length > 0
   const filteredUploaded = filterCat === "All" ? uploadedImages : uploadedImages.filter((img) => img.category === filterCat)
@@ -54,20 +91,57 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Filter Tabs */}
+      {/* Filter Tabs + Admin Add Button */}
       <section className="py-6 border-b border-gray-200 sticky top-20 lg:top-24 bg-white/95 backdrop-blur-sm z-30">
         <div className="container mx-auto px-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide py-1">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilterCat(cat)}
-                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${filterCat === cat ? "bg-[#138808] text-white" : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"}`}
-              >
-                {cat}
-              </button>
-            ))}
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide py-1">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilterCat(cat)}
+                  className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${filterCat === cat ? "bg-[#138808] text-white" : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            {isAdmin && (
+              <Button variant="gold" size="sm" onClick={() => setShowAdd(!showAdd)} className="flex-shrink-0">
+                <Plus className="w-4 h-4" /> Add Photo
+              </Button>
+            )}
           </div>
+
+          {/* Add Image Form (admin only) */}
+          {isAdmin && showAdd && (
+            <div className="mt-4 p-5 bg-[#fffdf5] border border-[#FF9933]/30 rounded-xl">
+              <div className="grid sm:grid-cols-3 gap-3">
+                <div>
+                  <Label className="text-xs">Title</Label>
+                  <Input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Photo title" className="mt-1 h-9 text-sm" />
+                </div>
+                <div>
+                  <Label className="text-xs">Image URL</Label>
+                  <Input value={newUrl} onChange={(e) => setNewUrl(e.target.value)} placeholder="Paste image link" className="mt-1 h-9 text-sm" />
+                </div>
+                <div>
+                  <Label className="text-xs">Category</Label>
+                  <select value={newCategory} onChange={(e) => setNewCategory(e.target.value)} className="mt-1 w-full h-9 px-3 rounded-lg border border-gray-200 text-sm bg-white">
+                    {categories.filter((c) => c !== "All").map((c) => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-3">
+                <Button size="sm" onClick={handleAddImage} disabled={!newTitle.trim() || !newUrl.trim()}>
+                  <Save className="w-3.5 h-3.5" /> Save
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => setShowAdd(false)}>
+                  <X className="w-3.5 h-3.5" /> Cancel
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -86,6 +160,14 @@ export default function GalleryPage() {
                       <span className="text-white/70 text-xs">{img.category}</span>
                     </div>
                   </div>
+                  {isAdmin && (
+                    <button
+                      onClick={() => handleDelete(img.id)}
+                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-red-600"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
