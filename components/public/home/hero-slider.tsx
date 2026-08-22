@@ -80,25 +80,34 @@ export function HeroSlider() {
       {/* Content */}
       <div className="relative flex-1 flex items-center">
         <div className="container mx-auto px-4 py-20">
-          <div className="max-w-3xl">
-            {/* Logo showcase on first slide */}
-            {current === 0 && (
-              <div className="mb-6 animate-fade-in">
-                <img src="/images/logo.jpeg" alt="Guru Gorakshnath Gyanasthali" className="w-20 h-20 sm:w-24 sm:h-24 object-contain rounded-full border-2 border-white/20 bg-white/10 p-1 shadow-lg" />
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+            {/* Logo — Centre of Attraction */}
+            <div className="flex-shrink-0 animate-fade-in">
+              <div className="relative">
+                {/* Glowing ring */}
+                <div className="absolute inset-0 rounded-full bg-[#FF9933]/20 blur-xl scale-125" />
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full border-4 border-white/20 bg-white/10 backdrop-blur-sm p-3 shadow-2xl">
+                  <img src="/images/logo.jpeg" alt="Guru Gorakshnath Gyanasthali" className="w-full h-full object-contain rounded-full" />
+                </div>
+                {/* Decorative dots */}
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#FF9933] rounded-full animate-pulse" />
+                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white/40 rounded-full" />
               </div>
-            )}
+            </div>
 
-            <div
-              key={`badge-${current}`}
-              className="inline-flex items-center gap-2 bg-[#FF9933]/20 border border-[#FF9933]/30 text-[#FF9933] rounded-full px-4 py-1.5 text-sm font-semibold mb-6 animate-fade-in"
-            >
+            {/* Text Content */}
+            <div className="text-center lg:text-left max-w-2xl">
+              <div
+                key={`badge-${current}`}
+                className="inline-flex items-center gap-2 bg-[#FF9933]/20 border border-[#FF9933]/30 text-[#FF9933] rounded-full px-4 py-1.5 text-sm font-semibold mb-6 animate-fade-in"
+              >
               <span className="w-1.5 h-1.5 bg-[#FF9933] rounded-full animate-pulse" />
               {slide.subtitle}
             </div>
 
             <h1
               key={`title-${current}`}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-6 animate-fade-in"
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-tight mb-6 animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
               {slide.title}{" "}
@@ -107,7 +116,7 @@ export function HeroSlider() {
 
             <p
               key={`desc-${current}`}
-              className="text-lg text-gray-300 mb-10 max-w-xl leading-relaxed animate-fade-in"
+              className="text-base lg:text-lg text-gray-300 mb-10 max-w-xl leading-relaxed animate-fade-in"
               style={{ animationDelay: "0.2s" }}
             >
               {slide.description}
@@ -115,7 +124,7 @@ export function HeroSlider() {
 
             <div
               key={`cta-${current}`}
-              className="flex flex-col sm:flex-row gap-4 animate-fade-in"
+              className="flex flex-col sm:flex-row gap-4 animate-fade-in justify-center lg:justify-start"
               style={{ animationDelay: "0.3s" }}
             >
               <Link href={slide.cta.href}>
@@ -130,6 +139,7 @@ export function HeroSlider() {
                 </Button>
               </Link>
             </div>
+          </div>
           </div>
         </div>
       </div>
