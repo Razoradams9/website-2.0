@@ -42,6 +42,7 @@ const navLinks = [
       { label: "Chairman's Message", href: "/administration/chairman", icon: Users, desc: "Shri Raghavendra Pratap Singh" },
       { label: "Director's Message", href: "/administration/director", icon: Users, desc: "Shri Pradeep Kumar Singh" },
       { label: "Director's Message", href: "/administration/director-2", icon: Users, desc: "Shri Praveen Pandey" },
+      { label: "Principal's Message", href: "/administration/principal", icon: Users, desc: "Shri Girish Nair Rishi" },
     ],
   },
   {
