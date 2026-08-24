@@ -4,6 +4,14 @@ import { uploadToCloudinary, deleteFromCloudinary } from "@/lib/storage/cloudina
 // POST — upload a file to Cloudinary
 export async function POST(request: Request) {
   try {
+    // Verify Cloudinary config is present
+    if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      return NextResponse.json(
+        { error: "Cloudinary not configured. Set NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET environment variables." },
+        { status: 500 }
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
     const folder = (formData.get("folder") as string) || "school-portal/administration";
@@ -42,9 +50,10 @@ export async function POST(request: Request) {
       width: result.width,
       height: result.height,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Upload failed";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
