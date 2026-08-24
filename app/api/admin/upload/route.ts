@@ -52,8 +52,19 @@ export async function POST(request: Request) {
     });
   } catch (error: unknown) {
     console.error("Upload error:", error);
-    const message = error instanceof Error ? error.message : String(error);
-    return NextResponse.json({ error: `Upload failed: ${message}` }, { status: 500 });
+    let message = "Upload failed";
+    if (error instanceof Error) {
+      message = error.message;
+    } else if (error && typeof error === "object" && "message" in error) {
+      message = String((error as { message: unknown }).message);
+    } else if (error && typeof error === "object" && "http_code" in error) {
+      // Cloudinary error object
+      const cErr = error as { message?: string; http_code?: number };
+      message = cErr.message || `Cloudinary error (HTTP ${cErr.http_code})`;
+    } else {
+      message = JSON.stringify(error);
+    }
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
