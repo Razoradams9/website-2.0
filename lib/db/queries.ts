@@ -12,23 +12,28 @@ export async function getSiteSettings() {
 
 // ─── Administration Leaders ───────────────────────────────────
 export async function getAdministrationData() {
-  const settings = await prisma.siteSettings.findFirst({
-    select: {
-      chairmanName: true,
-      chairmanMessage: true,
-      chairmanPhotoUrl: true,
-      director1Name: true,
-      director1Message: true,
-      director1PhotoUrl: true,
-      director2Name: true,
-      director2Message: true,
-      director2PhotoUrl: true,
-      principalName: true,
-      principalMessage: true,
-      principalPhotoUrl: true,
-    },
-  });
-  return settings;
+  try {
+    const settings = await prisma.siteSettings.findFirst({
+      select: {
+        chairmanName: true,
+        chairmanMessage: true,
+        chairmanPhotoUrl: true,
+        director1Name: true,
+        director1Message: true,
+        director1PhotoUrl: true,
+        director2Name: true,
+        director2Message: true,
+        director2PhotoUrl: true,
+        principalName: true,
+        principalMessage: true,
+        principalPhotoUrl: true,
+      },
+    });
+    return settings;
+  } catch {
+    // Columns may not exist yet in production DB
+    return null;
+  }
 }
 
 // ─── Slider ───────────────────────────────────────────────────
