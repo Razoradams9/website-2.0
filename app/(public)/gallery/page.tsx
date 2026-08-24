@@ -1,105 +1,43 @@
-"use client"
-import React, { useState, useEffect } from "react"
-import { Camera, Video, Play, Plus, Trash2, Save, X, Upload, MapPin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { ImageUpload } from "@/components/ui/image-upload"
+import { Camera, Video, Play } from "lucide-react"
+import { prisma } from "@/lib/db/prisma"
 
-interface GalleryImage {
-  id: string
-  title: string
-  imageUrl: string
-  thumbnailUrl: string
-  placement: string
-  category: string
-}
+export const dynamic = "force-dynamic"
+export const metadata = { title: "Photo & Video Gallery" }
 
-const placements = [
-  { value: "gallery-annual-day", label: "Gallery — Annual Day" },
-  { value: "gallery-sports-day", label: "Gallery — Sports Day" },
-  { value: "gallery-cultural", label: "Gallery — Cultural Events" },
-  { value: "gallery-academics", label: "Gallery — Academics" },
-  { value: "gallery-campus", label: "Gallery — Campus & Infrastructure" },
-  { value: "gallery-events", label: "Gallery — General Events" },
-  { value: "gallery-national-day", label: "Gallery — National Day Celebrations" },
-  { value: "hero-slider", label: "Homepage — Hero Slider" },
-  { value: "about-page", label: "About Us Page" },
-  { value: "other", label: "Other" },
+const CATEGORIES = [
+  { value: "ALL", label: "All" },
+  { value: "ANNUAL_DAY", label: "Annual Day" },
+  { value: "SPORTS_DAY", label: "Sports Day" },
+  { value: "CULTURAL", label: "Cultural" },
+  { value: "ACADEMICS", label: "Academics" },
+  { value: "INFRASTRUCTURE", label: "Campus" },
+  { value: "TOURS_TRIPS", label: "Tours & Trips" },
+  { value: "ACHIEVEMENTS", label: "Achievements" },
+  { value: "GENERAL", label: "General" },
 ]
 
-const categories = ["All", "Annual Day", "Sports Day", "Cultural", "Academics", "Campus", "Events", "National Day"]
-
-export default function GalleryPage() {
-  const [images, setImages] = useState<GalleryImage[]>([])
-  const [filterCat, setFilterCat] = useState("All")
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [showAdd, setShowAdd] = useState(false)
-
-  // Form
-  const [title, setTitle] = useState("")
-  const [imageUrl, setImageUrl] = useState("")
-  const [thumbnailUrl, setThumbnailUrl] = useState("")
-  const [placement, setPlacement] = useState("gallery-events")
-
-  useEffect(() => {
-    // Load saved images
-    const saved = localStorage.getItem("ggg_gallery_v2")
-    if (saved) setImages(JSON.parse(saved))
-
-    // Check admin
-    const admin = localStorage.getItem("ggg_admin")
-    if (admin) {
-      try {
-        const data = JSON.parse(admin)
-        if (data.loggedIn && data.email === "razoradams9@gmail.com") setIsAdmin(true)
-      } catch {}
-    }
-  }, [])
-
-  function saveImages(imgs: GalleryImage[]) {
-    setImages(imgs)
-    localStorage.setItem("ggg_gallery_v2", JSON.stringify(imgs))
+async function getGalleryPhotos() {
+  try {
+    return await prisma.galleryItem.findMany({
+      where: { status: "PUBLISHED", type: "PHOTO" },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+    })
+  } catch {
+    return []
   }
+}
 
-  function getCategoryFromPlacement(p: string): string {
-    if (p.includes("annual")) return "Annual Day"
-    if (p.includes("sports")) return "Sports Day"
-    if (p.includes("cultural")) return "Cultural"
-    if (p.includes("academics")) return "Academics"
-    if (p.includes("campus")) return "Campus"
-    if (p.includes("national")) return "National Day"
-    return "Events"
-  }
+export default async function GalleryPage({
+  searchParams,
+}: {
+  searchParams: { category?: string }
+}) {
+  const photos = await getGalleryPhotos()
+  const activeCategory = searchParams.category || "ALL"
 
-  function handleAdd() {
-    if (!title.trim() || !imageUrl) return
-    const img: GalleryImage = {
-      id: Date.now().toString(),
-      title: title.trim(),
-      imageUrl,
-      thumbnailUrl: thumbnailUrl || imageUrl,
-      placement,
-      category: getCategoryFromPlacement(placement),
-    }
-    saveImages([img, ...images])
-    resetForm()
-  }
-
-  function handleDelete(id: string) {
-    if (!confirm("Delete this image?")) return
-    saveImages(images.filter((i) => i.id !== id))
-  }
-
-  function resetForm() {
-    setTitle("")
-    setImageUrl("")
-    setThumbnailUrl("")
-    setPlacement("gallery-events")
-    setShowAdd(false)
-  }
-
-  const filtered = filterCat === "All" ? images : images.filter((img) => img.category === filterCat)
+  const filtered = activeCategory === "ALL"
+    ? photos
+    : photos.filter((p) => p.category === activeCategory)
 
   return (
     <>
@@ -109,10 +47,10 @@ export default function GalleryPage() {
         <div className="container mx-auto px-4 py-16 md:py-20 relative">
           <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-4">
             <a href="/" className="hover:text-white">Home</a>
-            <span className="text-gray-600">›</span>
+            <span className="text-gray-600">&rsaquo;</span>
             <span className="text-[#FF9933]">Gallery</span>
           </nav>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight">Photo & Video Gallery</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight">Photo &amp; Video Gallery</h1>
           <p className="mt-3 text-gray-300 text-base md:text-lg max-w-2xl">Capturing moments of learning, celebration, and achievement at Guru Gorakshnath Gyanasthali.</p>
         </div>
         <div className="absolute bottom-0 left-0 right-0">
@@ -120,135 +58,62 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Filter + Admin Controls */}
+      {/* Filter */}
       <section className="py-6 border-b border-gray-200 sticky top-16 lg:top-[72px] bg-white/95 backdrop-blur-sm z-30">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide py-1">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilterCat(cat)}
-                  className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${filterCat === cat ? "bg-[#138808] text-white" : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"}`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-            {isAdmin && (
-              <Button variant="gold" size="sm" onClick={() => setShowAdd(!showAdd)} className="flex-shrink-0">
-                <Plus className="w-4 h-4" /> Add Photo
-              </Button>
-            )}
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide py-1">
+            {CATEGORIES.map((cat) => (
+              <a
+                key={cat.value}
+                href={cat.value === "ALL" ? "/gallery" : `/gallery?category=${cat.value}`}
+                className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
+                  activeCategory === cat.value
+                    ? "bg-[#138808] text-white"
+                    : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"
+                }`}
+              >
+                {cat.label}
+              </a>
+            ))}
           </div>
-
-          {/* Upload Form (admin only) */}
-          {isAdmin && showAdd && (
-            <div className="mt-5 p-6 bg-[#fffdf5] border border-[#FF9933]/30 rounded-xl">
-              <h3 className="font-bold text-[#138808] text-base mb-4">Upload New Photo</h3>
-
-              {/* Step 1: Where */}
-              <div className="mb-4">
-                <Label className="text-sm font-semibold flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#FF9933]" /> Where should this photo appear?
-                </Label>
-                <select
-                  value={placement}
-                  onChange={(e) => setPlacement(e.target.value)}
-                  className="mt-1.5 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#138808]"
-                >
-                  {placements.map((p) => (
-                    <option key={p.value} value={p.value}>{p.label}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Step 2: Main Photo */}
-              <div className="mb-4">
-                <Label className="text-sm font-semibold flex items-center gap-1.5">
-                  <Upload className="w-3.5 h-3.5 text-[#FF9933]" /> Main Photo (full size)
-                </Label>
-                <div className="mt-1.5">
-                  <ImageUpload onUploaded={(url) => setImageUrl(url)} />
-                </div>
-                {imageUrl && <p className="text-xs text-emerald-600 mt-1 font-medium">✓ Photo uploaded</p>}
-              </div>
-
-              {/* Step 3: Thumbnail */}
-              <div className="mb-4">
-                <Label className="text-sm font-semibold flex items-center gap-1.5">
-                  <Camera className="w-3.5 h-3.5 text-[#FF9933]" /> Thumbnail (small preview — optional)
-                </Label>
-                <p className="text-[10px] text-gray-400 mb-1.5">If not provided, the main photo will be used as thumbnail too.</p>
-                <div className="mt-1">
-                  <ImageUpload onUploaded={(url) => setThumbnailUrl(url)} />
-                </div>
-                {thumbnailUrl && <p className="text-xs text-emerald-600 mt-1 font-medium">✓ Thumbnail uploaded</p>}
-              </div>
-
-              {/* Step 4: Title */}
-              <div className="mb-4">
-                <Label className="text-sm font-semibold">Photo Title</Label>
-                <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Annual Day 2024 — Group Performance" className="mt-1.5" />
-              </div>
-
-              {/* Submit */}
-              <div className="flex gap-3 pt-2">
-                <Button onClick={handleAdd} disabled={!title.trim() || !imageUrl}>
-                  <Save className="w-4 h-4" /> Add to Gallery
-                </Button>
-                <Button variant="ghost" onClick={resetForm}>
-                  <X className="w-4 h-4" /> Cancel
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
       {/* Gallery Grid */}
       <section className="py-14">
         <div className="container mx-auto px-4">
-          {/* Uploaded photos */}
-          {filtered.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
-              {filtered.map((img) => (
-                <div key={img.id} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer hover:shadow-xl transition-all">
-                  <img src={img.thumbnailUrl || img.imageUrl} alt={img.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+          {filtered.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {filtered.map((photo) => (
+                <div key={photo.id} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer hover:shadow-xl transition-all">
+                  <img
+                    src={photo.thumbnailUrl || photo.mediaUrl}
+                    alt={photo.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                     <div>
-                      <p className="text-white text-sm font-semibold">{img.title}</p>
-                      <span className="text-white/70 text-xs">{img.category}</span>
+                      <p className="text-white text-sm font-semibold">{photo.title}</p>
+                      <span className="text-white/70 text-xs">
+                        {CATEGORIES.find((c) => c.value === photo.category)?.label}
+                      </span>
                     </div>
                   </div>
-                  {isAdmin && (
-                    <button
-                      onClick={() => handleDelete(img.id)}
-                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-red-600"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  )}
                 </div>
               ))}
             </div>
-          )}
-
-          {/* Placeholder images (shown when no uploads in that category) */}
-          {filtered.length === 0 && (
+          ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
                 { title: "Annual Day Celebration", category: "Annual Day", color: "from-pink-500 to-rose-600" },
-                { title: "Republic Day Celebration", category: "National Day", color: "from-orange-500 to-amber-600" },
+                { title: "Republic Day Celebration", category: "General", color: "from-orange-500 to-amber-600" },
                 { title: "Science Exhibition", category: "Academics", color: "from-blue-500 to-indigo-600" },
                 { title: "Sports Day", category: "Sports Day", color: "from-emerald-500 to-teal-600" },
                 { title: "Classroom Activities", category: "Academics", color: "from-purple-500 to-violet-600" },
                 { title: "Art Exhibition", category: "Cultural", color: "from-fuchsia-500 to-pink-600" },
                 { title: "School Building", category: "Campus", color: "from-slate-500 to-gray-600" },
                 { title: "Green Campus", category: "Campus", color: "from-green-500 to-lime-600" },
-              ]
-              .filter((p) => filterCat === "All" || p.category === filterCat)
-              .map((img, i) => (
+              ].map((img, i) => (
                 <div key={i} className="group relative overflow-hidden rounded-2xl aspect-square">
                   <div className={`absolute inset-0 bg-gradient-to-br ${img.color} opacity-85`} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
@@ -258,6 +123,9 @@ export default function GalleryPage() {
                   </div>
                 </div>
               ))}
+              <div className="col-span-full text-center py-8 text-gray-400">
+                <p className="text-sm">Photos will appear here once uploaded by the admin.</p>
+              </div>
             </div>
           )}
 
@@ -268,19 +136,17 @@ export default function GalleryPage() {
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { title: "School Campus Tour", duration: "3:45" },
-                { title: "Annual Day 2024 Highlights", duration: "5:20" },
-                { title: "Sports Day Celebrations", duration: "4:10" },
-              ].map((video) => (
-                <div key={video.title} className="bg-gray-100 rounded-2xl overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
-                  <div className="aspect-video bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center relative">
-                    <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-6 h-6 text-white fill-white ml-1" />
+                { title: "Campus Tour", desc: "A walkthrough of our facilities" },
+                { title: "Annual Day Highlights", desc: "Best moments from Annual Day" },
+                { title: "Student Activities", desc: "Learning beyond the classroom" },
+              ].map((vid, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-2xl aspect-video bg-gradient-to-br from-gray-800 to-gray-900 cursor-pointer hover:shadow-xl transition-all">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                    <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-[#FF9933]/80 transition-all">
+                      <Play className="w-6 h-6 ml-0.5" />
                     </div>
-                    <span className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-0.5 rounded">{video.duration}</span>
-                  </div>
-                  <div className="p-4">
-                    <p className="font-semibold text-[#138808] text-sm">{video.title}</p>
+                    <p className="text-sm font-bold">{vid.title}</p>
+                    <p className="text-xs text-white/60 mt-1">{vid.desc}</p>
                   </div>
                 </div>
               ))}
