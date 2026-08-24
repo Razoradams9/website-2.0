@@ -2,6 +2,7 @@ import { PageHero } from "@/components/public/shared/page-hero"
 import { Quote } from "lucide-react"
 import { getAdministrationData } from "@/lib/db/queries"
 
+export const dynamic = 'force-dynamic'
 export const metadata = { title: "Chairman's Message" }
 
 export default async function ChairmanPage() {
