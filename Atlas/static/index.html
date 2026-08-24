@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" id="newChatBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New chat
+                </button>
+            </div>
+            <div class="sidebar-chats">
+                <div class="chat-history-label">Today</div>
+                <div class="chat-history-item active">New conversation</div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    Settings
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main chat area -->
+        <main class="main">
+            <!-- Toggle sidebar on mobile -->
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Model selector -->
+            <div class="model-badge">
+                <span class="model-dot"></span>
+                Atlas
+            </div>
+
+            <!-- Messages -->
+            <div class="messages-wrapper">
+                <div class="messages" id="chatMessages">
+                    <!-- Welcome state -->
+                    <div class="welcome" id="welcomeScreen">
+                        <div class="atlas-illustration">
+                            <svg width="200" height="220" viewBox="0 0 300 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Ambient glow -->
+                                <circle cx="150" cy="80" r="75" fill="url(#ambientGlow)" opacity="0.2"/>
+
+                                <!-- Globe -->
+                                <circle cx="150" cy="80" r="55" fill="url(#globeFill)" stroke="url(#globeStroke)" stroke-width="2"/>
+                                <!-- Continent-like shapes -->
+                                <path d="M120 50 Q125 45 135 48 Q140 52 138 58 Q132 62 125 60 Q118 56 120 50Z" fill="rgba(167,139,250,0.3)" stroke="rgba(167,139,250,0.5)" stroke-width="0.8"/>
+                                <path d="M155 40 Q165 38 172 44 Q178 52 175 60 Q170 65 162 63 Q155 58 153 50 Q152 44 155 40Z" fill="rgba(129,140,248,0.3)" stroke="rgba(129,140,248,0.5)" stroke-width="0.8"/>
+                                <path d="M130 72 Q138 68 148 70 Q158 73 162 80 Q160 88 152 92 Q142 94 135 90 Q128 85 130 72Z" fill="rgba(167,139,250,0.25)" stroke="rgba(167,139,250,0.45)" stroke-width="0.8"/>
+                                <path d="M165 85 Q172 82 178 86 Q182 92 180 98 Q175 102 168 100 Q163 95 165 85Z" fill="rgba(129,140,248,0.25)" stroke="rgba(129,140,248,0.4)" stroke-width="0.8"/>
+                                <path d="M108 80 Q115 76 120 80 Q122 86 118 90 Q112 92 108 88 Q106 84 108 80Z" fill="rgba(196,181,253,0.2)" stroke="rgba(196,181,253,0.4)" stroke-width="0.8"/>
+                                <!-- Grid lines -->
+                                <ellipse cx="150" cy="80" rx="55" ry="18" stroke="rgba(167,139,250,0.2)" stroke-width="0.7" fill="none"/>
+                                <ellipse cx="150" cy="60" rx="50" ry="14" stroke="rgba(167,139,250,0.15)" stroke-width="0.6" fill="none"/>
+                                <ellipse cx="150" cy="100" rx="50" ry="14" stroke="rgba(167,139,250,0.15)" stroke-width="0.6" fill="none"/>
+                                <ellipse cx="150" cy="80" rx="25" ry="55" stroke="rgba(167,139,250,0.15)" stroke-width="0.6" fill="none"/>
+                                <ellipse cx="150" cy="80" rx="45" ry="55" stroke="rgba(167,139,250,0.1)" stroke-width="0.5" fill="none"/>
+                                <!-- Globe highlight -->
+                                <ellipse cx="130" cy="55" rx="18" ry="14" fill="rgba(255,255,255,0.05)"/>
+
+                                <!-- Figure - Torso (muscular shape) -->
+                                <path d="M134 165 Q130 155 128 148 Q127 142 130 138 Q136 134 150 133 Q164 134 170 138 Q173 142 172 148 Q170 155 166 165 Q160 178 158 190 Q155 198 150 200 Q145 198 142 190 Q140 178 134 165Z" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1.5"/>
+                                <!-- Chest definition -->
+                                <path d="M138 145 Q144 148 150 147 Q156 148 162 145" stroke="rgba(167,139,250,0.3)" stroke-width="0.8" fill="none"/>
+                                <path d="M150 147 L150 165" stroke="rgba(167,139,250,0.2)" stroke-width="0.6"/>
+                                <!-- Abs -->
+                                <path d="M143 158 Q150 160 157 158" stroke="rgba(167,139,250,0.2)" stroke-width="0.6" fill="none"/>
+                                <path d="M144 167 Q150 169 156 167" stroke="rgba(167,139,250,0.2)" stroke-width="0.6" fill="none"/>
+                                <path d="M145 176 Q150 178 155 176" stroke="rgba(167,139,250,0.15)" stroke-width="0.6" fill="none"/>
+
+                                <!-- Head -->
+                                <ellipse cx="150" cy="125" rx="10" ry="11" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1.5"/>
+                                <!-- Neck -->
+                                <path d="M145 135 Q150 137 155 135 L155 133 Q150 131 145 133Z" fill="url(#bodyFill)"/>
+
+                                <!-- Left arm (reaching up to hold globe) -->
+                                <path d="M130 140 Q120 135 112 125 Q108 118 110 112 Q113 108 118 110 Q122 113 125 118" stroke="url(#bodyStroke)" stroke-width="4" stroke-linecap="round" fill="none"/>
+                                <!-- Left shoulder muscle -->
+                                <ellipse cx="128" cy="139" rx="6" ry="5" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1"/>
+                                <!-- Left bicep -->
+                                <path d="M120 135 Q116 130 114 124" stroke="url(#bodyStroke)" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
+                                <!-- Left hand -->
+                                <circle cx="118" cy="112" r="5" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1.2"/>
+                                <!-- Left fingers on globe -->
+                                <path d="M115 108 Q113 105 114 102" stroke="url(#bodyStroke)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                                <path d="M118 107 Q117 104 118 101" stroke="url(#bodyStroke)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                                <path d="M121 108 Q121 105 122 102" stroke="url(#bodyStroke)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+                                <!-- Right arm (reaching up to hold globe) -->
+                                <path d="M170 140 Q180 135 188 125 Q192 118 190 112 Q187 108 182 110 Q178 113 175 118" stroke="url(#bodyStroke)" stroke-width="4" stroke-linecap="round" fill="none"/>
+                                <!-- Right shoulder muscle -->
+                                <ellipse cx="172" cy="139" rx="6" ry="5" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1"/>
+                                <!-- Right bicep -->
+                                <path d="M180 135 Q184 130 186 124" stroke="url(#bodyStroke)" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
+                                <!-- Right hand -->
+                                <circle cx="182" cy="112" r="5" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1.2"/>
+                                <!-- Right fingers on globe -->
+                                <path d="M179 108 Q179 105 178 102" stroke="url(#bodyStroke)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                                <path d="M182 107 Q183 104 182 101" stroke="url(#bodyStroke)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                                <path d="M185 108 Q187 105 186 102" stroke="url(#bodyStroke)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+                                <!-- Left leg -->
+                                <path d="M143 198 Q138 215 134 235 Q132 248 130 260 Q129 270 132 278 Q135 282 138 280" stroke="url(#bodyStroke)" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <!-- Left calf definition -->
+                                <path d="M134 250 Q131 258 132 268" stroke="url(#bodyStroke)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.4"/>
+                                <!-- Left foot -->
+                                <path d="M132 278 Q130 282 128 284 Q126 286 130 287 Q136 288 140 286 Q142 284 138 280" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1"/>
+
+                                <!-- Right leg -->
+                                <path d="M157 198 Q162 215 166 235 Q168 248 170 260 Q171 270 168 278 Q165 282 162 280" stroke="url(#bodyStroke)" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <!-- Right calf definition -->
+                                <path d="M166 250 Q169 258 168 268" stroke="url(#bodyStroke)" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.4"/>
+                                <!-- Right foot -->
+                                <path d="M168 278 Q170 282 172 284 Q174 286 170 287 Q164 288 160 286 Q158 284 162 280" fill="url(#bodyFill)" stroke="url(#bodyStroke)" stroke-width="1"/>
+
+                                <!-- Ground shadow -->
+                                <ellipse cx="150" cy="290" rx="35" ry="5" fill="rgba(167,139,250,0.1)"/>
+
+                                <!-- Particles -->
+                                <circle cx="70" cy="50" r="2" fill="#a78bfa" opacity="0.6">
+                                    <animate attributeName="opacity" values="0.6;0.1;0.6" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="230" cy="60" r="1.5" fill="#818cf8" opacity="0.5">
+                                    <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="85" cy="110" r="1.2" fill="#c4b5fd" opacity="0.7">
+                                    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="4s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="220" cy="100" r="1.8" fill="#a78bfa" opacity="0.4">
+                                    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="95" cy="25" r="1" fill="#818cf8" opacity="0.6">
+                                    <animate attributeName="opacity" values="0.6;0.15;0.6" dur="2.8s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="210" cy="30" r="2.2" fill="#c4b5fd" opacity="0.3">
+                                    <animate attributeName="opacity" values="0.3;0.08;0.3" dur="5s" repeatCount="indefinite"/>
+                                </circle>
+
+                                <!-- Defs -->
+                                <defs>
+                                    <radialGradient id="ambientGlow" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#a78bfa"/>
+                                        <stop offset="100%" stop-color="transparent"/>
+                                    </radialGradient>
+                                    <radialGradient id="globeFill" cx="35%" cy="35%" r="60%">
+                                        <stop offset="0%" stop-color="rgba(99,102,241,0.15)"/>
+                                        <stop offset="100%" stop-color="rgba(30,30,30,0.8)"/>
+                                    </radialGradient>
+                                    <linearGradient id="globeStroke" x1="95" y1="25" x2="205" y2="135">
+                                        <stop offset="0%" stop-color="#c4b5fd"/>
+                                        <stop offset="100%" stop-color="#6366f1"/>
+                                    </linearGradient>
+                                    <linearGradient id="bodyFill" x1="130" y1="120" x2="170" y2="290">
+                                        <stop offset="0%" stop-color="#2d2b55"/>
+                                        <stop offset="100%" stop-color="#1a1a2e"/>
+                                    </linearGradient>
+                                    <linearGradient id="bodyStroke" x1="130" y1="110" x2="170" y2="290">
+                                        <stop offset="0%" stop-color="#a78bfa"/>
+                                        <stop offset="50%" stop-color="#818cf8"/>
+                                        <stop offset="100%" stop-color="#6366f1"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <h1>What can I help with?</h1>
+                        <div class="suggestions">
+                            <button class="suggestion-chip" data-prompt="Help me brainstorm ideas for a project">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                                Brainstorm ideas
+                            </button>
+                            <button class="suggestion-chip" data-prompt="Write me a professional email">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                Write an email
+                            </button>
+                            <button class="suggestion-chip" data-prompt="Explain a concept to me simply">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                Explain a concept
+                            </button>
+                            <button class="suggestion-chip" data-prompt="Help me write some code">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                Help with code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input area -->
+            <div class="input-area">
+                <form id="chatForm" class="input-form">
+                    <div class="input-container">
+                        <textarea
+                            id="userInput"
+                            placeholder="Message Atlas..."
+                            rows="1"
+                            autofocus
+                        ></textarea>
+                        <button type="submit" id="sendBtn" title="Send message" disabled>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="input-hint">Atlas can make mistakes. Verify important information.</p>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
