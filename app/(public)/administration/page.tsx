@@ -2,6 +2,7 @@ import { PageHero } from "@/components/public/shared/page-hero"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
 export const metadata = { title: "Administration" }
 
 const leaders = [
