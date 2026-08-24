@@ -1,11 +1,18 @@
 import { v2 as cloudinary } from "cloudinary";
 
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
+let configured = false;
+
+function ensureConfig() {
+  if (!configured) {
+    cloudinary.config({
+      cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+      secure: true,
+    });
+    configured = true;
+  }
+}
 
 export type CloudinaryUploadResult = {
   public_id: string;
@@ -26,6 +33,7 @@ export async function uploadToCloudinary(
     transformation?: Record<string, unknown>[];
   } = {},
 ): Promise<CloudinaryUploadResult> {
+  ensureConfig();
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
@@ -33,7 +41,6 @@ export async function uploadToCloudinary(
         public_id: options.publicId,
         resource_type: options.resourceType ?? "auto",
         transformation: options.transformation,
-        // Auto-quality and format for images
         quality: "auto",
         fetch_format: "auto",
       },
@@ -47,6 +54,7 @@ export async function uploadToCloudinary(
 }
 
 export async function deleteFromCloudinary(publicId: string, resourceType: "image" | "video" | "raw" = "image") {
+  ensureConfig();
   return cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
 }
 
@@ -54,6 +62,7 @@ export function getCloudinaryUrl(
   publicId: string,
   transforms: string = "w_800,h_600,c_fill,q_auto,f_auto",
 ): string {
+  ensureConfig();
   return cloudinary.url(publicId, {
     transformation: transforms,
     secure: true,
