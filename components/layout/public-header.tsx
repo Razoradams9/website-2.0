@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   Menu, X, ChevronDown, Phone, Mail, Facebook, Instagram,
-  GraduationCap, BookOpen, Users, Building2, Image, Info,
+  GraduationCap, BookOpen, Users, Building2, Info,
   MapPin
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -52,17 +52,6 @@ const navLinks = [
     children: [
       { label: "Curriculum", href: "/academics/curriculum", icon: BookOpen, desc: "CBSE syllabus overview" },
       { label: "Classes & Subjects", href: "/academics/classes", icon: GraduationCap, desc: "Nursery to Class X" },
-    ],
-  },
-  {
-    label: "Gallery",
-    href: "/gallery",
-    icon: Image,
-    children: [
-      { label: "Photo Gallery", href: "/gallery/photos", icon: Image, desc: "Moments captured" },
-      { label: "Video Gallery", href: "/gallery/videos", icon: Image, desc: "Watch our stories" },
-      { label: "Annual Day", href: "/gallery/annual-day", icon: Image, desc: "Cultural celebrations" },
-      { label: "Sports Day", href: "/gallery/sports-day", icon: Image, desc: "Athletic achievements" },
     ],
   },
   { label: "Contact", href: "/contact" },

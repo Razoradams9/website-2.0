@@ -9,7 +9,6 @@ const quickLinks = [
   { label: "About Us", href: "/about" },
   { label: "Academics", href: "/academics" },
   { label: "Administration", href: "/administration" },
-  { label: "Gallery", href: "/gallery" },
   { label: "CBSE Disclosure", href: "/cbse-disclosure" },
   { label: "Contact Us", href: "/contact" },
 ]
