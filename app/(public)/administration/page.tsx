@@ -26,6 +26,13 @@ const leaders = [
     initials: "PP",
     quote: "Every child has unlimited potential waiting to be unlocked.",
   },
+  {
+    name: "Shri Girish Nair Rishi",
+    role: "Principal",
+    href: "/administration/principal",
+    initials: "GR",
+    quote: "Nurturing minds and building futures with care and purpose.",
+  },
 ]
 
 export default function AdministrationPage() {
@@ -44,7 +51,7 @@ export default function AdministrationPage() {
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">Committed leaders working together to build a school that serves every child with care and purpose.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {leaders.map((leader) => (
               <Link
                 key={leader.name}

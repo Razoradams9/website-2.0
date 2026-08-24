@@ -1,9 +1,13 @@
 import { PageHero } from "@/components/public/shared/page-hero"
 import { Quote } from "lucide-react"
+import { getAdministrationData } from "@/lib/db/queries"
 
 export const metadata = { title: "Director's Message — Praveen Pandey" }
 
-export default function Director2Page() {
+export default async function Director2Page() {
+  const data = await getAdministrationData()
+  const photoUrl = data?.director2PhotoUrl
+
   return (
     <>
       <PageHero
@@ -17,17 +21,27 @@ export default function Director2Page() {
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-[280px_1fr] gap-10 items-start">
               <div className="text-center">
-                <div className="w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center shadow-xl mb-5">
-                  <span className="text-[#FF9933] font-black text-6xl">PP</span>
-                </div>
-                <h3 className="font-black text-[#138808] text-xl">Shri Praveen Pandey</h3>
-                <p className="text-[#FF9933] font-semibold text-sm">Director</p>
+                {photoUrl ? (
+                  <div className="w-56 h-56 mx-auto rounded-2xl overflow-hidden shadow-xl mb-5">
+                    <img
+                      src={photoUrl}
+                      alt="Shri Praveen Pandey"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center shadow-xl mb-5">
+                    <span className="text-[#c8a951] font-black text-6xl">PP</span>
+                  </div>
+                )}
+                <h3 className="font-black text-[#1a3c6e] text-xl">Shri Praveen Pandey</h3>
+                <p className="text-[#c8a951] font-semibold text-sm">Director</p>
                 <p className="text-xs text-gray-500 mt-1">Guru Gorakshnath Gyanasthali</p>
               </div>
 
               <div>
-                <div className="relative bg-[#f7fdf9] rounded-2xl p-8 border border-gray-100">
-                  <Quote className="absolute top-4 right-4 w-12 h-12 text-[#138808]/5" />
+                <div className="relative bg-[#f8f9ff] rounded-2xl p-8 border border-gray-100">
+                  <Quote className="absolute top-4 right-4 w-12 h-12 text-[#1a3c6e]/5" />
                   <div className="space-y-4 text-gray-700 leading-relaxed relative z-10">
                     <p>Dear Parents and Well-wishers,</p>
                     <p>
@@ -45,7 +59,7 @@ export default function Director2Page() {
                     <p>
                       The journey has just begun, and the best is yet to come.
                     </p>
-                    <p className="font-semibold text-[#138808] pt-4">
+                    <p className="font-semibold text-[#1a3c6e] pt-4">
                       With warm wishes,<br />
                       Shri Praveen Pandey<br />
                       <span className="text-sm font-normal text-gray-500">Director, Guru Gorakshnath Gyanasthali</span>

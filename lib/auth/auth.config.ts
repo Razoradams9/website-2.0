@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
+import type { Role } from "@prisma/client";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
@@ -81,7 +82,7 @@ export const authConfig: NextAuthConfig = {
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id as string;
-        session.user.role = token.role as any;
+        session.user.role = token.role as Role;
       }
       return session;
     },

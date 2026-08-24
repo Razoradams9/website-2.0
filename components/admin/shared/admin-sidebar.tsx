@@ -23,6 +23,7 @@ const navItems = [
       { label: "Notices", href: "/admin/content/notices", icon: Bell },
       { label: "Gallery", href: "/admin/content/gallery", icon: Image },
       { label: "Staff", href: "/admin/content/staff", icon: UserCheck },
+      { label: "Administration", href: "/admin/content/administration", icon: Users },
     ],
   },
   { label: "CBSE Disclosure", href: "/admin/cbse", icon: Award },

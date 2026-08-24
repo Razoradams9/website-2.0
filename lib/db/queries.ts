@@ -10,6 +10,27 @@ export async function getSiteSettings() {
   return settings;
 }
 
+// ─── Administration Leaders ───────────────────────────────────
+export async function getAdministrationData() {
+  const settings = await prisma.siteSettings.findFirst({
+    select: {
+      chairmanName: true,
+      chairmanMessage: true,
+      chairmanPhotoUrl: true,
+      director1Name: true,
+      director1Message: true,
+      director1PhotoUrl: true,
+      director2Name: true,
+      director2Message: true,
+      director2PhotoUrl: true,
+      principalName: true,
+      principalMessage: true,
+      principalPhotoUrl: true,
+    },
+  });
+  return settings;
+}
+
 // ─── Slider ───────────────────────────────────────────────────
 export async function getPublishedSliderItems() {
   return prisma.sliderItem.findMany({

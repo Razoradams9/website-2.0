@@ -158,8 +158,16 @@ model SiteSettings {
   bannerUrl             String?
   principalName         String?
   principalMessage      String? @db.Text
+  principalPhotoUrl     String?
   chairmanName          String?
   chairmanMessage       String? @db.Text
+  chairmanPhotoUrl      String?
+  director1Name         String?
+  director1Message      String? @db.Text
+  director1PhotoUrl     String?
+  director2Name         String?
+  director2Message      String? @db.Text
+  director2PhotoUrl     String?
   facebookUrl           String?
   twitterUrl            String?
   instagramUrl          String?
