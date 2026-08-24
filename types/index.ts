@@ -17,14 +17,6 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface JWT {
-    id: string;
-    role: Role;
-  }
-}
-
 declare module "@auth/core/jwt" {
   interface JWT {
     id: string;

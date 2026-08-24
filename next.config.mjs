@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   eslint: {
+    // Allow builds to succeed even with ESLint warnings/errors
+    // (lint can be run separately via `npm run lint`)
     ignoreDuringBuilds: true,
   },
   images: {
