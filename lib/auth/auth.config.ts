@@ -1,17 +1,12 @@
 import type { NextAuthConfig } from "next-auth";
 import type { Role } from "@prisma/client";
 import Credentials from "next-auth/providers/credentials";
-import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { loginSchema } from "@/lib/validations/auth";
 import { prisma } from "@/lib/db/prisma";
 
 export const authConfig: NextAuthConfig = {
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
     Credentials({
       name: "credentials",
       credentials: {
@@ -66,19 +61,14 @@ export const authConfig: NextAuthConfig = {
     error: "/login",
     signOut: "/",
   },
-  session: { strategy: "jwt", maxAge: 365 * 24 * 60 * 60 }, // 1 year — stay logged in until explicit logout
-  jwt: { maxAge: 365 * 24 * 60 * 60 }, // match session duration
+  session: { strategy: "jwt", maxAge: 365 * 24 * 60 * 60 }, // 1 year
+  jwt: { maxAge: 365 * 24 * 60 * 60 },
   callbacks: {
-    async jwt({ token, user, account, trigger, session }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.role = (user as any).role;
       }
-      // For Google sign-in, assign SUPER_ADMIN role to allowed email
-      if (account?.provider === "google" && token.email === "razoradams@gmail.com") {
-        token.role = "SUPER_ADMIN";
-      }
-      // Allow client-side session update
       if (trigger === "update" && session?.name) {
         token.name = session.name;
       }
@@ -91,16 +81,7 @@ export const authConfig: NextAuthConfig = {
       }
       return session;
     },
-    async signIn({ user, account }) {
-      // Restrict Google login to allowed email only
-      if (account?.provider === "google") {
-        const allowedEmail = "razoradams@gmail.com";
-        if (user.email?.toLowerCase() !== allowedEmail) {
-          return false;
-        }
-        return true;
-      }
-      // Credentials login
+    async signIn({ user }) {
       const dbUser = await prisma.user.findUnique({
         where: { email: user.email! },
         select: { status: true },

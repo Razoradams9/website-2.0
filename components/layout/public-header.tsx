@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useSession, signIn } from "next-auth/react"
 import {
   Menu, X, ChevronDown, Phone, Mail, Facebook, Instagram,
   GraduationCap, BookOpen, Users, Building2, Info,
@@ -66,7 +65,13 @@ export function PublicHeader() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    // Check if user has an active session by looking for the session cookie
+    const hasSession = document.cookie.includes("authjs.session-token") || document.cookie.includes("__Secure-authjs.session-token")
+    setIsLoggedIn(hasSession)
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20)
@@ -196,14 +201,14 @@ export function PublicHeader() {
 
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-2">
-              {session ? (
+              {isLoggedIn ? (
                 <Link href="/admin/dashboard">
                   <Button variant="outline" size="sm">Admin Panel</Button>
                 </Link>
               ) : (
-                <Button variant="outline" size="sm" onClick={() => signIn("google", { callbackUrl: "/admin/dashboard" })}>
-                  Executive Login
-                </Button>
+                <Link href="/login">
+                  <Button variant="outline" size="sm">Executive Login</Button>
+                </Link>
               )}
               <Link href="/contact">
                 <Button variant="gold" size="sm">Contact Us</Button>
@@ -258,14 +263,14 @@ export function PublicHeader() {
                 </div>
               ))}
               <div className="pt-4 border-t border-gray-100 mt-4 space-y-2">
-                {session ? (
+                {isLoggedIn ? (
                   <Link href="/admin/dashboard" className="block">
                     <Button variant="outline" className="w-full">Admin Panel</Button>
                   </Link>
                 ) : (
-                  <Button variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/admin/dashboard" })}>
-                    Executive Login
-                  </Button>
+                  <Link href="/login" className="block">
+                    <Button variant="outline" className="w-full">Executive Login</Button>
+                  </Link>
                 )}
                 <Link href="/contact" className="block">
                   <Button variant="gold" className="w-full">Contact Us</Button>
