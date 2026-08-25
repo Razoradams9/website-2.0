@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useSession } from "next-auth/react"
+import { useSession, signIn } from "next-auth/react"
 import {
   Menu, X, ChevronDown, Phone, Mail, Facebook, Instagram,
   GraduationCap, BookOpen, Users, Building2, Info,
@@ -201,9 +201,9 @@ export function PublicHeader() {
                   <Button variant="outline" size="sm">Admin Panel</Button>
                 </Link>
               ) : (
-                <Link href="/admin/login">
-                  <Button variant="outline" size="sm">Executive Login</Button>
-                </Link>
+                <Button variant="outline" size="sm" onClick={() => signIn("google", { callbackUrl: "/admin/dashboard" })}>
+                  Executive Login
+                </Button>
               )}
               <Link href="/contact">
                 <Button variant="gold" size="sm">Contact Us</Button>
@@ -263,9 +263,9 @@ export function PublicHeader() {
                     <Button variant="outline" className="w-full">Admin Panel</Button>
                   </Link>
                 ) : (
-                  <Link href="/admin/login" className="block">
-                    <Button variant="outline" className="w-full">Executive Login</Button>
-                  </Link>
+                  <Button variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/admin/dashboard" })}>
+                    Executive Login
+                  </Button>
                 )}
                 <Link href="/contact" className="block">
                   <Button variant="gold" className="w-full">Contact Us</Button>

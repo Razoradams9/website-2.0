@@ -69,10 +69,14 @@ export const authConfig: NextAuthConfig = {
   session: { strategy: "jwt", maxAge: 365 * 24 * 60 * 60 }, // 1 year — stay logged in until explicit logout
   jwt: { maxAge: 365 * 24 * 60 * 60 }, // match session duration
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, account, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.role = (user as any).role;
+      }
+      // For Google sign-in, assign SUPER_ADMIN role to allowed email
+      if (account?.provider === "google" && token.email === "razoradams@gmail.com") {
+        token.role = "SUPER_ADMIN";
       }
       // Allow client-side session update
       if (trigger === "update" && session?.name) {
@@ -88,8 +92,15 @@ export const authConfig: NextAuthConfig = {
       return session;
     },
     async signIn({ user, account }) {
-      // Allow OAuth without email verification check
-      if (account?.provider !== "credentials") return true;
+      // Restrict Google login to allowed email only
+      if (account?.provider === "google") {
+        const allowedEmail = "razoradams@gmail.com";
+        if (user.email?.toLowerCase() !== allowedEmail) {
+          return false;
+        }
+        return true;
+      }
+      // Credentials login
       const dbUser = await prisma.user.findUnique({
         where: { email: user.email! },
         select: { status: true },
