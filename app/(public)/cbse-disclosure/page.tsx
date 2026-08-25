@@ -23,7 +23,7 @@ const initialSections: Section[] = [
     label: "A. General Information",
     rows: [
       { no: "1", info: "Name of the School", detail: "GURU GORAKSHNATH GYANASTHALI" },
-      { no: "2", info: "Affiliation No.", detail: "2136014" },
+      { no: "2", info: "Affiliation No.", detail: "2134601" },
       { no: "3", info: "School Code", detail: "72425" },
       { no: "4", info: "Complete Address with Pin Code", detail: "Deoria (Vrindavan), Domariaganj, Siddharthnagar, Uttar Pradesh" },
       { no: "5", info: "Principal Name", detail: "—" },

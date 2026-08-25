@@ -18,7 +18,7 @@ export const siteConfig = {
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "9794335475",
   },
   cbse: {
-    affiliationNo: process.env.NEXT_PUBLIC_SCHOOL_AFFILIATION_NO ?? "2136014",
+    affiliationNo: process.env.NEXT_PUBLIC_SCHOOL_AFFILIATION_NO ?? "2134601",
     schoolCode: process.env.NEXT_PUBLIC_SCHOOL_CODE ?? "72425",
   },
 };

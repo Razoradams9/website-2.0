@@ -36,7 +36,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 gap-4">
               {[
                 { year: "2024", event: "School Established", desc: "Doors opened with a clear mission" },
-                { year: "CBSE", event: "Affiliation Granted", desc: "Affiliation No: 2136014" },
+                { year: "CBSE", event: "Affiliation Granted", desc: "Affiliation No: 2134601" },
                 { year: "120+", event: "Students Enrolled", desc: "Growing community of learners" },
                 { year: "12+", event: "Faculty Members", desc: "Experienced & passionate teachers" },
               ].map((item) => (

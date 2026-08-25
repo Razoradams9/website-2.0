@@ -39,7 +39,7 @@ export default function HistoryPage() {
             <div className="mt-14 grid sm:grid-cols-3 gap-4">
               {[
                 { label: "School Established", value: "2024", desc: "Doors opened with vision & purpose" },
-                { label: "CBSE Affiliation", value: "Granted", desc: "Affiliation No: 2136014" },
+                { label: "CBSE Affiliation", value: "Granted", desc: "Affiliation No: 2134601" },
                 { label: "First Batch", value: "120+", desc: "Students enrolled in Year 1" },
               ].map((m) => (
                 <div key={m.label} className="bg-[#f0fdf4] rounded-xl p-5 text-center border border-[#138808]/10">
