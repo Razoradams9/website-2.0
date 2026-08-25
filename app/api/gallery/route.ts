@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 
+export const dynamic = "force-dynamic";
+
 // GET — fetch published gallery items for the public site
 export async function GET(request: Request) {
   try {
