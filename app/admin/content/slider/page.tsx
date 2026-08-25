@@ -6,7 +6,7 @@ import { Image, Plus, GripVertical, Edit2, Trash2, Eye, EyeOff, ArrowUp, ArrowDo
 export const metadata = { title: "Manage Hero Slider" }
 
 const sliderItems = [
-  { id: "1", title: "Welcome to DAV Public School", subtitle: "Shaping the Future, One Child at a Time", status: "PUBLISHED", order: 1, hasLink: false },
+  { id: "1", title: "Welcome to Guru Gorakshnath Gyanasthali", subtitle: "Shaping the Future, One Child at a Time", status: "PUBLISHED", order: 1, hasLink: false },
   { id: "2", title: "Admissions Open 2025-2026", subtitle: "Enroll Your Child Today", status: "PUBLISHED", order: 2, hasLink: true },
   { id: "3", title: "Academic Excellence", subtitle: "100% Board Results Consistently", status: "PUBLISHED", order: 3, hasLink: true },
 ]

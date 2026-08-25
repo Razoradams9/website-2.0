@@ -16,7 +16,7 @@ export default function StudentPortalPage() {
         <div className="relative">
           <Badge variant="gold" className="mb-3">Class 9A — Roll No: 01</Badge>
           <h1 className="text-2xl md:text-3xl font-black">Welcome back, Rahul!</h1>
-          <p className="text-gray-300 text-sm mt-1">Academic Year 2025-26 • DAV Public School</p>
+          <p className="text-gray-300 text-sm mt-1">Academic Year 2025-26 • Guru Gorakshnath Gyanasthali</p>
         </div>
       </div>
 

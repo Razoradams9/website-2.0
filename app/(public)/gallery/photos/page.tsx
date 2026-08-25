@@ -27,7 +27,7 @@ export default function PhotoGalleryPage() {
     <>
       <PageHero
         title="Photo Gallery"
-        subtitle="Capturing moments of joy, learning, and celebration at DAV Public School."
+        subtitle="Capturing moments of joy, learning, and celebration at Guru Gorakshnath Gyanasthali."
         breadcrumbs={[{ label: "Gallery", href: "/gallery" }, { label: "Photos" }]}
       />
 

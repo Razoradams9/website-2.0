@@ -41,7 +41,7 @@ async function main() {
     update: {},
     create: {
       id: "default",
-      schoolName: "DAV Public School",
+      schoolName: "Guru Gorakshnath Gyanasthali",
       schoolTagline: "Excellence in Education Since 1985",
       schoolAddress: "123 School Road, New Delhi - 110001",
       schoolPhone: "+91-11-12345678",
@@ -54,10 +54,10 @@ async function main() {
       chairmanName: "Shri Ramesh Kumar",
       chairmanMessage:
         "Our school has always been a beacon of excellence. We strive to provide the best learning environment for our students.",
-      footerText: "© 2026 DAV Public School. All rights reserved.",
-      metaTitle: "DAV Public School — Excellence in Education",
+      footerText: "© 2026 Guru Gorakshnath Gyanasthali. All rights reserved.",
+      metaTitle: "Guru Gorakshnath Gyanasthali — Excellence in Education",
       metaDescription:
-        "DAV Public School is a premier CBSE-affiliated institution committed to holistic education.",
+        "Guru Gorakshnath Gyanasthali is a premier CBSE-affiliated institution committed to holistic education.",
     },
   });
 
@@ -370,7 +370,7 @@ async function main() {
   console.log("🎠 Seeding slider items...");
   const sliders = [
     {
-      title: "Welcome to DAV Public School",
+      title: "Welcome to Guru Gorakshnath Gyanasthali",
       subtitle: "Shaping the Future, One Child at a Time",
       description: "A premier CBSE-affiliated school dedicated to academic excellence and holistic development.",
       imageUrl: "/images/slider/slider-1.jpg",
@@ -655,7 +655,7 @@ async function main() {
     {
       name: "Arjun Mehta",
       role: "Alumni, Batch of 2022",
-      content: "DAV School laid the foundation of my success. The values and education I received here have been invaluable in my engineering journey at IIT.",
+      content: "Guru Gorakshnath Gyanasthali laid the foundation of my success. The values and education I received here have been invaluable in my engineering journey at IIT.",
       rating: 5,
       sortOrder: 2,
     },

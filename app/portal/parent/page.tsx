@@ -16,7 +16,7 @@ export default function ParentPortalPage() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF9933]/10 rounded-full blur-3xl" />
         <div className="relative">
           <h1 className="text-2xl md:text-3xl font-black">Welcome, Mr. Suresh Singh</h1>
-          <p className="text-gray-300 text-sm mt-1">Parent Portal • DAV Public School • Session 2025-26</p>
+          <p className="text-gray-300 text-sm mt-1">Parent Portal • Guru Gorakshnath Gyanasthali • Session 2025-26</p>
         </div>
       </div>
 
