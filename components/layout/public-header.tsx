@@ -54,6 +54,7 @@ const navLinks = [
       { label: "Classes & Subjects", href: "/academics/classes", icon: GraduationCap, desc: "Nursery to Class X" },
     ],
   },
+  { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
   { label: "CBSE Disclosure", href: "/cbse-disclosure" },
 ]
