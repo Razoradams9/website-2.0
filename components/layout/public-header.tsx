@@ -202,13 +202,13 @@ export function PublicHeader() {
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-2">
               {isLoggedIn ? (
-                <Link href="/admin/dashboard">
+                <a href="/admin/dashboard">
                   <Button variant="outline" size="sm">Admin Panel</Button>
-                </Link>
+                </a>
               ) : (
-                <Link href="/login">
+                <a href="/login">
                   <Button variant="outline" size="sm">Executive Login</Button>
-                </Link>
+                </a>
               )}
               <Link href="/contact">
                 <Button variant="gold" size="sm">Contact Us</Button>
@@ -264,13 +264,13 @@ export function PublicHeader() {
               ))}
               <div className="pt-4 border-t border-gray-100 mt-4 space-y-2">
                 {isLoggedIn ? (
-                  <Link href="/admin/dashboard" className="block">
+                  <a href="/admin/dashboard" className="block">
                     <Button variant="outline" className="w-full">Admin Panel</Button>
-                  </Link>
+                  </a>
                 ) : (
-                  <Link href="/login" className="block">
+                  <a href="/login" className="block">
                     <Button variant="outline" className="w-full">Executive Login</Button>
-                  </Link>
+                  </a>
                 )}
                 <Link href="/contact" className="block">
                   <Button variant="gold" className="w-full">Contact Us</Button>
