@@ -57,8 +57,8 @@ export const authConfig: NextAuthConfig = {
     }),
   ],
   pages: {
-    signIn: "/login",
-    error: "/login",
+    signIn: "/admin/login",
+    error: "/admin/login",
     signOut: "/",
   },
   session: { strategy: "jwt", maxAge: 365 * 24 * 60 * 60 }, // 1 year
