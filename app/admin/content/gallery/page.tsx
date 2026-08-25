@@ -62,6 +62,7 @@ export default function AdminGalleryPage() {
   const [uploadCategory, setUploadCategory] = useState("GENERAL")
   const [uploadAlbumId, setUploadAlbumId] = useState("")
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [fileTitles, setFileTitles] = useState<Record<number, string>>({})
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Album form state
@@ -101,6 +102,7 @@ export default function AdminGalleryPage() {
     setUploadCategory("GENERAL")
     setUploadAlbumId("")
     setSelectedFiles([])
+    setFileTitles({})
     if (fileInputRef.current) fileInputRef.current.value = ""
   }
 
@@ -139,11 +141,12 @@ export default function AdminGalleryPage() {
         const uploadData = await uploadRes.json()
 
         // Create gallery item in DB
-        const title = selectedFiles.length === 1 && uploadTitle
-          ? uploadTitle
-          : uploadTitle
-            ? `${uploadTitle} (${i + 1})`
-            : file.name.replace(/\.[^/.]+$/, "")
+        const title = fileTitles[i]?.trim()
+          || (selectedFiles.length === 1 && uploadTitle
+            ? uploadTitle
+            : uploadTitle
+              ? `${uploadTitle} (${i + 1})`
+              : file.name.replace(/\.[^/.]+$/, ""))
 
         await fetch("/api/admin/gallery", {
           method: "POST",
@@ -331,13 +334,32 @@ export default function AdminGalleryPage() {
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/gif"
                   multiple
-                  onChange={(e) => setSelectedFiles(Array.from(e.target.files || []))}
+                  onChange={(e) => { setSelectedFiles(Array.from(e.target.files || [])); setFileTitles({}) }}
                   className="mt-1 w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#1a3c6e] file:text-white hover:file:bg-[#0d1f3c] file:cursor-pointer"
                 />
                 {selectedFiles.length > 0 && (
                   <p className="text-xs text-gray-500 mt-1">{selectedFiles.length} file(s) selected</p>
                 )}
               </div>
+              {selectedFiles.length > 0 && (
+                <div className="sm:col-span-2 space-y-2">
+                  <Label>Image Names</Label>
+                  <div className="grid gap-2 max-h-48 overflow-y-auto pr-1">
+                    {selectedFiles.map((file, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <span className="text-xs text-gray-400 w-5 text-right flex-shrink-0">{idx + 1}.</span>
+                        <Input
+                          value={fileTitles[idx] ?? ""}
+                          onChange={(e) => setFileTitles((prev) => ({ ...prev, [idx]: e.target.value }))}
+                          placeholder={file.name.replace(/\.[^/.]+$/, "")}
+                          className="flex-1 h-8 text-sm"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-gray-400">Leave blank to use the file name.</p>
+                </div>
+              )}
               <div>
                 <Label>Title (optional for batch)</Label>
                 <Input
