@@ -1,5 +1,6 @@
 import { Camera, Video, Play } from "lucide-react"
 import { prisma } from "@/lib/db/prisma"
+import { GalleryGrid } from "@/components/public/gallery-grid"
 
 export const dynamic = "force-dynamic"
 export const metadata = { title: "Photo & Video Gallery" }
@@ -83,25 +84,14 @@ export default async function GalleryPage({
       <section className="py-14">
         <div className="container mx-auto px-4">
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filtered.map((photo) => (
-                <div key={photo.id} className="group relative overflow-hidden rounded-2xl aspect-square cursor-pointer hover:shadow-xl transition-all">
-                  <img
-                    src={photo.thumbnailUrl || photo.mediaUrl}
-                    alt={photo.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <div>
-                      <p className="text-white text-sm font-semibold">{photo.title}</p>
-                      <span className="text-white/70 text-xs">
-                        {CATEGORIES.find((c) => c.value === photo.category)?.label}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <GalleryGrid photos={filtered.map((p) => ({
+              id: p.id,
+              title: p.title,
+              description: p.description,
+              mediaUrl: p.mediaUrl,
+              thumbnailUrl: p.thumbnailUrl,
+              category: p.category,
+            }))} />
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
