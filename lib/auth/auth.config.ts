@@ -66,7 +66,8 @@ export const authConfig: NextAuthConfig = {
     error: "/login",
     signOut: "/",
   },
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt", maxAge: 365 * 24 * 60 * 60 }, // 1 year — stay logged in until explicit logout
+  jwt: { maxAge: 365 * 24 * 60 * 60 }, // match session duration
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
