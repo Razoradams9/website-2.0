@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import {
   Image as ImageIcon, Plus, Trash2, Edit2, Save, X, Upload,
-  Loader2, FolderPlus, Layers, Eye, EyeOff
+  Loader2, FolderPlus, Layers, Eye, EyeOff, Video
 } from "lucide-react"
 
 const CATEGORIES = [
@@ -52,7 +52,7 @@ export default function AdminGalleryPage() {
   const [items, setItems] = useState<GalleryItem[]>([])
   const [albums, setAlbums] = useState<Album[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<"photos" | "albums">("photos")
+  const [activeTab, setActiveTab] = useState<"photos" | "videos" | "albums">("photos")
 
   // Upload state
   const [uploading, setUploading] = useState(false)
@@ -64,6 +64,15 @@ export default function AdminGalleryPage() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [fileTitles, setFileTitles] = useState<Record<number, string>>({})
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Video upload state
+  const [showVideoUploadForm, setShowVideoUploadForm] = useState(false)
+  const [videoUploading, setVideoUploading] = useState(false)
+  const [videoTitle, setVideoTitle] = useState("")
+  const [videoDesc, setVideoDesc] = useState("")
+  const [videoCategory, setVideoCategory] = useState("GENERAL")
+  const [selectedVideo, setSelectedVideo] = useState<File | null>(null)
+  const videoInputRef = useRef<HTMLInputElement>(null)
 
   // Album form state
   const [showAlbumForm, setShowAlbumForm] = useState(false)
@@ -112,6 +121,63 @@ export default function AdminGalleryPage() {
     setAlbumDesc("")
     setAlbumCategory("GENERAL")
     setEditingAlbumId(null)
+  }
+
+  function resetVideoForm() {
+    setShowVideoUploadForm(false)
+    setVideoTitle("")
+    setVideoDesc("")
+    setVideoCategory("GENERAL")
+    setSelectedVideo(null)
+    if (videoInputRef.current) videoInputRef.current.value = ""
+  }
+
+  async function handleVideoUpload() {
+    if (!selectedVideo) return
+    setVideoUploading(true)
+
+    try {
+      const formData = new FormData()
+      formData.append("file", selectedVideo)
+      formData.append("folder", "school-portal/gallery/videos")
+
+      const uploadRes = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      })
+
+      if (!uploadRes.ok) {
+        const err = await uploadRes.json()
+        alert(`Failed to upload video: ${err.error}`)
+        return
+      }
+
+      const uploadData = await uploadRes.json()
+
+      const title = videoTitle.trim() || selectedVideo.name.replace(/\.[^/.]+$/, "")
+
+      await fetch("/api/admin/gallery", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          description: videoDesc || null,
+          mediaUrl: uploadData.url,
+          thumbnailUrl: null,
+          type: "VIDEO",
+          category: videoCategory,
+          albumId: null,
+          status: "PUBLISHED",
+        }),
+      })
+
+      resetVideoForm()
+      fetchData()
+    } catch {
+      alert("Video upload failed. Please try again.")
+    } finally {
+      setVideoUploading(false)
+    }
   }
 
   async function handleUpload() {
@@ -255,10 +321,13 @@ export default function AdminGalleryPage() {
 
   // Filtered items
   const filteredItems = items.filter((item) => {
+    if (item.type !== "PHOTO") return false
     if (filterCategory && item.category !== filterCategory) return false
     if (filterAlbum && item.albumId !== filterAlbum) return false
     return true
   })
+
+  const videoItems = items.filter((item) => item.type === "VIDEO")
 
   if (loading) {
     return (
@@ -287,6 +356,9 @@ export default function AdminGalleryPage() {
           >
             <FolderPlus className="w-4 h-4" /> New Album
           </Button>
+          <Button variant="outline" onClick={() => { resetVideoForm(); setShowVideoUploadForm(true) }}>
+            <Video className="w-4 h-4" /> Upload Video
+          </Button>
           <Button variant="gold" onClick={() => { resetUploadForm(); setShowUploadForm(true) }}>
             <Upload className="w-4 h-4" /> Upload Photos
           </Button>
@@ -304,7 +376,18 @@ export default function AdminGalleryPage() {
           }`}
         >
           <ImageIcon className="w-4 h-4 inline mr-1.5" />
-          Photos ({items.length})
+          Photos ({items.filter((i) => i.type === "PHOTO").length})
+        </button>
+        <button
+          onClick={() => setActiveTab("videos")}
+          className={`px-4 py-2 rounded-md text-sm font-semibold transition-all ${
+            activeTab === "videos"
+              ? "bg-white text-[#1a3c6e] shadow-sm"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          <Video className="w-4 h-4 inline mr-1.5" />
+          Videos ({items.filter((i) => i.type === "VIDEO").length})
         </button>
         <button
           onClick={() => setActiveTab("albums")}
@@ -476,6 +559,81 @@ export default function AdminGalleryPage() {
         </Card>
       )}
 
+      {/* Video Upload Form */}
+      {showVideoUploadForm && (
+        <Card className="border-[#c8a951]/30 bg-[#fffdf5]">
+          <CardContent className="p-6">
+            <h3 className="font-bold text-[#1a3c6e] mb-4 flex items-center gap-2">
+              <Video className="w-4 h-4" /> Upload Video
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2">
+                <Label>Select Video *</Label>
+                <input
+                  ref={videoInputRef}
+                  type="file"
+                  accept="video/mp4,video/webm,video/quicktime,video/x-msvideo"
+                  onChange={(e) => setSelectedVideo(e.target.files?.[0] || null)}
+                  className="mt-1 w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#1a3c6e] file:text-white hover:file:bg-[#0d1f3c] file:cursor-pointer"
+                />
+                {selectedVideo && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    {selectedVideo.name} ({(selectedVideo.size / (1024 * 1024)).toFixed(1)} MB)
+                  </p>
+                )}
+                <p className="text-xs text-gray-400 mt-1">Max 100MB. Supported: MP4, WebM, MOV, AVI</p>
+              </div>
+              <div>
+                <Label>Title</Label>
+                <Input
+                  value={videoTitle}
+                  onChange={(e) => setVideoTitle(e.target.value)}
+                  placeholder="e.g. Annual Day Highlights"
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label>Category *</Label>
+                <select
+                  value={videoCategory}
+                  onChange={(e) => setVideoCategory(e.target.value)}
+                  className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1a3c6e]"
+                >
+                  {CATEGORIES.map((c) => (
+                    <option key={c.value} value={c.value}>{c.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="sm:col-span-2">
+                <Label>Description (optional)</Label>
+                <Textarea
+                  value={videoDesc}
+                  onChange={(e) => setVideoDesc(e.target.value)}
+                  placeholder="Brief description..."
+                  className="mt-1"
+                  rows={2}
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-5">
+              <Button
+                onClick={handleVideoUpload}
+                disabled={!selectedVideo || videoUploading}
+              >
+                {videoUploading ? (
+                  <><Loader2 className="w-4 h-4 animate-spin" /> Uploading...</>
+                ) : (
+                  <><Save className="w-4 h-4" /> Upload Video</>
+                )}
+              </Button>
+              <Button variant="ghost" onClick={resetVideoForm}>
+                <X className="w-4 h-4" /> Cancel
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Photos Tab */}
       {activeTab === "photos" && (
         <>
@@ -550,6 +708,64 @@ export default function AdminGalleryPage() {
                     <p className="text-[10px] text-gray-400 mt-0.5">
                       {CATEGORIES.find((c) => c.value === item.category)?.label}
                       {item.album && ` • ${item.album.title}`}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Videos Tab */}
+      {activeTab === "videos" && (
+        <>
+          {videoItems.length === 0 ? (
+            <div className="text-center py-16 text-gray-400">
+              <Video className="w-12 h-12 mx-auto mb-3 opacity-30" />
+              <p>No videos yet. Click &quot;Upload Video&quot; to get started.</p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {videoItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="group relative rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-all bg-white"
+                >
+                  <div className="aspect-video relative bg-gray-900">
+                    <video
+                      src={item.mediaUrl}
+                      className="w-full h-full object-cover"
+                      muted
+                      preload="metadata"
+                    />
+                    {item.status === "DRAFT" && (
+                      <Badge className="absolute top-2 left-2 text-[10px]" variant="secondary">
+                        Draft
+                      </Badge>
+                    )}
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => handleToggleStatus(item)}
+                        className="p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
+                        title={item.status === "PUBLISHED" ? "Unpublish" : "Publish"}
+                      >
+                        {item.status === "PUBLISHED" ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                      <button
+                        onClick={() => handleDeleteItem(item.id)}
+                        className="p-2 rounded-lg bg-white/20 hover:bg-red-500/80 text-white transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <p className="text-sm font-semibold text-gray-800 truncate">{item.title}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      {CATEGORIES.find((c) => c.value === item.category)?.label}
                     </p>
                   </div>
                 </div>

@@ -20,20 +20,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Validate file type (images only)
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    // Validate file type (images and videos)
+    const allowedImageTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    const allowedVideoTypes = ["video/mp4", "video/webm", "video/quicktime", "video/x-msvideo"];
+    const allowedTypes = [...allowedImageTypes, ...allowedVideoTypes];
+    const isVideo = allowedVideoTypes.includes(file.type);
+
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: "Invalid file type. Only JPEG, PNG, WebP and GIF are allowed." },
+        { error: "Invalid file type. Allowed: JPEG, PNG, WebP, GIF, MP4, WebM, MOV, AVI." },
         { status: 400 }
       );
     }
 
-    // Validate file size (max 5MB)
-    const maxSize = 5 * 1024 * 1024;
+    // Validate file size (max 5MB for images, max 100MB for videos)
+    const maxSize = isVideo ? 100 * 1024 * 1024 : 5 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: "File too large. Maximum size is 5MB." },
+        { error: isVideo ? "File too large. Maximum video size is 100MB." : "File too large. Maximum size is 5MB." },
         { status: 400 }
       );
     }
@@ -41,7 +45,7 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const result = await uploadToCloudinary(buffer, {
       folder,
-      resourceType: "image",
+      resourceType: isVideo ? "video" : "image",
     });
 
     return NextResponse.json({
@@ -49,6 +53,7 @@ export async function POST(request: Request) {
       publicId: result.public_id,
       width: result.width,
       height: result.height,
+      resourceType: isVideo ? "video" : "image",
     });
   } catch (error: unknown) {
     console.error("Upload error:", error);

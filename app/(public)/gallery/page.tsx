@@ -14,41 +14,44 @@ const CATEGORIES = [
   { value: "GENERAL", label: "General" },
 ]
 
-interface GalleryPhoto {
+interface GalleryItem {
   id: string
   title: string
   description: string | null
   mediaUrl: string
   thumbnailUrl: string | null
   category: string
+  type: "PHOTO" | "VIDEO"
 }
 
 export default function GalleryPage() {
-  const [photos, setPhotos] = useState<GalleryPhoto[]>([])
+  const [photos, setPhotos] = useState<GalleryItem[]>([])
+  const [videos, setVideos] = useState<GalleryItem[]>([])
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState("ALL")
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [videoLightbox, setVideoLightbox] = useState<GalleryItem | null>(null)
 
   const isOpen = lightboxIndex !== null
 
   useEffect(() => {
-    async function fetchPhotos() {
+    async function fetchGallery() {
       setLoading(true)
       try {
-        const url = activeCategory === "ALL"
-          ? "/api/gallery"
-          : `/api/gallery?category=${activeCategory}`
-        const res = await fetch(url)
-        if (res.ok) {
-          setPhotos(await res.json())
-        }
+        const categoryParam = activeCategory === "ALL" ? "" : `&category=${activeCategory}`
+        const [photosRes, videosRes] = await Promise.all([
+          fetch(`/api/gallery?type=PHOTO${categoryParam}`),
+          fetch(`/api/gallery?type=VIDEO${categoryParam}`),
+        ])
+        if (photosRes.ok) setPhotos(await photosRes.json())
+        if (videosRes.ok) setVideos(await videosRes.json())
       } catch {
         console.error("Failed to fetch gallery")
       } finally {
         setLoading(false)
       }
     }
-    fetchPhotos()
+    fetchGallery()
   }, [activeCategory])
 
   const close = useCallback(() => setLightboxIndex(null), [])
@@ -61,25 +64,25 @@ export default function GalleryPage() {
 
   // Keyboard navigation
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen && !videoLightbox) return
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") close()
-      if (e.key === "ArrowLeft") prev()
-      if (e.key === "ArrowRight") next()
+      if (e.key === "Escape") { close(); setVideoLightbox(null) }
+      if (isOpen && e.key === "ArrowLeft") prev()
+      if (isOpen && e.key === "ArrowRight") next()
     }
     document.addEventListener("keydown", handleKey)
     return () => document.removeEventListener("keydown", handleKey)
-  }, [isOpen, close, prev, next])
+  }, [isOpen, videoLightbox, close, prev, next])
 
   // Prevent body scroll when lightbox is open
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen || videoLightbox) {
       document.body.style.overflow = "hidden"
     } else {
       document.body.style.overflow = ""
     }
     return () => { document.body.style.overflow = "" }
-  }, [isOpen])
+  }, [isOpen, videoLightbox])
 
   const currentPhoto = lightboxIndex !== null ? photos[lightboxIndex] : null
 
@@ -182,38 +185,47 @@ export default function GalleryPage() {
           )}
 
           {/* Video Section */}
-          <div className="mt-16">
-            <h3 className="text-2xl font-black text-[#138808] mb-6 flex items-center gap-3">
-              <Video className="w-6 h-6 text-[#FF9933]" /> Video Gallery
-            </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { title: "Campus Tour", desc: "A walkthrough of our facilities" },
-                { title: "Annual Day Highlights", desc: "Best moments from Annual Day" },
-                { title: "Student Activities", desc: "Learning beyond the classroom" },
-              ].map((vid, i) => (
-                <div key={i} className="group relative overflow-hidden rounded-2xl aspect-video bg-gradient-to-br from-gray-800 to-gray-900 cursor-pointer hover:shadow-xl transition-all">
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                    <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-[#FF9933]/80 transition-all">
-                      <Play className="w-6 h-6 ml-0.5" />
+          {videos.length > 0 && (
+            <div className="mt-16">
+              <h3 className="text-2xl font-black text-[#138808] mb-6 flex items-center gap-3">
+                <Video className="w-6 h-6 text-[#FF9933]" /> Video Gallery
+              </h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {videos.map((vid) => (
+                  <div
+                    key={vid.id}
+                    onClick={() => setVideoLightbox(vid)}
+                    className="group relative overflow-hidden rounded-2xl aspect-video bg-gray-900 cursor-pointer hover:shadow-xl transition-all"
+                  >
+                    <video
+                      src={vid.mediaUrl}
+                      className="w-full h-full object-cover opacity-70"
+                      muted
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                      <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-[#FF9933]/80 transition-all">
+                        <Play className="w-6 h-6 ml-0.5" />
+                      </div>
+                      <p className="text-sm font-bold">{vid.title}</p>
+                      {vid.description && (
+                        <p className="text-xs text-white/60 mt-1">{vid.description}</p>
+                      )}
                     </div>
-                    <p className="text-sm font-bold">{vid.title}</p>
-                    <p className="text-xs text-white/60 mt-1">{vid.desc}</p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Photo Lightbox */}
       {isOpen && currentPhoto && (
         <div
           className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
           onClick={close}
         >
-          {/* Close button */}
           <button
             onClick={close}
             className="absolute top-4 right-4 z-10 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -221,8 +233,6 @@ export default function GalleryPage() {
           >
             <X className="w-6 h-6" />
           </button>
-
-          {/* Previous button */}
           <button
             onClick={(e) => { e.stopPropagation(); prev() }}
             className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -230,8 +240,6 @@ export default function GalleryPage() {
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
-
-          {/* Next button */}
           <button
             onClick={(e) => { e.stopPropagation(); next() }}
             className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -239,8 +247,6 @@ export default function GalleryPage() {
           >
             <ChevronRight className="w-6 h-6" />
           </button>
-
-          {/* Image */}
           <div
             className="max-w-[90vw] max-h-[85vh] flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
@@ -258,6 +264,39 @@ export default function GalleryPage() {
               <p className="text-white/40 text-xs mt-2">
                 {lightboxIndex! + 1} / {photos.length}
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Video Lightbox */}
+      {videoLightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
+          onClick={() => setVideoLightbox(null)}
+        >
+          <button
+            onClick={() => setVideoLightbox(null)}
+            className="absolute top-4 right-4 z-10 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Close video"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div
+            className="max-w-[90vw] max-h-[85vh] flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              src={videoLightbox.mediaUrl}
+              controls
+              autoPlay
+              className="max-w-full max-h-[75vh] rounded-lg shadow-2xl"
+            />
+            <div className="mt-4 text-center">
+              <p className="text-white text-lg font-semibold">{videoLightbox.title}</p>
+              {videoLightbox.description && (
+                <p className="text-white/60 text-sm mt-1">{videoLightbox.description}</p>
+              )}
             </div>
           </div>
         </div>
