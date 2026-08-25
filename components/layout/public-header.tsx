@@ -206,7 +206,7 @@ export function PublicHeader() {
                   <Button variant="outline" size="sm">Admin Panel</Button>
                 </a>
               ) : (
-                <a href="/login">
+                <a href="/admin/login">
                   <Button variant="outline" size="sm">Executive Login</Button>
                 </a>
               )}
