@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useSession } from "next-auth/react"
 import {
   Menu, X, ChevronDown, Phone, Mail, Facebook, Instagram,
   GraduationCap, BookOpen, Users, Building2, Info,
@@ -65,6 +66,7 @@ export function PublicHeader() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const pathname = usePathname()
+  const { data: session } = useSession()
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20)
@@ -194,9 +196,15 @@ export function PublicHeader() {
 
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-2">
-              <Link href="/admin/login">
-                <Button variant="outline" size="sm">Executive Login</Button>
-              </Link>
+              {session ? (
+                <Link href="/admin/dashboard">
+                  <Button variant="outline" size="sm">Admin Panel</Button>
+                </Link>
+              ) : (
+                <Link href="/admin/login">
+                  <Button variant="outline" size="sm">Executive Login</Button>
+                </Link>
+              )}
               <Link href="/contact">
                 <Button variant="gold" size="sm">Contact Us</Button>
               </Link>
@@ -250,9 +258,15 @@ export function PublicHeader() {
                 </div>
               ))}
               <div className="pt-4 border-t border-gray-100 mt-4 space-y-2">
-                <Link href="/admin/login" className="block">
-                  <Button variant="outline" className="w-full">Executive Login</Button>
-                </Link>
+                {session ? (
+                  <Link href="/admin/dashboard" className="block">
+                    <Button variant="outline" className="w-full">Admin Panel</Button>
+                  </Link>
+                ) : (
+                  <Link href="/admin/login" className="block">
+                    <Button variant="outline" className="w-full">Executive Login</Button>
+                  </Link>
+                )}
                 <Link href="/contact" className="block">
                   <Button variant="gold" className="w-full">Contact Us</Button>
                 </Link>
