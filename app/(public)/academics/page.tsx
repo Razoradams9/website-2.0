@@ -20,7 +20,7 @@ export default function AcademicsPage() {
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#FF9933] mb-3">
                 <span className="w-8 h-0.5 bg-[#FF9933] rounded" /> Our Curriculum
               </div>
-              <h2 className="text-3xl font-black text-[#138808] mb-6">CBSE <span className="text-[#FF9933]">Curriculum</span></h2>
+              <h2 className="text-3xl font-black text-[#1e40af] mb-6">CBSE <span className="text-[#FF9933]">Curriculum</span></h2>
               <p className="text-gray-600 leading-relaxed mb-6">
                 We follow the CBSE (Central Board of Secondary Education) curriculum using NCERT textbooks. Our teaching approach focuses on conceptual clarity, practical application, and developing a genuine interest in learning rather than rote memorization.
               </p>
@@ -45,15 +45,15 @@ export default function AcademicsPage() {
 
             {/* Classes offered */}
             <div className="space-y-4">
-              <h3 className="font-bold text-[#138808] text-lg mb-4">Classes & Subjects</h3>
+              <h3 className="font-bold text-[#1e40af] text-lg mb-4">Classes & Subjects</h3>
               {[
                 { level: "Pre-Primary (Nursery, LKG, UKG)", subjects: "English, Hindi, Mathematics, Drawing, Rhymes, GK, Storytelling, Physical Activities", approach: "Play-based learning with activity worksheets" },
                 { level: "Primary (Class I – V)", subjects: "English, Hindi, Mathematics, EVS/Science, Social Studies, Computer, Art, Music, Physical Education", approach: "Concept-based teaching with regular practice" },
                 { level: "Middle School (Class VI – VIII)", subjects: "English, Hindi, Mathematics, Science, Social Science, Sanskrit/Computer, Art, PE", approach: "Subject-specialist teachers, project work, lab practicals" },
                 { level: "Secondary (Class IX – X)", subjects: "English, Hindi, Mathematics, Science (Physics, Chemistry, Biology), Social Science, Computer/IT", approach: "Board-oriented preparation with regular mock tests" },
               ].map((item) => (
-                <div key={item.level} className="bg-[#f0fdf4] rounded-xl p-5 border border-[#138808]/10 hover:shadow-md transition-shadow">
-                  <h4 className="font-bold text-[#138808] mb-1 text-sm">{item.level}</h4>
+                <div key={item.level} className="bg-[#eff6ff] rounded-xl p-5 border border-[#1e40af]/10 hover:shadow-md transition-shadow">
+                  <h4 className="font-bold text-[#1e40af] mb-1 text-sm">{item.level}</h4>
                   <p className="text-xs text-gray-600 mb-2">{item.subjects}</p>
                   <p className="text-xs text-[#FF9933] font-semibold">{item.approach}</p>
                 </div>
@@ -64,10 +64,10 @@ export default function AcademicsPage() {
       </section>
 
       {/* Teaching Methodology */}
-      <section className="py-20 bg-[#f7fdf9]">
+      <section className="py-20 bg-[#f5f9ff]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-black text-[#138808]">Our Teaching <span className="text-[#FF9933]">Approach</span></h2>
+            <h2 className="text-3xl font-black text-[#1e40af]">Our Teaching <span className="text-[#FF9933]">Approach</span></h2>
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">We don't just teach — we make sure every child truly understands and enjoys learning.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -85,7 +85,7 @@ export default function AcademicsPage() {
                   <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4`}>
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold text-[#138808] text-base mb-2">{item.title}</h3>
+                  <h3 className="font-bold text-[#1e40af] text-base mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
               )
@@ -98,7 +98,7 @@ export default function AcademicsPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black text-[#138808]">Beyond <span className="text-[#FF9933]">Textbooks</span></h2>
+            <h2 className="text-3xl font-black text-[#1e40af]">Beyond <span className="text-[#FF9933]">Textbooks</span></h2>
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">Education is more than exams. Here's what else our students experience every week.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -110,11 +110,11 @@ export default function AcademicsPage() {
             ].map((item) => {
               const Icon = item.icon
               return (
-                <div key={item.title} className="bg-[#f0fdf4] rounded-2xl p-5 border border-[#138808]/10 text-center hover:shadow-md transition-shadow">
-                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#138808]/10 flex items-center justify-center mb-3">
-                    <Icon className="w-6 h-6 text-[#138808]" />
+                <div key={item.title} className="bg-[#eff6ff] rounded-2xl p-5 border border-[#1e40af]/10 text-center hover:shadow-md transition-shadow">
+                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#1e40af]/10 flex items-center justify-center mb-3">
+                    <Icon className="w-6 h-6 text-[#1e40af]" />
                   </div>
-                  <h4 className="font-bold text-[#138808] text-sm mb-1">{item.title}</h4>
+                  <h4 className="font-bold text-[#1e40af] text-sm mb-1">{item.title}</h4>
                   <p className="text-xs text-gray-600">{item.desc}</p>
                 </div>
               )
@@ -124,7 +124,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Co-curricular & Activities */}
-      <section className="py-20 bg-gradient-to-br from-[#138808] to-[#0a4d0a] text-white">
+      <section className="py-20 bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black">Co-Curricular <span className="text-[#FF9933]">Activities</span></h2>
@@ -159,7 +159,7 @@ export default function AcademicsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-black text-[#138808]">Assessment <span className="text-[#FF9933]">Pattern</span></h2>
+              <h2 className="text-3xl font-black text-[#1e40af]">Assessment <span className="text-[#FF9933]">Pattern</span></h2>
               <p className="text-gray-600 mt-3">We follow a continuous evaluation approach as per CBSE guidelines.</p>
             </div>
 
@@ -176,16 +176,16 @@ export default function AcademicsPage() {
                     <span className="text-[10px] font-bold text-[#FF9933] bg-[#FF9933]/10 px-2 py-1 rounded">{item.freq}</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#138808] text-sm">{item.title}</h4>
+                    <h4 className="font-bold text-[#1e40af] text-sm">{item.title}</h4>
                     <p className="text-xs text-gray-600 mt-1 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8 bg-[#f0fdf4] rounded-xl p-5 border border-[#138808]/10 text-center">
+            <div className="mt-8 bg-[#eff6ff] rounded-xl p-5 border border-[#1e40af]/10 text-center">
               <p className="text-sm text-gray-600">
-                <strong className="text-[#138808]">Note:</strong> We believe in continuous improvement, not pressure. Every child is encouraged to do their personal best. Report cards reflect effort, behaviour, and participation alongside marks.
+                <strong className="text-[#1e40af]">Note:</strong> We believe in continuous improvement, not pressure. Every child is encouraged to do their personal best. Report cards reflect effort, behaviour, and participation alongside marks.
               </p>
             </div>
           </div>

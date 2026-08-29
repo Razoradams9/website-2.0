@@ -21,7 +21,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     return (
       <div className="flex items-center justify-center h-screen bg-[#f8f9fb]">
         <div className="text-center">
-          <div className="w-8 h-8 border-3 border-[#138808] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-8 h-8 border-3 border-[#1e40af] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-sm text-gray-500">Loading...</p>
         </div>
       </div>

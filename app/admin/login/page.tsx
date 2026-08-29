@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
         style={{ backgroundImage: "url('/images/campus-hero.jpg')" }}
       />
       {/* Dark green overlay so the login card and white text stay readable */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a4d0a]/85 via-[#063d06]/80 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/85 via-[#172554]/80 to-black/80" />
       {/* Subtle dot pattern on top of the overlay */}
       <div className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "20px 20px" }}
@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
         {/* Login Card */}
         <div className="bg-white rounded-2xl p-8 shadow-2xl">
           <div className="mb-6">
-            <h2 className="text-xl font-black text-[#138808]">Admin Login</h2>
+            <h2 className="text-xl font-black text-[#1e40af]">Admin Login</h2>
             <p className="text-sm text-gray-500 mt-1">Sign in to manage school content</p>
           </div>
 

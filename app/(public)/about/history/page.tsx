@@ -17,12 +17,12 @@ export default function HistoryPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-14">
-              <h2 className="text-3xl font-black text-[#138808] mb-4">How It <span className="text-[#FF9933]">Began</span></h2>
+              <h2 className="text-3xl font-black text-[#1e40af] mb-4">How It <span className="text-[#FF9933]">Began</span></h2>
             </div>
 
             <div className="space-y-6 text-gray-600 leading-relaxed">
               <p>
-                Guru Gorakshnath Gyanasthali was established in <strong className="text-[#138808]">2024</strong> in Domariaganj, Siddharthnagar, Uttar Pradesh. The school is named in honor of <strong className="text-[#138808]">Guru Gorakshnath</strong>, the revered saint and yogi who symbolizes discipline, knowledge, and selfless service — values that form the foundation of our educational philosophy.
+                Guru Gorakshnath Gyanasthali was established in <strong className="text-[#1e40af]">2024</strong> in Domariaganj, Siddharthnagar, Uttar Pradesh. The school is named in honor of <strong className="text-[#1e40af]">Guru Gorakshnath</strong>, the revered saint and yogi who symbolizes discipline, knowledge, and selfless service — values that form the foundation of our educational philosophy.
               </p>
               <p>
                 The idea for this school grew from a simple observation: families in our community deserve access to quality CBSE education without having to send their children far from home. We set out to create an institution that combines the academic standards of top schools with the warmth and personal attention of a community-driven initiative.
@@ -42,9 +42,9 @@ export default function HistoryPage() {
                 { label: "CBSE Affiliation", value: "Granted", desc: "Affiliation No: 2134601" },
                 { label: "First Batch", value: "120+", desc: "Students enrolled in Year 1" },
               ].map((m) => (
-                <div key={m.label} className="bg-[#f0fdf4] rounded-xl p-5 text-center border border-[#138808]/10">
+                <div key={m.label} className="bg-[#eff6ff] rounded-xl p-5 text-center border border-[#1e40af]/10">
                   <p className="text-2xl font-black text-[#FF9933]">{m.value}</p>
-                  <p className="font-bold text-[#138808] text-sm mt-1">{m.label}</p>
+                  <p className="font-bold text-[#1e40af] text-sm mt-1">{m.label}</p>
                   <p className="text-xs text-gray-500 mt-0.5">{m.desc}</p>
                 </div>
               ))}
@@ -54,7 +54,7 @@ export default function HistoryPage() {
       </section>
 
       {/* Vision */}
-      <section className="py-20 bg-gradient-to-br from-[#138808] to-[#0a4d0a] text-white">
+      <section className="py-20 bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-black mb-6">Our <span className="text-[#FF9933]">Vision</span></h2>
@@ -81,12 +81,12 @@ export default function HistoryPage() {
       </section>
 
       {/* Name Significance */}
-      <section className="py-20 bg-[#f7fdf9]">
+      <section className="py-20 bg-[#f5f9ff]">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl font-black text-[#138808] mb-6">Why <span className="text-[#FF9933]">"Guru Gorakshnath Gyanasthali"</span>?</h2>
+            <h2 className="text-2xl font-black text-[#1e40af] mb-6">Why <span className="text-[#FF9933]">"Guru Gorakshnath Gyanasthali"</span>?</h2>
             <p className="text-gray-600 leading-relaxed">
-              <strong className="text-[#138808]">Guru Gorakshnath</strong> was a legendary saint, philosopher, and yogi deeply associated with Gorakhpur. He stood for discipline, knowledge, and selfless service. <strong className="text-[#138808]">"Gyanasthali"</strong> means "a place of knowledge." Together, our name reflects our aspiration — to be a sacred place of learning inspired by the timeless wisdom of Guru Gorakshnath.
+              <strong className="text-[#1e40af]">Guru Gorakshnath</strong> was a legendary saint, philosopher, and yogi deeply associated with Gorakhpur. He stood for discipline, knowledge, and selfless service. <strong className="text-[#1e40af]">"Gyanasthali"</strong> means "a place of knowledge." Together, our name reflects our aspiration — to be a sacred place of learning inspired by the timeless wisdom of Guru Gorakshnath.
             </p>
           </div>
         </div>

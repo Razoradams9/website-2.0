@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils"
 // ─── Principal Message ───────────────────────────────────────────────
 export function PrincipalMessage() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white/40">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -22,15 +22,15 @@ export function PrincipalMessage() {
               titleAccent="Inspiration"
               description="At Guru Gorakshnath Gyanasthali, we believe every child carries a spark of greatness. Our role is to nurture it with care, discipline, and knowledge."
             />
-            <div className="relative bg-[#f0fdf4] rounded-2xl p-8">
-              <Quote className="absolute top-4 left-4 w-10 h-10 text-[#138808]/10" />
+            <div className="relative bg-[#eff6ff] rounded-2xl p-8">
+              <Quote className="absolute top-4 left-4 w-10 h-10 text-[#1e40af]/10" />
               <blockquote className="text-gray-700 leading-relaxed text-base italic relative z-10">
                 "Education is not just about books and exams — it is about building character, fostering curiosity, and preparing children for life. At our school, we are committed to creating a warm, safe, and stimulating environment where every student feels valued, supported, and inspired to do their best."
               </blockquote>
-              <div className="flex items-center gap-4 mt-6 pt-6 border-t border-[#138808]/10">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center text-white font-black text-xl">P</div>
+              <div className="flex items-center gap-4 mt-6 pt-6 border-t border-[#1e40af]/10">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] flex items-center justify-center text-white font-black text-xl">P</div>
                 <div>
-                  <p className="font-bold text-[#138808]">The Principal</p>
+                  <p className="font-bold text-[#1e40af]">The Principal</p>
                   <p className="text-sm text-gray-500">Guru Gorakshnath Gyanasthali</p>
                 </div>
               </div>
@@ -46,10 +46,10 @@ export function PrincipalMessage() {
               const Icon = item.icon
               return (
                 <div key={item.label} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow text-center">
-                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#138808]/10 flex items-center justify-center mb-3">
-                    <Icon className="w-6 h-6 text-[#138808]" />
+                  <div className="w-12 h-12 mx-auto rounded-xl bg-[#1e40af]/10 flex items-center justify-center mb-3">
+                    <Icon className="w-6 h-6 text-[#1e40af]" />
                   </div>
-                  <p className="text-2xl font-black text-[#138808]">{item.value}</p>
+                  <p className="text-2xl font-black text-[#1e40af]">{item.value}</p>
                   <p className="text-xs text-[#FF9933] font-semibold">{item.sub}</p>
                   <p className="text-xs text-gray-500 mt-1">{item.label}</p>
                 </div>
@@ -104,7 +104,7 @@ export function WhyChooseUs() {
   ]
 
   return (
-    <section className="py-20 bg-[#f7fdf9]">
+    <section className="py-20 bg-[#f5f9ff]/40">
       <div className="container mx-auto px-4">
         <SectionHeading
           label="Why Choose Us"
@@ -121,7 +121,7 @@ export function WhyChooseUs() {
                 <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center mb-4", f.color)}>
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-[#138808] text-lg mb-2 group-hover:text-[#FF9933] transition-colors">{f.title}</h3>
+                <h3 className="font-bold text-[#1e40af] text-lg mb-2 group-hover:text-[#FF9933] transition-colors">{f.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{f.description}</p>
               </div>
             )
@@ -143,7 +143,7 @@ export function AcademicPrograms() {
   ]
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white/40">
       <div className="container mx-auto px-4">
         <SectionHeading
           label="Academic Programs"
@@ -187,7 +187,7 @@ export function Facilities() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#138808] to-[#0a4d0a] text-white relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-5"
         style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "30px 30px" }}
       />
@@ -238,7 +238,7 @@ interface EventItem {
 
 export function NewsEventsPreview({ news, events }: { news: NewsItem[]; events: EventItem[] }) {
   return (
-    <section className="py-20 bg-[#f7fdf9]">
+    <section className="py-20 bg-[#f5f9ff]/40">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-14">
           {/* News */}
@@ -259,7 +259,7 @@ export function NewsEventsPreview({ news, events }: { news: NewsItem[]; events: 
               ) : (
                 news.slice(0, 3).map((item) => (
                   <div key={item.id} className="flex gap-4 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all group">
-                    <div className="w-20 h-20 rounded-xl bg-[#f0fdf4] flex-shrink-0 overflow-hidden">
+                    <div className="w-20 h-20 rounded-xl bg-[#eff6ff] flex-shrink-0 overflow-hidden">
                       {item.featuredImage ? (
                         <img src={item.featuredImage} alt={item.title} className="w-full h-full object-cover" />
                       ) : (
@@ -267,7 +267,7 @@ export function NewsEventsPreview({ news, events }: { news: NewsItem[]; events: 
                       )}
                     </div>
                     <div>
-                      <p className="font-bold text-[#138808] text-sm group-hover:text-[#FF9933] transition-colors line-clamp-2">{item.title}</p>
+                      <p className="font-bold text-[#1e40af] text-sm group-hover:text-[#FF9933] transition-colors line-clamp-2">{item.title}</p>
                       {item.excerpt && <p className="text-xs text-gray-500 mt-1 line-clamp-2">{item.excerpt}</p>}
                       <p className="text-xs text-gray-400 mt-2">{item.publishedAt ? new Date(item.publishedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : ""}</p>
                     </div>
@@ -291,13 +291,13 @@ export function NewsEventsPreview({ news, events }: { news: NewsItem[]; events: 
                   const d = new Date(event.startDate)
                   return (
                     <div key={event.id} className="flex gap-4 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="flex-shrink-0 w-14 text-center bg-[#138808] rounded-xl px-2 py-3">
+                      <div className="flex-shrink-0 w-14 text-center bg-[#1e40af] rounded-xl px-2 py-3">
                         <p className="text-[#FF9933] font-black text-xl leading-none">{d.getDate()}</p>
                         <p className="text-white/70 text-xs mt-0.5">{d.toLocaleString("en", { month: "short" })}</p>
                         <p className="text-white/50 text-xs">{d.getFullYear()}</p>
                       </div>
                       <div className="flex-1">
-                        <p className="font-bold text-[#138808] text-sm">{event.title}</p>
+                        <p className="font-bold text-[#1e40af] text-sm">{event.title}</p>
                         {event.venue && <p className="text-xs text-gray-500 mt-0.5">📍 {event.venue}</p>}
                         {event.shortDesc && <p className="text-xs text-gray-400 mt-1 line-clamp-1">{event.shortDesc}</p>}
                       </div>
@@ -332,7 +332,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   const data = items.length ? items : fallback
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white/40">
       <div className="container mx-auto px-4">
         <SectionHeading
           label="Testimonials"
@@ -343,8 +343,8 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {data.map((t) => (
-            <div key={t.id} className="bg-[#f7fdf9] rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow relative">
-              <Quote className="absolute top-5 right-5 w-8 h-8 text-[#138808]/10" />
+            <div key={t.id} className="bg-[#f5f9ff] rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-shadow relative">
+              <Quote className="absolute top-5 right-5 w-8 h-8 text-[#1e40af]/10" />
               <div className="flex gap-0.5 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className={cn("w-4 h-4", i < t.rating ? "text-[#FF9933] fill-[#FF9933]" : "text-gray-300")} />
@@ -352,11 +352,11 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
               </div>
               <p className="text-gray-700 text-sm leading-relaxed mb-6 italic">"{t.content}"</p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                   {t.name.charAt(0)}
                 </div>
                 <div>
-                  <p className="font-bold text-[#138808] text-sm">{t.name}</p>
+                  <p className="font-bold text-[#1e40af] text-sm">{t.name}</p>
                   <p className="text-xs text-gray-500">{t.role}</p>
                 </div>
               </div>
@@ -377,24 +377,24 @@ export function CTABanner() {
       />
       <div className="container mx-auto px-4 relative">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-black text-[#138808] mb-4">Want to Know More About Our School?</h2>
-          <p className="text-[#138808]/80 text-base mb-8">We'd love to show you what makes Guru Gorakshnath Gyanasthali a special place for your child. Reach out anytime.</p>
+          <h2 className="text-3xl sm:text-4xl font-black text-[#1e40af] mb-4">Want to Know More About Our School?</h2>
+          <p className="text-[#1e40af]/80 text-base mb-8">We'd love to show you what makes Guru Gorakshnath Gyanasthali a special place for your child. Reach out anytime.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">
-              <Button variant="default" size="lg" className="bg-[#138808] text-white hover:bg-[#0a4d0a] shadow-lg">
+              <Button variant="default" size="lg" className="bg-[#1e40af] text-white hover:bg-[#1e3a8a] shadow-lg">
                 Get in Touch <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
             <Link href="/about">
-              <Button variant="outline" size="lg" className="border-2 border-[#138808] text-[#138808] hover:bg-[#138808] hover:text-white">
+              <Button variant="outline" size="lg" className="border-2 border-[#1e40af] text-[#1e40af] hover:bg-[#1e40af] hover:text-white">
                 Learn About Us
               </Button>
             </Link>
           </div>
-          <div className="flex items-center justify-center gap-6 mt-8 text-sm text-[#138808]/70 flex-wrap">
+          <div className="flex items-center justify-center gap-6 mt-8 text-sm text-[#1e40af]/70 flex-wrap">
             {["Experienced Faculty", "CBSE Affiliated", "Safe & Nurturing Campus"].map((item) => (
               <span key={item} className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-[#138808]" />
+                <CheckCircle2 className="w-4 h-4 text-[#1e40af]" />
                 {item}
               </span>
             ))}
@@ -402,7 +402,7 @@ export function CTABanner() {
 
           {/* Social Links */}
           <div className="flex items-center justify-center gap-4 mt-8">
-            <a href="https://www.facebook.com/61555972687989/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-[#138808] hover:bg-[#0a4d0a] flex items-center justify-center text-white transition-colors shadow-md" aria-label="Facebook">
+            <a href="https://www.facebook.com/61555972687989/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-[#1e40af] hover:bg-[#1e3a8a] flex items-center justify-center text-white transition-colors shadow-md" aria-label="Facebook">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
             </a>
             <a href="https://www.instagram.com/gurugorakshnathgyansthali/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] hover:opacity-90 flex items-center justify-center text-white transition-opacity shadow-md" aria-label="Instagram">

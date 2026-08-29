@@ -29,7 +29,7 @@ export default function InfrastructurePage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-black text-[#138808]">Facilities & <span className="text-[#FF9933]">Amenities</span></h2>
+            <h2 className="text-3xl font-black text-[#1e40af]">Facilities & <span className="text-[#FF9933]">Amenities</span></h2>
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">Our campus is designed to support every aspect of a child's development — academic, physical, and creative.</p>
           </div>
 
@@ -41,7 +41,7 @@ export default function InfrastructurePage() {
                   <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center mb-4", f.color)}>
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold text-[#138808] text-base mb-2 group-hover:text-[#FF9933] transition-colors">{f.title}</h3>
+                  <h3 className="font-bold text-[#1e40af] text-base mb-2 group-hover:text-[#FF9933] transition-colors">{f.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
                 </div>
               )
@@ -51,7 +51,7 @@ export default function InfrastructurePage() {
       </section>
 
       {/* Note */}
-      <section className="py-12 bg-[#f7fdf9]">
+      <section className="py-12 bg-[#f5f9ff]">
         <div className="container mx-auto px-4 text-center">
           <p className="text-gray-500 text-sm max-w-xl mx-auto">
             As a school established in 2024, we are continuously improving and expanding our facilities. Our goal is to provide the best possible learning environment for our students.

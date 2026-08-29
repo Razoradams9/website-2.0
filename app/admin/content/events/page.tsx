@@ -20,7 +20,7 @@ export default function AdminEventsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+          <h1 className="text-2xl font-black text-[#1e40af] flex items-center gap-2">
             <Calendar className="w-6 h-6 text-[#FF9933]" /> Events
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Schedule and manage school events, programs, and important dates.</p>
@@ -42,7 +42,7 @@ export default function AdminEventsPage() {
           <Card key={event.id} className="group hover:shadow-lg transition-all hover:-translate-y-0.5">
             <CardContent className="p-0">
               {/* Top Color Bar */}
-              <div className="h-2 bg-gradient-to-r from-[#138808] to-[#FF9933] rounded-t-xl" />
+              <div className="h-2 bg-gradient-to-r from-[#1e40af] to-[#FF9933] rounded-t-xl" />
               <div className="p-5">
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <Badge variant={event.status === "PUBLISHED" ? "success" : "warning"} className="text-[10px]">
@@ -51,7 +51,7 @@ export default function AdminEventsPage() {
                   {event.important && <Badge variant="gold" className="text-[10px]">Important</Badge>}
                 </div>
 
-                <h3 className="font-bold text-[#138808] text-base leading-tight mb-3">{event.title}</h3>
+                <h3 className="font-bold text-[#1e40af] text-base leading-tight mb-3">{event.title}</h3>
 
                 <div className="space-y-2 text-xs text-gray-500">
                   <div className="flex items-center gap-2">

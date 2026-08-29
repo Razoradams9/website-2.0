@@ -12,7 +12,7 @@ export default function ParentPortalPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Welcome */}
-      <div className="bg-gradient-to-r from-[#138808] to-[#0a4d0a] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF9933]/10 rounded-full blur-3xl" />
         <div className="relative">
           <h1 className="text-2xl md:text-3xl font-black">Welcome, Mr. Suresh Singh</h1>
@@ -22,22 +22,22 @@ export default function ParentPortalPage() {
 
       {/* Children Cards */}
       <div>
-        <h2 className="text-lg font-bold text-[#138808] mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-[#1e40af] mb-4 flex items-center gap-2">
           <Users className="w-5 h-5 text-[#FF9933]" /> Your Children
         </h2>
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-[#138808] flex items-center justify-center text-white font-black text-xl">R</div>
+              <div className="w-14 h-14 rounded-xl bg-[#1e40af] flex items-center justify-center text-white font-black text-xl">R</div>
               <div>
-                <p className="font-bold text-[#138808]">Rahul Singh</p>
+                <p className="font-bold text-[#1e40af]">Rahul Singh</p>
                 <p className="text-xs text-gray-500">Admission No: ADM250001</p>
                 <p className="text-xs text-gray-500">Class 9A • Roll No: 01</p>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-gray-100">
               <div className="text-center">
-                <p className="text-lg font-black text-[#138808]">94%</p>
+                <p className="text-lg font-black text-[#1e40af]">94%</p>
                 <p className="text-[10px] text-gray-500">Attendance</p>
               </div>
               <div className="text-center">
@@ -160,12 +160,12 @@ export default function ParentPortalPage() {
                 { title: "Annual Sports Day", date: "Nov 15, 2025", badge: "Sports" },
                 { title: "Annual Day Function", date: "Dec 20, 2025", badge: "Cultural" },
               ].map((e) => (
-                <div key={e.title} className="flex items-center gap-3 p-3 bg-[#f0fdf4] rounded-lg">
-                  <div className="w-10 h-10 rounded-lg bg-[#138808] flex items-center justify-center flex-shrink-0">
+                <div key={e.title} className="flex items-center gap-3 p-3 bg-[#eff6ff] rounded-lg">
+                  <div className="w-10 h-10 rounded-lg bg-[#1e40af] flex items-center justify-center flex-shrink-0">
                     <Calendar className="w-4 h-4 text-[#FF9933]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#138808] truncate">{e.title}</p>
+                    <p className="text-sm font-semibold text-[#1e40af] truncate">{e.title}</p>
                     <p className="text-xs text-gray-500">{e.date}</p>
                   </div>
                   <Badge variant="outline" className="text-[10px]">{e.badge}</Badge>

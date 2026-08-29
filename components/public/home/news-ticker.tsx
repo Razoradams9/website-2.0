@@ -11,9 +11,9 @@ export function NewsTicker({ items }: TickerProps) {
   const doubled = [...items, ...items]
 
   return (
-    <div className="bg-[#138808] text-white overflow-hidden">
+    <div className="bg-[#1e40af] text-white overflow-hidden">
       <div className="flex items-stretch">
-        <div className="flex-shrink-0 flex items-center gap-2 bg-[#FF9933] text-[#138808] px-5 py-2.5 font-bold text-sm z-10">
+        <div className="flex-shrink-0 flex items-center gap-2 bg-[#FF9933] text-[#1e40af] px-5 py-2.5 font-bold text-sm z-10">
           <Bell className="w-4 h-4 animate-pulse" />
           <span className="uppercase tracking-wider text-xs">Latest</span>
         </div>

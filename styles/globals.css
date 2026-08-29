@@ -70,20 +70,20 @@
 @layer components {
   /* School-specific utility classes */
   .school-gradient {
-    @apply bg-gradient-to-r from-[#138808] to-[#0a4d0a];
+    @apply bg-gradient-to-r from-[#1e40af] to-[#1e3a8a];
   }
   .school-gold-gradient {
     @apply bg-gradient-to-r from-[#FF9933] to-[#ffb366];
   }
   .section-heading {
-    @apply text-3xl font-bold text-[#138808] relative pb-3 mb-6;
+    @apply text-3xl font-bold text-[#1e40af] relative pb-3 mb-6;
   }
   .section-heading::after {
     content: "";
     @apply absolute bottom-0 left-0 w-16 h-1 bg-[#FF9933] rounded-full;
   }
   .section-heading-center {
-    @apply text-3xl font-bold text-[#138808] relative pb-3 mb-6 text-center;
+    @apply text-3xl font-bold text-[#1e40af] relative pb-3 mb-6 text-center;
   }
   .section-heading-center::after {
     content: "";
@@ -93,28 +93,28 @@
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
   .btn-school-primary {
-    @apply bg-[#138808] hover:bg-[#0a4d0a] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
+    @apply bg-[#1e40af] hover:bg-[#1e3a8a] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
   }
   .btn-school-gold {
     @apply bg-[#FF9933] hover:bg-[#e68a2e] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors duration-200;
   }
   .nav-link {
-    @apply text-sm font-medium text-gray-700 hover:text-[#138808] transition-colors duration-200;
+    @apply text-sm font-medium text-gray-700 hover:text-[#1e40af] transition-colors duration-200;
   }
   .admin-sidebar-link {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-[#138808] hover:text-white transition-all duration-200;
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-[#1e40af] hover:text-white transition-all duration-200;
   }
   .admin-sidebar-link.active {
-    @apply bg-[#138808] text-white;
+    @apply bg-[#1e40af] text-white;
   }
   .ticker-wrap {
-    @apply overflow-hidden whitespace-nowrap bg-[#138808] text-white py-2;
+    @apply overflow-hidden whitespace-nowrap bg-[#1e40af] text-white py-2;
   }
   .ticker-item {
     @apply inline-block animate-ticker;
   }
   .page-hero {
-    @apply relative bg-gradient-to-r from-[#138808] to-[#0a4d0a] text-white py-16 px-4;
+    @apply relative bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-white py-16 px-4;
   }
 }
 

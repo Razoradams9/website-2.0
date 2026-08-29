@@ -101,7 +101,7 @@ export default function ClassesPage() {
                 </div>
                 {/* Subjects */}
                 <div className="p-6">
-                  <h4 className="font-bold text-[#138808] text-sm mb-3 uppercase tracking-wide">Subjects Taught</h4>
+                  <h4 className="font-bold text-[#1e40af] text-sm mb-3 uppercase tracking-wide">Subjects Taught</h4>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {level.subjects.map((subject) => (
                       <div key={subject} className="flex items-start gap-2 text-sm text-gray-700">
@@ -117,9 +117,9 @@ export default function ClassesPage() {
 
           {/* Note */}
           <div className="max-w-4xl mx-auto mt-10">
-            <div className="bg-[#f0fdf4] rounded-xl p-5 border border-[#138808]/10 text-center">
+            <div className="bg-[#eff6ff] rounded-xl p-5 border border-[#1e40af]/10 text-center">
               <p className="text-sm text-gray-600">
-                <strong className="text-[#138808]">Note:</strong> Subjects and syllabus follow CBSE/NCERT guidelines and may be updated as per board instructions. The school currently offers classes from Nursery to Class VIII and will progressively add higher classes in upcoming sessions.
+                <strong className="text-[#1e40af]">Note:</strong> Subjects and syllabus follow CBSE/NCERT guidelines and may be updated as per board instructions. The school currently offers classes from Nursery to Class VIII and will progressively add higher classes in upcoming sessions.
               </p>
             </div>
           </div>

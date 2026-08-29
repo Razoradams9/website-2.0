@@ -23,7 +23,7 @@ const academicLinks = [
 
 export function PublicFooter() {
   return (
-    <footer className="bg-[#0a4d0a] text-white">
+    <footer className="bg-[#1e3a8a] text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">

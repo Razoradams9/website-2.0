@@ -92,7 +92,7 @@ export function ImageUpload({ onUploaded, className }: ImageUploadProps) {
           onClick={() => inputRef.current?.click()}
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
-          className="w-full h-40 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#138808] hover:bg-[#f0fdf4] flex flex-col items-center justify-center cursor-pointer transition-all"
+          className="w-full h-40 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#1e40af] hover:bg-[#eff6ff] flex flex-col items-center justify-center cursor-pointer transition-all"
         >
           <Upload className="w-8 h-8 text-gray-400 mb-2" />
           <p className="text-sm font-medium text-gray-600">Click to upload or drag & drop</p>

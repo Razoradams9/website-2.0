@@ -38,7 +38,7 @@ export default function AdminDashboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#138808]">Dashboard</h1>
+          <h1 className="text-2xl font-black text-[#1e40af]">Dashboard</h1>
           <p className="text-sm text-gray-500 mt-0.5">Welcome back. Here's Guru Gorakshnath Gyanasthali at a glance.</p>
         </div>
         <Badge variant="gold" className="text-xs px-3 py-1">Academic Year: 2024-25</Badge>
@@ -59,7 +59,7 @@ export default function AdminDashboardPage() {
                   {stat.trend === "up" ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                 </span>
               </div>
-              <p className="text-2xl font-black text-[#138808] leading-none">{stat.value}</p>
+              <p className="text-2xl font-black text-[#1e40af] leading-none">{stat.value}</p>
               <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
             </div>
           )
@@ -102,12 +102,12 @@ export default function AdminDashboardPage() {
           <CardContent>
             <div className="space-y-3">
               {upcomingEvents.map((event) => (
-                <div key={event.title} className="flex items-start gap-3 p-3 bg-[#f0fdf4] rounded-lg">
-                  <div className="w-10 h-10 rounded-lg bg-[#138808] flex items-center justify-center flex-shrink-0">
+                <div key={event.title} className="flex items-start gap-3 p-3 bg-[#eff6ff] rounded-lg">
+                  <div className="w-10 h-10 rounded-lg bg-[#1e40af] flex items-center justify-center flex-shrink-0">
                     <Calendar className="w-4 h-4 text-[#FF9933]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#138808] truncate">{event.title}</p>
+                    <p className="text-sm font-semibold text-[#1e40af] truncate">{event.title}</p>
                     <p className="text-xs text-gray-500">{event.date}</p>
                   </div>
                   <Badge variant="outline" className="text-[10px] flex-shrink-0">{event.badge}</Badge>

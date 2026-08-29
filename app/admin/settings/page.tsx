@@ -35,7 +35,7 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+        <h1 className="text-2xl font-black text-[#1e40af] flex items-center gap-2">
           <Settings className="w-6 h-6 text-[#FF9933]" /> Site Settings
         </h1>
         <p className="text-sm text-gray-500 mt-0.5">Manage your school website logo and branding.</p>
@@ -44,7 +44,7 @@ export default function AdminSettingsPage() {
       {/* Logo Upload */}
       <Card>
         <CardContent className="p-6">
-          <h3 className="font-bold text-[#138808] text-lg mb-4 flex items-center gap-2">
+          <h3 className="font-bold text-[#1e40af] text-lg mb-4 flex items-center gap-2">
             <Image className="w-5 h-5 text-[#FF9933]" /> School Logo
           </h3>
 
@@ -118,10 +118,10 @@ export default function AdminSettingsPage() {
       </Card>
 
       {/* Info */}
-      <Card className="bg-[#f0fdf4] border-[#138808]/10">
+      <Card className="bg-[#eff6ff] border-[#1e40af]/10">
         <CardContent className="p-4">
           <p className="text-sm text-gray-600">
-            <strong className="text-[#138808]">Note:</strong> The logo appears in the website header, footer, and admin panel. Recommended size: 200×200px or larger, PNG format with transparent background works best.
+            <strong className="text-[#1e40af]">Note:</strong> The logo appears in the website header, footer, and admin panel. Recommended size: 200×200px or larger, PNG format with transparent background works best.
           </p>
         </CardContent>
       </Card>

@@ -7,7 +7,7 @@ export const metadata = { title: "Principal's Message — Girish Nair Rishi" }
 
 export default async function PrincipalPage() {
   const data = await getAdministrationData()
-  const photoUrl = data?.principalPhotoUrl
+  const photoUrl = data?.principalPhotoUrl || "/images/principal.jpeg"
 
   return (
     <>
@@ -27,7 +27,7 @@ export default async function PrincipalPage() {
                     <img
                       src={photoUrl}
                       alt="Shri Girish Nair Rishi"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                 ) : (

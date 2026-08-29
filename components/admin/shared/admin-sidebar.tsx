@@ -66,7 +66,7 @@ export function AdminSidebar() {
           <Link href="/admin/dashboard" className="flex items-center gap-2.5">
             <img src="/images/logo.jpeg" alt="GGG" className="w-9 h-9 rounded-lg object-contain" />
             <div>
-              <p className="text-sm font-black text-[#138808] leading-tight">GGG Admin</p>
+              <p className="text-sm font-black text-[#1e40af] leading-tight">GGG Admin</p>
               <p className="text-[10px] text-gray-400">Control Panel</p>
             </div>
           </Link>
@@ -89,7 +89,7 @@ export function AdminSidebar() {
                   onClick={() => !collapsed && toggleGroup(item.label)}
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
-                    isChildActive ? "text-[#138808] bg-[#f0fdf4]" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    isChildActive ? "text-[#1e40af] bg-[#eff6ff]" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >
                   <Icon className="w-[18px] h-[18px] flex-shrink-0" />
@@ -111,7 +111,7 @@ export function AdminSidebar() {
                           href={child.href}
                           className={cn(
                             "flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all",
-                            active ? "bg-[#138808] text-white" : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
+                            active ? "bg-[#1e40af] text-white" : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
                           )}
                         >
                           <ChildIcon className="w-3.5 h-3.5" />
@@ -132,7 +132,7 @@ export function AdminSidebar() {
               href={item.href!}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
-                active ? "bg-[#138808] text-white shadow-sm" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                active ? "bg-[#1e40af] text-white shadow-sm" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               )}
             >
               <Icon className="w-[18px] h-[18px] flex-shrink-0" />

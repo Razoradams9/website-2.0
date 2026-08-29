@@ -21,14 +21,14 @@ export function AdminTopbar() {
 
       {/* Actions */}
       <div className="flex items-center gap-3 ml-auto">
-        <Link href="/" target="_blank" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#138808] transition-colors">
+        <Link href="/" target="_blank" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#1e40af] transition-colors">
           <Home className="w-3.5 h-3.5" /> View Website
         </Link>
 
         <div className="w-px h-6 bg-gray-200" />
 
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[#138808] flex items-center justify-center text-white font-bold text-xs">A</div>
+          <div className="w-8 h-8 rounded-lg bg-[#1e40af] flex items-center justify-center text-white font-bold text-xs">A</div>
           <div className="hidden md:block">
             <p className="text-xs font-semibold text-gray-800 leading-tight">Admin</p>
             <p className="text-[10px] text-gray-400">School Administrator</p>

@@ -29,7 +29,7 @@ export default function AdminNoticesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+          <h1 className="text-2xl font-black text-[#1e40af] flex items-center gap-2">
             <Bell className="w-6 h-6 text-[#FF9933]" /> Notices
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Create and manage school notices, announcements, and circulars.</p>
@@ -48,7 +48,7 @@ export default function AdminNoticesPage() {
               <Input placeholder="Search notices..." className="pl-9" />
             </div>
             <div className="flex gap-2">
-              <select className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#138808]">
+              <select className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1e40af]">
                 <option value="">All Categories</option>
                 <option value="GENERAL">General</option>
                 <option value="EXAM">Exam</option>
@@ -56,7 +56,7 @@ export default function AdminNoticesPage() {
                 <option value="HOLIDAY">Holiday</option>
                 <option value="URGENT">Urgent</option>
               </select>
-              <select className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#138808]">
+              <select className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1e40af]">
                 <option value="">All Status</option>
                 <option value="PUBLISHED">Published</option>
                 <option value="DRAFT">Draft</option>
@@ -85,7 +85,7 @@ export default function AdminNoticesPage() {
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {notices.map((notice) => (
-                  <tr key={notice.id} className="hover:bg-[#f7fdf9] transition-colors">
+                  <tr key={notice.id} className="hover:bg-[#f5f9ff] transition-colors">
                     <td className="px-5 py-4">
                       <p className="font-medium text-gray-800 truncate max-w-xs">{notice.title}</p>
                     </td>
@@ -107,7 +107,7 @@ export default function AdminNoticesPage() {
                     </td>
                     <td className="text-center px-3 py-4">
                       <div className="flex items-center justify-center gap-1.5">
-                        {notice.isPinned && <Pin className="w-3.5 h-3.5 text-[#138808]" />}
+                        {notice.isPinned && <Pin className="w-3.5 h-3.5 text-[#1e40af]" />}
                         {notice.isMarquee && <Volume2 className="w-3.5 h-3.5 text-[#FF9933]" />}
                       </div>
                     </td>
@@ -136,7 +136,7 @@ export default function AdminNoticesPage() {
           <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
             <p className="text-xs text-gray-500">Showing 1–6 of 6 notices</p>
             <div className="flex gap-1">
-              <button className="px-3 py-1.5 rounded-md text-xs font-medium bg-[#138808] text-white">1</button>
+              <button className="px-3 py-1.5 rounded-md text-xs font-medium bg-[#1e40af] text-white">1</button>
             </div>
           </div>
         </CardContent>

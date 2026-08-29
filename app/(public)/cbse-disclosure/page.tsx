@@ -130,14 +130,14 @@ function EditableRow({ row, onSave, canEdit }: { row: DisclosureRow; onSave: (de
   }
 
   return (
-    <tr className="hover:bg-[#f7fdf9] transition-colors group">
+    <tr className="hover:bg-[#f5f9ff] transition-colors group">
       <td className="px-5 py-3 text-gray-500 font-medium">{row.no}</td>
       <td className="px-5 py-3 text-gray-700 text-sm">{row.info}</td>
       <td className="px-5 py-3">
         <div className="flex items-center gap-2">
           <div className="flex-1">
             {row.fileUrl ? (
-              <a href={row.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[#138808] hover:text-[#FF9933] font-semibold text-xs transition-colors bg-[#f0fdf4] px-3 py-1.5 rounded-lg">
+              <a href={row.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[#1e40af] hover:text-[#FF9933] font-semibold text-xs transition-colors bg-[#eff6ff] px-3 py-1.5 rounded-lg">
                 <Download className="w-3.5 h-3.5" /> View / Download
               </a>
             ) : (
@@ -183,7 +183,7 @@ export default function CBSEDisclosurePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-[#138808] via-[#0a4d0a] to-[#138808] text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#1e40af] via-[#1e3a8a] to-[#1e40af] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}
         />
@@ -217,17 +217,17 @@ export default function CBSEDisclosurePage() {
 
             {sections.map((section) => (
               <div key={section.id}>
-                <h3 className="text-lg font-bold text-[#138808] mb-4 flex items-center gap-2 pb-2 border-b border-gray-200">
+                <h3 className="text-lg font-bold text-[#1e40af] mb-4 flex items-center gap-2 pb-2 border-b border-gray-200">
                   <FileText className="w-5 h-5 text-[#FF9933]" />
                   {section.label}
                 </h3>
                 <div className="overflow-hidden rounded-xl border border-gray-200">
                   <table className="w-full text-sm">
-                    <thead className="bg-[#f0fdf4]">
+                    <thead className="bg-[#eff6ff]">
                       <tr>
-                        <th className="text-left px-5 py-3 font-semibold text-[#138808] w-12">S.No.</th>
-                        <th className="text-left px-5 py-3 font-semibold text-[#138808]">Particulars</th>
-                        <th className="text-left px-5 py-3 font-semibold text-[#138808] w-72">Details / Document</th>
+                        <th className="text-left px-5 py-3 font-semibold text-[#1e40af] w-12">S.No.</th>
+                        <th className="text-left px-5 py-3 font-semibold text-[#1e40af]">Particulars</th>
+                        <th className="text-left px-5 py-3 font-semibold text-[#1e40af] w-72">Details / Document</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
@@ -246,12 +246,12 @@ export default function CBSEDisclosurePage() {
             ))}
 
             {/* Note */}
-            <div className="bg-[#f0fdf4] rounded-xl p-6 border border-[#138808]/10">
+            <div className="bg-[#eff6ff] rounded-xl p-6 border border-[#1e40af]/10">
               <p className="text-sm text-gray-600 leading-relaxed">
-                <strong className="text-[#138808]">Note:</strong> This page follows the CBSE Appendix-IX format for Mandatory Public Disclosure. For any queries, contact us at <a href="mailto:gggprincipal@gmail.com" className="text-[#FF9933] font-semibold hover:underline">gggprincipal@gmail.com</a> or call <a href="tel:9794335475" className="text-[#FF9933] font-semibold hover:underline">9794335475</a>.
+                <strong className="text-[#1e40af]">Note:</strong> This page follows the CBSE Appendix-IX format for Mandatory Public Disclosure. For any queries, contact us at <a href="mailto:gggprincipal@gmail.com" className="text-[#FF9933] font-semibold hover:underline">gggprincipal@gmail.com</a> or call <a href="tel:9794335475" className="text-[#FF9933] font-semibold hover:underline">9794335475</a>.
               </p>
               <p className="text-xs text-gray-500 mt-3">
-                Reference: <a href="https://saras.cbse.gov.in/saras/MandatoryDisclosure/Details" target="_blank" rel="noopener noreferrer" className="text-[#138808] hover:underline">CBSE SARAS Portal — Mandatory Disclosure</a>
+                Reference: <a href="https://saras.cbse.gov.in/saras/MandatoryDisclosure/Details" target="_blank" rel="noopener noreferrer" className="text-[#1e40af] hover:underline">CBSE SARAS Portal — Mandatory Disclosure</a>
               </p>
             </div>
           </div>

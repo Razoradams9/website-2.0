@@ -7,7 +7,7 @@ export const metadata = { title: "Chairman's Message" }
 
 export default async function ChairmanPage() {
   const data = await getAdministrationData()
-  const photoUrl = data?.chairmanPhotoUrl
+  const photoUrl = data?.chairmanPhotoUrl || "/images/chairman.jpeg"
 
   return (
     <>

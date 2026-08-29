@@ -27,7 +27,7 @@ export function SectionHeading({ label, title, titleAccent, description, center 
       )}
       <h2 className={cn(
         "text-3xl sm:text-4xl font-black leading-tight",
-        light ? "text-white" : "text-[#138808]"
+        light ? "text-white" : "text-[#1e40af]"
       )}>
         {title}{" "}
         {titleAccent && <span className={cn(light ? "text-[#FF9933]" : "text-[#FF9933]")}>{titleAccent}</span>}

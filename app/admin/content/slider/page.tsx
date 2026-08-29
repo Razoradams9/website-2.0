@@ -17,7 +17,7 @@ export default function AdminSliderPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+          <h1 className="text-2xl font-black text-[#1e40af] flex items-center gap-2">
             <Image className="w-6 h-6 text-[#FF9933]" /> Hero Slider
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Manage the slides shown on the homepage hero section. Drag to reorder.</p>
@@ -48,18 +48,18 @@ export default function AdminSliderPage() {
                 </div>
 
                 {/* Order */}
-                <div className="w-8 h-8 rounded-lg bg-[#138808] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#1e40af] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                   {item.order}
                 </div>
 
                 {/* Image Preview */}
-                <div className="w-32 h-20 rounded-lg bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="w-32 h-20 rounded-lg bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] flex-shrink-0 flex items-center justify-center overflow-hidden">
                   <Image className="w-8 h-8 text-[#FF9933]/30" />
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-[#138808] text-sm truncate">{item.title}</h3>
+                  <h3 className="font-bold text-[#1e40af] text-sm truncate">{item.title}</h3>
                   <p className="text-xs text-gray-500 mt-0.5 truncate">{item.subtitle}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <Badge variant={item.status === "PUBLISHED" ? "success" : "warning"} className="text-[10px]">{item.status}</Badge>
@@ -89,8 +89,8 @@ export default function AdminSliderPage() {
       </div>
 
       {/* Tips */}
-      <div className="bg-[#f0fdf4] rounded-xl p-5 border border-[#138808]/10">
-        <h4 className="font-bold text-[#138808] text-sm mb-2">Tips for effective sliders:</h4>
+      <div className="bg-[#eff6ff] rounded-xl p-5 border border-[#1e40af]/10">
+        <h4 className="font-bold text-[#1e40af] text-sm mb-2">Tips for effective sliders:</h4>
         <ul className="space-y-1.5 text-xs text-gray-600">
           <li>• Keep text concise — visitors spend 3–5 seconds per slide</li>
           <li>• Use high-contrast images with clear focal points</li>

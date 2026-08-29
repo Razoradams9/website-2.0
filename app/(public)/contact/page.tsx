@@ -16,7 +16,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-black text-[#138808]">Get In <span className="text-[#FF9933]">Touch</span></h2>
+              <h2 className="text-3xl font-black text-[#1e40af]">Get In <span className="text-[#FF9933]">Touch</span></h2>
               <p className="text-gray-600 mt-3">Feel free to contact us for any queries regarding admissions, academics, or general information.</p>
             </div>
 
@@ -27,7 +27,7 @@ export default function ContactPage() {
                   <Phone className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#138808] text-lg">Call Us</h4>
+                  <h4 className="font-bold text-[#1e40af] text-lg">Call Us</h4>
                   <p className="text-gray-600 text-base mt-0.5">9794335475</p>
                   <p className="text-xs text-gray-400 mt-1">Available during school hours</p>
                 </div>
@@ -39,7 +39,7 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#138808] text-lg">Email Us</h4>
+                  <h4 className="font-bold text-[#1e40af] text-lg">Email Us</h4>
                   <p className="text-gray-600 text-base mt-0.5">gggprincipal@gmail.com</p>
                   <p className="text-xs text-gray-400 mt-1">We usually respond within 24 hours</p>
                 </div>
@@ -63,7 +63,7 @@ export default function ContactPage() {
                   <MapPin className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#138808] text-lg">Visit Us</h4>
+                  <h4 className="font-bold text-[#1e40af] text-lg">Visit Us</h4>
                   <p className="text-gray-600 text-base mt-0.5">Deoria (Vrindavan), Domariaganj, Siddharthnagar, Uttar Pradesh</p>
                 </div>
               </div>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                   <Clock className="w-6 h-6 text-purple-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#138808] text-lg">School Hours</h4>
+                  <h4 className="font-bold text-[#1e40af] text-lg">School Hours</h4>
                   <p className="text-gray-600 text-sm mt-0.5">Monday – Saturday: 7:30 AM – 2:30 PM</p>
                   <p className="text-gray-500 text-sm">Sunday & Holidays: Closed</p>
                 </div>
@@ -94,9 +94,9 @@ export default function ContactPage() {
                 className="w-full"
                 title="School Location"
               />
-              <div className="bg-[#f0fdf4] px-5 py-3 flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#138808]" />
-                <p className="text-sm text-[#138808] font-medium">Deoria (Vrindavan), Domariaganj, Siddharthnagar, U.P.</p>
+              <div className="bg-[#eff6ff] px-5 py-3 flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#1e40af]" />
+                <p className="text-sm text-[#1e40af] font-medium">Deoria (Vrindavan), Domariaganj, Siddharthnagar, U.P.</p>
                 <a
                   href="https://share.google/CeejVfHG7kE03kE5n"
                   target="_blank"

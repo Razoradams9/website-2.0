@@ -14,7 +14,7 @@ const slides = [
     description: "A new-age school rooted in Indian values and powered by modern education. Where every child's journey towards knowledge begins with care and purpose.",
     cta: { label: "Explore School", href: "/about" },
     ctaSecondary: { label: "Contact Us", href: "/contact" },
-    gradient: "from-[#0a4d0a] via-[#138808] to-[#138808]",
+    gradient: "from-[#1e3a8a] via-[#1e40af] to-[#1e40af]",
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const slides = [
     description: "We blend the best of CBSE curriculum with value-based education, ensuring students grow academically, morally, and socially.",
     cta: { label: "Our Academics", href: "/academics" },
     ctaSecondary: { label: "Our Vision", href: "/about/history" },
-    gradient: "from-[#138808] via-[#0a4d0a] to-[#063d06]",
+    gradient: "from-[#1e40af] via-[#1e3a8a] to-[#172554]",
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const slides = [
     description: "A fresh beginning with a clear mission — to provide quality education that empowers every child to discover their potential and achieve greatness.",
     cta: { label: "About Our School", href: "/about" },
     ctaSecondary: { label: "View Gallery", href: "/gallery" },
-    gradient: "from-[#063d06] via-[#138808] to-[#0b5e0b]",
+    gradient: "from-[#172554] via-[#1e40af] to-[#1d4ed8]",
   },
 ]
 
@@ -68,11 +68,16 @@ export function HeroSlider() {
 
   return (
     <section className="relative min-h-[90vh] flex flex-col overflow-hidden">
-      {/* Background */}
-      <div className={cn("absolute inset-0 bg-gradient-to-br transition-all duration-700", slide.gradient)}>
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}
+      {/* Background — campus photo as the hero centerpiece */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/campus-hero.jpg')" }}
         />
+        {/* Dark green gradient overlay so the white text and buttons stay readable */}
+        <div className={cn("absolute inset-0 bg-gradient-to-br opacity-80 transition-all duration-700", slide.gradient)} />
+        {/* Extra bottom darkening for the stats bar contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
       </div>

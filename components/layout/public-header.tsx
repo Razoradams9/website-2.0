@@ -86,7 +86,7 @@ export function PublicHeader() {
   return (
     <>
       {/* Top Bar */}
-      <div className="hidden lg:block bg-[#0a4d0a] text-white text-xs">
+      <div className="hidden lg:block bg-[#1e3a8a] text-white text-xs">
         <div className="container mx-auto flex items-center justify-between py-2 px-4">
           <div className="flex items-center gap-6">
             <a href={`tel:${siteConfig.contact.phone}`} className="flex items-center gap-1.5 hover:text-[#FF9933] transition-colors">
@@ -126,10 +126,10 @@ export function PublicHeader() {
           <div className="flex h-16 lg:h-18 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <LogoImage className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 border-[#138808]/20 p-0.5 bg-white shadow-sm" />
+              <LogoImage className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 border-[#1e40af]/20 p-0.5 bg-white shadow-sm" />
               <div className="hidden sm:block">
-                <p className="font-black text-[#138808] text-xs lg:text-sm leading-tight tracking-tight">GURU GORAKSHNATH</p>
-                <p className="font-black text-[#138808] text-xs lg:text-sm leading-tight tracking-tight">GYANASTHALI</p>
+                <p className="font-black text-[#1e40af] text-xs lg:text-sm leading-tight tracking-tight">GURU GORAKSHNATH</p>
+                <p className="font-black text-[#1e40af] text-xs lg:text-sm leading-tight tracking-tight">GYANASTHALI</p>
                 <p className="text-[9px] lg:text-[10px] text-gray-500 leading-tight mt-0.5">Inspiring Excellence, Creating Values</p>
               </div>
             </Link>
@@ -148,8 +148,8 @@ export function PublicHeader() {
                       className={cn(
                         "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                         pathname.startsWith(item.href) && item.href !== "#"
-                          ? "text-[#138808] bg-[#f0fdf4]"
-                          : "text-gray-700 hover:text-[#138808] hover:bg-[#f0fdf4]"
+                          ? "text-[#1e40af] bg-[#eff6ff]"
+                          : "text-gray-700 hover:text-[#1e40af] hover:bg-[#eff6ff]"
                       )}
                     >
                       {item.label}
@@ -161,8 +161,8 @@ export function PublicHeader() {
                       className={cn(
                         "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                         pathname === item.href
-                          ? "text-[#138808] bg-[#f0fdf4]"
-                          : "text-gray-700 hover:text-[#138808] hover:bg-[#f0fdf4]"
+                          ? "text-[#1e40af] bg-[#eff6ff]"
+                          : "text-gray-700 hover:text-[#1e40af] hover:bg-[#eff6ff]"
                       )}
                     >
                       {item.label}
@@ -179,13 +179,13 @@ export function PublicHeader() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#f0fdf4] group transition-colors"
+                              className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#eff6ff] group transition-colors"
                             >
-                              <div className="mt-0.5 w-7 h-7 rounded-md bg-[#138808]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#138808]/20 transition-colors">
-                                <Icon className="w-3.5 h-3.5 text-[#138808]" />
+                              <div className="mt-0.5 w-7 h-7 rounded-md bg-[#1e40af]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#1e40af]/20 transition-colors">
+                                <Icon className="w-3.5 h-3.5 text-[#1e40af]" />
                               </div>
                               <div>
-                                <p className="text-sm font-semibold text-gray-800 group-hover:text-[#138808] transition-colors">{child.label}</p>
+                                <p className="text-sm font-semibold text-gray-800 group-hover:text-[#1e40af] transition-colors">{child.label}</p>
                                 {child.desc && <p className="text-xs text-gray-500 mt-0.5">{child.desc}</p>}
                               </div>
                             </Link>
@@ -235,18 +235,18 @@ export function PublicHeader() {
                     <>
                       <button
                         onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
-                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#f0fdf4] hover:text-[#138808] transition-colors"
+                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#eff6ff] hover:text-[#1e40af] transition-colors"
                       >
                         {item.label}
                         <ChevronDown className={cn("w-4 h-4 transition-transform", mobileExpanded === item.label && "rotate-180")} />
                       </button>
                       {mobileExpanded === item.label && (
-                        <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#138808]/20 pl-3">
+                        <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#1e40af]/20 pl-3">
                           {item.children.map((child) => (
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="block px-3 py-2 text-sm text-gray-600 hover:text-[#138808] hover:bg-[#f0fdf4] rounded-lg transition-colors"
+                              className="block px-3 py-2 text-sm text-gray-600 hover:text-[#1e40af] hover:bg-[#eff6ff] rounded-lg transition-colors"
                             >
                               {child.label}
                             </Link>
@@ -255,7 +255,7 @@ export function PublicHeader() {
                       )}
                     </>
                   ) : (
-                    <Link href={item.href} className="block px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#f0fdf4] hover:text-[#138808] transition-colors">
+                    <Link href={item.href} className="block px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:bg-[#eff6ff] hover:text-[#1e40af] transition-colors">
                       {item.label}
                     </Link>
                   )}

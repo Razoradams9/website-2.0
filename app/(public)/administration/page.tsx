@@ -48,7 +48,7 @@ export default function AdministrationPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-black text-[#138808]">School <span className="text-[#FF9933]">Leadership</span></h2>
+            <h2 className="text-3xl font-black text-[#1e40af]">School <span className="text-[#FF9933]">Leadership</span></h2>
             <p className="text-gray-600 mt-3 max-w-xl mx-auto">Committed leaders working together to build a school that serves every child with care and purpose.</p>
           </div>
 
@@ -59,13 +59,13 @@ export default function AdministrationPage() {
                 href={leader.href}
                 className="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center"
               >
-                <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#138808] to-[#0a4d0a] flex items-center justify-center text-white font-black text-2xl mb-5 group-hover:scale-105 transition-transform shadow-lg">
+                <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] flex items-center justify-center text-white font-black text-2xl mb-5 group-hover:scale-105 transition-transform shadow-lg">
                   {leader.initials}
                 </div>
-                <h3 className="font-bold text-[#138808] text-lg group-hover:text-[#FF9933] transition-colors">{leader.name}</h3>
+                <h3 className="font-bold text-[#1e40af] text-lg group-hover:text-[#FF9933] transition-colors">{leader.name}</h3>
                 <p className="text-sm text-[#FF9933] font-semibold mt-1">{leader.role}</p>
                 <p className="text-xs text-gray-500 italic mt-3 leading-relaxed">"{leader.quote}"</p>
-                <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-[#138808] group-hover:text-[#FF9933] transition-colors">
+                <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-[#1e40af] group-hover:text-[#FF9933] transition-colors">
                   Read Message <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>

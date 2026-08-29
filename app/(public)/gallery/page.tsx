@@ -89,7 +89,7 @@ export default function GalleryPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-[#138808] via-[#0a4d0a] to-[#138808] text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#1e40af] via-[#1e3a8a] to-[#1e40af] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
         <div className="container mx-auto px-4 py-16 md:py-20 relative">
           <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-4">
@@ -115,8 +115,8 @@ export default function GalleryPage() {
                 onClick={() => setActiveCategory(cat.value)}
                 className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
                   activeCategory === cat.value
-                    ? "bg-[#138808] text-white"
-                    : "bg-[#f0fdf4] text-[#138808] hover:bg-[#138808] hover:text-white"
+                    ? "bg-[#1e40af] text-white"
+                    : "bg-[#eff6ff] text-[#1e40af] hover:bg-[#1e40af] hover:text-white"
                 }`}
               >
                 {cat.label}
@@ -131,7 +131,7 @@ export default function GalleryPage() {
         <div className="container mx-auto px-4">
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <div className="w-8 h-8 border-4 border-[#138808] border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-[#1e40af] border-t-transparent rounded-full animate-spin" />
             </div>
           ) : photos.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -187,7 +187,7 @@ export default function GalleryPage() {
           {/* Video Section */}
           {videos.length > 0 && (
             <div className="mt-16">
-              <h3 className="text-2xl font-black text-[#138808] mb-6 flex items-center gap-3">
+              <h3 className="text-2xl font-black text-[#1e40af] mb-6 flex items-center gap-3">
                 <Video className="w-6 h-6 text-[#FF9933]" /> Video Gallery
               </h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

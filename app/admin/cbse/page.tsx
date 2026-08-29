@@ -140,7 +140,7 @@ export default function AdminCBSEPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#138808] flex items-center gap-2">
+          <h1 className="text-2xl font-black text-[#1e40af] flex items-center gap-2">
             <Award className="w-6 h-6 text-[#FF9933]" /> CBSE Mandatory Disclosure
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Add, edit, or upload documents for the public disclosure page.</p>
@@ -154,7 +154,7 @@ export default function AdminCBSEPage() {
       {showAdd && (
         <Card className="border-[#FF9933]/30 bg-[#fffdf5]">
           <CardContent className="p-6">
-            <h3 className="font-bold text-[#138808] mb-4">{editingId ? "Edit Item" : "Add New Disclosure Item"}</h3>
+            <h3 className="font-bold text-[#1e40af] mb-4">{editingId ? "Edit Item" : "Add New Disclosure Item"}</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
                 <Label>Title / Particulars *</Label>
@@ -169,7 +169,7 @@ export default function AdminCBSEPage() {
                 <select
                   value={formCategory}
                   onChange={(e) => setFormCategory(e.target.value)}
-                  className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#138808]"
+                  className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1e40af]"
                 >
                   {categoryOptions.map((opt) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -217,14 +217,14 @@ export default function AdminCBSEPage() {
             if (!catItems || catItems.length === 0) return null
             return (
               <div key={value}>
-                <h3 className="text-sm font-bold text-[#138808] mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-[#1e40af] mb-3 flex items-center gap-2">
                   <FileText className="w-4 h-4 text-[#FF9933]" /> {label}
                   <Badge variant="outline" className="text-[10px] ml-1">{catItems.length}</Badge>
                 </h3>
                 <div className="space-y-2">
                   {catItems.map((item, i) => (
                     <div key={item.id} className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <span className="w-7 h-7 rounded bg-[#f0fdf4] flex items-center justify-center text-xs font-bold text-[#138808] flex-shrink-0">{i + 1}</span>
+                      <span className="w-7 h-7 rounded bg-[#eff6ff] flex items-center justify-center text-xs font-bold text-[#1e40af] flex-shrink-0">{i + 1}</span>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-800 truncate">{item.title}</p>
                         {item.description && <p className="text-xs text-gray-500 truncate">{item.description}</p>}
