@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 import { FileText, Download, Pencil, Save, X, Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { isAdminLoggedIn } from "@/lib/admin-session"
 
 type DisclosureRow = {
   no: string
@@ -161,15 +162,7 @@ export default function CBSEDisclosurePage() {
   const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
-    const stored = localStorage.getItem("ggg_admin")
-    if (stored) {
-      try {
-        const data = JSON.parse(stored)
-        if (data.loggedIn && data.email === "razoradams9@gmail.com") {
-          setIsAdmin(true)
-        }
-      } catch {}
-    }
+    setIsAdmin(isAdminLoggedIn())
   }, [])
 
   function handleRowSave(sectionId: string, rowNo: string, newDetail: string, newFileUrl: string) {

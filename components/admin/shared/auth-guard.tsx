@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { isAdminLoggedIn } from "@/lib/admin-session"
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const [authorized, setAuthorized] = useState(false)
@@ -8,18 +9,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
   useEffect(() => {
-    const stored = localStorage.getItem("ggg_admin")
-    if (stored) {
-      try {
-        const data = JSON.parse(stored)
-        if (data.loggedIn && data.email === "razoradams9@gmail.com") {
-          setAuthorized(true)
-        } else {
-          router.replace("/admin/login")
-        }
-      } catch {
-        router.replace("/admin/login")
-      }
+    if (isAdminLoggedIn()) {
+      setAuthorized(true)
     } else {
       router.replace("/admin/login")
     }

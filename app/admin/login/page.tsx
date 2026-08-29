@@ -4,6 +4,7 @@ import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { setAdminSession, ADMIN_EMAIL } from "@/lib/admin-session"
 
 export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -18,22 +19,17 @@ export default function AdminLoginPage() {
     setIsLoading(true)
 
     // Single admin account
-    const ADMIN_EMAIL = "razoradams9@gmail.com"
     const ADMIN_PASSWORD = "Giri1968"
 
     setTimeout(() => {
       if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-        // Set admin session
-        localStorage.setItem("ggg_admin", JSON.stringify({
-          email: ADMIN_EMAIL,
-          loggedIn: true,
-          loginTime: new Date().toISOString(),
-        }))
+        // Write cookie + localStorage synchronously, then navigate.
+        setAdminSession()
         window.location.href = "/admin/dashboard"
       } else {
         setError("Invalid email or password.")
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }, 600)
   }
 

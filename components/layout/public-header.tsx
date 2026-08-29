@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
+import { isAdminLoggedIn } from "@/lib/admin-session"
 
 function LogoImage({ className }: { className?: string }) {
   return (
@@ -68,9 +69,7 @@ export function PublicHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
-    // Check if user has an active session by looking for the session cookie
-    const hasSession = document.cookie.includes("authjs.session-token") || document.cookie.includes("__Secure-authjs.session-token")
-    setIsLoggedIn(hasSession)
+    setIsLoggedIn(isAdminLoggedIn())
   }, [pathname])
 
   useEffect(() => {

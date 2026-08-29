@@ -3,10 +3,11 @@ import React from "react"
 import { Search, LogOut, Home } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import { clearAdminSession } from "@/lib/admin-session"
 
 export function AdminTopbar() {
   function handleLogout() {
-    localStorage.removeItem("ggg_admin")
+    clearAdminSession()
     window.location.href = "/admin/login"
   }
 
