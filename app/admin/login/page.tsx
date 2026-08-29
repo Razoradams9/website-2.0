@@ -34,9 +34,16 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#138808] via-[#0a4d0a] to-[#063d06] p-4">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-[0.03]"
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      {/* Campus background image — fills the viewport, centered, no distortion */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/campus-hero.jpg')" }}
+      />
+      {/* Dark green overlay so the login card and white text stay readable */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a4d0a]/85 via-[#063d06]/80 to-black/80" />
+      {/* Subtle dot pattern on top of the overlay */}
+      <div className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "20px 20px" }}
       />
 
