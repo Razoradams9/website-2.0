@@ -4,15 +4,13 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Users, FileText, Image, Newspaper, Calendar, Bell,
-  Award, ClipboardList, BookOpen, GraduationCap, Layers, Clock, PenLine,
-  FileCheck, UserCheck, CheckSquare, CreditCard, Bus, Library, AlertTriangle,
-  Settings, Activity, ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen
+  Award, ClipboardList, UserCheck, Settings,
+  ChevronDown, ChevronRight, PanelLeftClose, PanelLeftOpen
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { label: "Users & Roles", href: "/admin/users", icon: Users },
   {
     label: "Content",
     icon: FileText,
@@ -28,25 +26,7 @@ const navItems = [
   },
   { label: "CBSE Disclosure", href: "/admin/cbse", icon: Award },
   { label: "Admissions", href: "/admin/admissions", icon: ClipboardList },
-  {
-    label: "Academics",
-    icon: BookOpen,
-    children: [
-      { label: "Grades", href: "/admin/academics/grades", icon: GraduationCap },
-      { label: "Sections", href: "/admin/academics/sections", icon: Layers },
-      { label: "Timetable", href: "/admin/academics/timetable", icon: Clock },
-      { label: "Homework", href: "/admin/academics/homework", icon: PenLine },
-      { label: "Exams", href: "/admin/academics/exams", icon: FileCheck },
-    ],
-  },
-  { label: "Students", href: "/admin/students", icon: GraduationCap },
-  { label: "Attendance", href: "/admin/attendance", icon: CheckSquare },
-  { label: "Fees", href: "/admin/fees", icon: CreditCard },
-  { label: "Transport", href: "/admin/transport", icon: Bus },
-  { label: "Library", href: "/admin/library", icon: Library },
-  { label: "Grievances", href: "/admin/grievances", icon: AlertTriangle },
   { label: "Settings", href: "/admin/settings", icon: Settings },
-  { label: "Logs", href: "/admin/logs", icon: Activity },
 ]
 
 export function AdminSidebar() {
