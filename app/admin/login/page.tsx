@@ -19,7 +19,7 @@ export default function AdminLoginPage() {
     setIsLoading(true)
 
     // Single admin account
-    const ADMIN_PASSWORD = "Giri1968"
+    const ADMIN_PASSWORD = "ggg@2024"
 
     setTimeout(() => {
       if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {

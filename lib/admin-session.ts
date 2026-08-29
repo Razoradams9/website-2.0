@@ -9,7 +9,7 @@
 // A cookie is read synchronously on the very next request/render and survives
 // those environments, so it is the source of truth; localStorage is a mirror.
 
-export const ADMIN_EMAIL = "razoradams9@gmail.com"
+export const ADMIN_EMAIL = "gggprincipal@gmail.com"
 
 const COOKIE_NAME = "ggg_admin"
 const STORAGE_KEY = "ggg_admin"
