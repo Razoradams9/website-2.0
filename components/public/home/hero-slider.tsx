@@ -68,18 +68,12 @@ export function HeroSlider() {
 
   return (
     <section className="relative min-h-[90vh] flex flex-col overflow-hidden">
-      {/* Background — campus photo as the hero centerpiece */}
+      {/* Background — campus photo, fully visible, no overlay */}
       <div className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/campus-hero.jpg')" }}
         />
-        {/* Dark green gradient overlay so the white text and buttons stay readable */}
-        <div className={cn("absolute inset-0 bg-gradient-to-br opacity-80 transition-all duration-700", slide.gradient)} />
-        {/* Extra bottom darkening for the stats bar contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
 
       {/* Content */}
