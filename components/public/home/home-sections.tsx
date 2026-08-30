@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils"
 // ─── Principal Message ───────────────────────────────────────────────
 export function PrincipalMessage() {
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -104,7 +104,7 @@ export function WhyChooseUs() {
   ]
 
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20 bg-[#f5f9ff]">
       <div className="container mx-auto px-4">
         <SectionHeading
           label="Why Choose Us"
@@ -143,7 +143,7 @@ export function AcademicPrograms() {
   ]
 
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading
           label="Academic Programs"
@@ -238,7 +238,7 @@ interface EventItem {
 
 export function NewsEventsPreview({ news, events }: { news: NewsItem[]; events: EventItem[] }) {
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20 bg-[#f5f9ff]">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-14">
           {/* News */}
@@ -332,7 +332,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   const data = items.length ? items : fallback
 
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading
           label="Testimonials"

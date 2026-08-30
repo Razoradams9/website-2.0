@@ -19,11 +19,12 @@ export default async function ChairmanPage() {
 
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-[280px_1fr] gap-10 items-start">
-              <div className="text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 sm:p-10">
+              {/* Photo above the message */}
+              <div className="text-center mb-8">
                 {photoUrl ? (
-                  <div className="w-56 h-56 mx-auto rounded-2xl overflow-hidden shadow-xl mb-5">
+                  <div className="w-56 h-56 mx-auto rounded-2xl overflow-hidden shadow-lg mb-5">
                     <img
                       src={photoUrl}
                       alt="Shri Raghavendra Pratap Singh"
@@ -31,7 +32,7 @@ export default async function ChairmanPage() {
                     />
                   </div>
                 ) : (
-                  <div className="w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center shadow-xl mb-5">
+                  <div className="w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br from-[#1a3c6e] to-[#0d1f3c] flex items-center justify-center shadow-lg mb-5">
                     <span className="text-[#c8a951] font-black text-6xl">RS</span>
                   </div>
                 )}
@@ -40,10 +41,10 @@ export default async function ChairmanPage() {
                 <p className="text-xs text-gray-500 mt-1">Guru Gorakshnath Gyanasthali</p>
               </div>
 
-              <div>
-                <div className="relative bg-[#f8f9ff] rounded-2xl p-8 border border-gray-100">
-                  <Quote className="absolute top-4 right-4 w-12 h-12 text-[#1a3c6e]/5" />
-                  <div className="space-y-4 text-gray-700 leading-relaxed relative z-10">
+              {/* Message */}
+              <div className="relative border-t border-gray-100 pt-8">
+                <Quote className="absolute top-6 right-0 w-12 h-12 text-[#1a3c6e]/5" />
+                <div className="space-y-4 text-gray-700 leading-relaxed relative z-10">
                     <p>Dear Parents and Members of our School Community,</p>
                     <p>
                       Namaste. It is with great pride and a deep sense of purpose that I welcome you to Guru Gorakshnath Gyanasthali. This school was born from a belief that every child in our community deserves access to quality education in a caring and disciplined environment.
@@ -65,7 +66,6 @@ export default async function ChairmanPage() {
                       Shri Raghavendra Pratap Singh<br />
                       <span className="text-sm font-normal text-gray-500">Chairman, Guru Gorakshnath Gyanasthali</span>
                     </p>
-                  </div>
                 </div>
               </div>
             </div>
