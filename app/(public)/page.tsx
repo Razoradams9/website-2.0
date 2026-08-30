@@ -46,7 +46,13 @@ export default async function HomePage() {
       <AcademicPrograms />
       <Facilities />
       <NewsEventsPreview news={newsItems} events={eventItems} />
-      <Testimonials items={testimonialItems} />
+      {/*
+        Testimonials hidden for now: the school was established in 2024 and has
+        no real parent/alumni testimonials yet. The seeded placeholder ones
+        (Class 10 parent, "Batch of 2022" alumni) are not accurate. To re-enable
+        once genuine testimonials are added, restore: <Testimonials items={testimonialItems} />
+      */}
+      <Testimonials items={[]} />
       <CTABanner />
     </>
   )

@@ -42,22 +42,22 @@ async function main() {
     create: {
       id: "default",
       schoolName: "Guru Gorakshnath Gyanasthali",
-      schoolTagline: "Excellence in Education Since 1985",
-      schoolAddress: "123 School Road, New Delhi - 110001",
-      schoolPhone: "+91-11-12345678",
-      schoolEmail: "info@davschool.edu.in",
-      schoolAffilNo: "2730001",
-      schoolCode: "12345",
-      principalName: "Dr. Sunita Sharma",
+      schoolTagline: "Nurturing Minds, Building Futures",
+      schoolAddress: "Deoria (Vrindavan), Domariaganj, Siddharthnagar, Uttar Pradesh",
+      schoolPhone: "9794335475",
+      schoolEmail: "gggprincipal@gmail.com",
+      schoolAffilNo: "2134601",
+      schoolCode: "72425",
+      principalName: "Shri Girish Nair Rishi",
       principalMessage:
-        "Education is the most powerful weapon which you can use to change the world. We are committed to nurturing young minds to become responsible global citizens.",
-      chairmanName: "Shri Ramesh Kumar",
+        "It is my privilege to serve as the Principal of Guru Gorakshnath Gyanasthali. Education is not merely about textbooks and examinations — it is about shaping character, building confidence, and preparing young minds for the challenges of tomorrow.",
+      chairmanName: "Shri Raghavendra Pratap Singh",
       chairmanMessage:
-        "Our school has always been a beacon of excellence. We strive to provide the best learning environment for our students.",
+        "It is with great pride that I welcome you to Guru Gorakshnath Gyanasthali. This school was born from a belief that every child in our community deserves access to quality education in a caring and disciplined environment.",
       footerText: "© 2026 Guru Gorakshnath Gyanasthali. All rights reserved.",
-      metaTitle: "Guru Gorakshnath Gyanasthali — Excellence in Education",
+      metaTitle: "Guru Gorakshnath Gyanasthali — Nurturing Minds, Building Futures",
       metaDescription:
-        "Guru Gorakshnath Gyanasthali is a premier CBSE-affiliated institution committed to holistic education.",
+        "Guru Gorakshnath Gyanasthali is a CBSE-affiliated school in Siddharthnagar, U.P., established in 2024, committed to quality education with strong values.",
     },
   });
 
@@ -65,11 +65,11 @@ async function main() {
   console.log("👤 Seeding users...");
   const superAdminPassword = await bcrypt.hash("SuperAdmin@123", 12);
   const superAdmin = await prisma.user.upsert({
-    where: { email: "superadmin@davschool.edu.in" },
+    where: { email: "superadmin@gggyanasthali.edu.in" },
     update: {},
     create: {
       name: "Super Administrator",
-      email: "superadmin@davschool.edu.in",
+      email: "superadmin@gggyanasthali.edu.in",
       password: superAdminPassword,
       role: Role.SUPER_ADMIN,
       status: AccountStatus.ACTIVE,
@@ -81,11 +81,11 @@ async function main() {
   // ── 3. Admin user ────────────────────────────────────────────
   const adminPassword = await bcrypt.hash("Admin@1234", 12);
   const adminUser = await prisma.user.upsert({
-    where: { email: "admin@davschool.edu.in" },
+    where: { email: "admin@gggyanasthali.edu.in" },
     update: {},
     create: {
       name: "School Administrator",
-      email: "admin@davschool.edu.in",
+      email: "admin@gggyanasthali.edu.in",
       password: adminPassword,
       role: Role.ADMIN,
       status: AccountStatus.ACTIVE,
@@ -97,11 +97,11 @@ async function main() {
   // Demo teacher
   const teacherPassword = await bcrypt.hash("Teacher@123", 12);
   const teacherUser = await prisma.user.upsert({
-    where: { email: "teacher@davschool.edu.in" },
+    where: { email: "teacher@gggyanasthali.edu.in" },
     update: {},
     create: {
       name: "Priya Verma",
-      email: "teacher@davschool.edu.in",
+      email: "teacher@gggyanasthali.edu.in",
       password: teacherPassword,
       role: Role.TEACHER,
       status: AccountStatus.ACTIVE,
@@ -112,11 +112,11 @@ async function main() {
   // Demo student
   const studentPassword = await bcrypt.hash("Student@123", 12);
   const studentUser = await prisma.user.upsert({
-    where: { email: "student@davschool.edu.in" },
+    where: { email: "student@gggyanasthali.edu.in" },
     update: {},
     create: {
       name: "Rahul Singh",
-      email: "student@davschool.edu.in",
+      email: "student@gggyanasthali.edu.in",
       password: studentPassword,
       role: Role.STUDENT,
       status: AccountStatus.ACTIVE,
@@ -127,11 +127,11 @@ async function main() {
   // Demo parent
   const parentPassword = await bcrypt.hash("Parent@123", 12);
   const parentUser = await prisma.user.upsert({
-    where: { email: "parent@davschool.edu.in" },
+    where: { email: "parent@gggyanasthali.edu.in" },
     update: {},
     create: {
       name: "Suresh Singh",
-      email: "parent@davschool.edu.in",
+      email: "parent@gggyanasthali.edu.in",
       password: parentPassword,
       role: Role.PARENT,
       status: AccountStatus.ACTIVE,
@@ -308,7 +308,7 @@ async function main() {
       userId: parentUser.id,
       fatherName: "Suresh Singh",
       fatherPhone: "9876543210",
-      fatherEmail: "parent@davschool.edu.in",
+      fatherEmail: "parent@gggyanasthali.edu.in",
       fatherOccupation: "Engineer",
       motherName: "Meena Singh",
       motherPhone: "9876543211",
@@ -387,8 +387,8 @@ async function main() {
     },
     {
       title: "Academic Excellence",
-      subtitle: "100% Board Results Consistently",
-      description: "Our students achieve outstanding results year after year.",
+      subtitle: "Quality CBSE Education with Strong Values",
+      description: "A modern curriculum delivered by dedicated teachers in a caring environment.",
       imageUrl: "/images/slider/slider-3.jpg",
       linkUrl: "/academics",
       linkText: "Learn More",
@@ -644,29 +644,9 @@ async function main() {
 
   // ── 18. Testimonials ─────────────────────────────────────────
   console.log("💬 Seeding testimonials...");
-  const testimonials = [
-    {
-      name: "Mrs. Anita Khanna",
-      role: "Parent of Class 10 Student",
-      content: "The school has an excellent academic environment. My child has grown tremendously both academically and personally. The teachers are dedicated and caring.",
-      rating: 5,
-      sortOrder: 1,
-    },
-    {
-      name: "Arjun Mehta",
-      role: "Alumni, Batch of 2022",
-      content: "Guru Gorakshnath Gyanasthali laid the foundation of my success. The values and education I received here have been invaluable in my engineering journey at IIT.",
-      rating: 5,
-      sortOrder: 2,
-    },
-    {
-      name: "Mr. Vijay Patel",
-      role: "Parent of Class 6 Student",
-      content: "The school provides a holistic education approach. My daughter is excelling in both academics and extracurricular activities. Highly recommended!",
-      rating: 5,
-      sortOrder: 3,
-    },
-  ];
+  // No testimonials seeded — the school (established 2024) has no alumni or
+  // senior-class parents yet. Real testimonials are added via the admin panel.
+  const testimonials: { name: string; role: string; content: string; rating: number; sortOrder: number }[] = [];
 
   for (const t of testimonials) {
     await prisma.testimonial.create({
@@ -708,11 +688,11 @@ async function main() {
 
   console.log("\n✅ Seed completed successfully!\n");
   console.log("═══ Demo Login Credentials ═══════════════════════");
-  console.log("  Super Admin : superadmin@davschool.edu.in / SuperAdmin@123");
-  console.log("  Admin       : admin@davschool.edu.in      / Admin@1234");
-  console.log("  Teacher     : teacher@davschool.edu.in    / Teacher@123");
-  console.log("  Student     : student@davschool.edu.in    / Student@123");
-  console.log("  Parent      : parent@davschool.edu.in     / Parent@123");
+  console.log("  Super Admin : superadmin@gggyanasthali.edu.in / SuperAdmin@123");
+  console.log("  Admin       : admin@gggyanasthali.edu.in      / Admin@1234");
+  console.log("  Teacher     : teacher@gggyanasthali.edu.in    / Teacher@123");
+  console.log("  Student     : student@gggyanasthali.edu.in    / Student@123");
+  console.log("  Parent      : parent@gggyanasthali.edu.in     / Parent@123");
   console.log("═══════════════════════════════════════════════════\n");
 }
 
