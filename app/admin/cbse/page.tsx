@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { ImageUpload } from "@/components/ui/image-upload"
 import { Award, Plus, Edit2, Trash2, Save, X, Upload, FileText } from "lucide-react"
 
 const categoryOptions = [
@@ -73,6 +74,7 @@ export default function AdminCBSEPage() {
   }
 
   function startEdit(item: DisclosureItem) {
+    setShowAdd(false) // close the top "add" form if it was open
     setEditingId(item.id)
     setFormTitle(item.title)
     setFormDescription(item.description || "")
@@ -80,7 +82,6 @@ export default function AdminCBSEPage() {
     setFormFileUrl(item.fileUrl || "")
     setFormExternalUrl(item.externalUrl || "")
     setFormSortOrder(item.sortOrder)
-    setShowAdd(true)
   }
 
   async function handleSave() {
@@ -135,6 +136,82 @@ export default function AdminCBSEPage() {
     grouped[item.category].push(item)
   })
 
+  // Shared form used both for adding (top) and editing (inline under an item).
+  function renderForm() {
+    return (
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="sm:col-span-2">
+          <Label>Title / Particulars *</Label>
+          <Input value={formTitle} onChange={(e) => setFormTitle(e.target.value)} placeholder="e.g. Name of the School" className="mt-1" />
+        </div>
+        <div className="sm:col-span-2">
+          <Label>Details / Description (shown as text if no file uploaded)</Label>
+          <Textarea value={formDescription} onChange={(e) => setFormDescription(e.target.value)} placeholder="e.g. GURU GORAKSHNATH GYANASTHALI" className="mt-1" rows={2} />
+        </div>
+        <div>
+          <Label>Category *</Label>
+          <select
+            value={formCategory}
+            onChange={(e) => setFormCategory(e.target.value)}
+            className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1e40af]"
+          >
+            {categoryOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <Label>Sort Order</Label>
+          <Input type="number" value={formSortOrder} onChange={(e) => setFormSortOrder(Number(e.target.value))} className="mt-1" />
+        </div>
+        <div className="sm:col-span-2">
+          <Label>Image / File</Label>
+          {formFileUrl ? (
+            <div className="mt-1 rounded-xl border border-gray-200 bg-white p-3">
+              {/\.(jpg|jpeg|png|gif|webp)$/i.test(formFileUrl) ? (
+                <img src={formFileUrl} alt="Uploaded" className="w-full max-h-48 object-contain rounded-lg" />
+              ) : (
+                <a href={formFileUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-[#1e40af] font-medium hover:underline flex items-center gap-1.5">
+                  <FileText className="w-4 h-4" /> View uploaded file
+                </a>
+              )}
+              <div className="flex items-center justify-between mt-2 gap-2">
+                <span className="text-[11px] text-gray-400 truncate">{formFileUrl}</span>
+                <button
+                  type="button"
+                  onClick={() => setFormFileUrl("")}
+                  className="text-xs text-red-500 hover:text-red-700 font-medium flex-shrink-0 flex items-center gap-1"
+                >
+                  <X className="w-3 h-3" /> Remove
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-1">
+              <ImageUpload onUploaded={(url) => setFormFileUrl(url)} />
+            </div>
+          )}
+          <div className="mt-2">
+            <Label className="text-[11px] text-gray-500">Or paste a file/image link (PDF, Google Drive, etc.)</Label>
+            <Input value={formFileUrl} onChange={(e) => setFormFileUrl(e.target.value)} placeholder="https://... or /uploads/file.pdf" className="mt-1" />
+          </div>
+        </div>
+        <div className="sm:col-span-2">
+          <Label>External URL (optional)</Label>
+          <Input value={formExternalUrl} onChange={(e) => setFormExternalUrl(e.target.value)} placeholder="https://..." className="mt-1" />
+        </div>
+        <div className="sm:col-span-2 flex gap-3 mt-1">
+          <Button onClick={handleSave} disabled={!formTitle.trim()}>
+            <Save className="w-4 h-4" /> {editingId ? "Update" : "Save"}
+          </Button>
+          <Button variant="ghost" onClick={resetForm}>
+            <X className="w-4 h-4" /> Cancel
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -150,54 +227,12 @@ export default function AdminCBSEPage() {
         </Button>
       </div>
 
-      {/* Add/Edit Form */}
-      {showAdd && (
+      {/* Add Form (top) — only when adding a new item */}
+      {showAdd && !editingId && (
         <Card className="border-[#FF9933]/30 bg-[#fffdf5]">
           <CardContent className="p-6">
-            <h3 className="font-bold text-[#1e40af] mb-4">{editingId ? "Edit Item" : "Add New Disclosure Item"}</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="sm:col-span-2">
-                <Label>Title / Particulars *</Label>
-                <Input value={formTitle} onChange={(e) => setFormTitle(e.target.value)} placeholder="e.g. Name of the School" className="mt-1" />
-              </div>
-              <div className="sm:col-span-2">
-                <Label>Details / Description (shown as text if no file uploaded)</Label>
-                <Textarea value={formDescription} onChange={(e) => setFormDescription(e.target.value)} placeholder="e.g. GURU GORAKSHNATH GYANASTHALI" className="mt-1" rows={2} />
-              </div>
-              <div>
-                <Label>Category *</Label>
-                <select
-                  value={formCategory}
-                  onChange={(e) => setFormCategory(e.target.value)}
-                  className="mt-1 w-full h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1e40af]"
-                >
-                  {categoryOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <Label>Sort Order</Label>
-                <Input type="number" value={formSortOrder} onChange={(e) => setFormSortOrder(Number(e.target.value))} className="mt-1" />
-              </div>
-              <div>
-                <Label>File URL (PDF/Image link)</Label>
-                <Input value={formFileUrl} onChange={(e) => setFormFileUrl(e.target.value)} placeholder="https://... or /uploads/file.pdf" className="mt-1" />
-                <p className="text-[10px] text-gray-400 mt-1">Upload your file to Google Drive or any host, paste link here</p>
-              </div>
-              <div>
-                <Label>External URL (optional)</Label>
-                <Input value={formExternalUrl} onChange={(e) => setFormExternalUrl(e.target.value)} placeholder="https://..." className="mt-1" />
-              </div>
-            </div>
-            <div className="flex gap-3 mt-5">
-              <Button onClick={handleSave} disabled={!formTitle.trim()}>
-                <Save className="w-4 h-4" /> {editingId ? "Update" : "Save"}
-              </Button>
-              <Button variant="ghost" onClick={resetForm}>
-                <X className="w-4 h-4" /> Cancel
-              </Button>
-            </div>
+            <h3 className="font-bold text-[#1e40af] mb-4">Add New Disclosure Item</h3>
+            {renderForm()}
           </CardContent>
         </Card>
       )}
@@ -208,7 +243,7 @@ export default function AdminCBSEPage() {
       ) : items.length === 0 ? (
         <div className="text-center py-16 text-gray-400">
           <FileText className="w-12 h-12 mx-auto mb-3 opacity-30" />
-          <p>No disclosure items yet. Click "Add Item" to get started.</p>
+          <p>No disclosure items yet. Click &quot;Add Item&quot; to get started.</p>
         </div>
       ) : (
         <div className="space-y-8">
@@ -223,25 +258,41 @@ export default function AdminCBSEPage() {
                 </h3>
                 <div className="space-y-2">
                   {catItems.map((item, i) => (
-                    <div key={item.id} className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <span className="w-7 h-7 rounded bg-[#eff6ff] flex items-center justify-center text-xs font-bold text-[#1e40af] flex-shrink-0">{i + 1}</span>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-800 truncate">{item.title}</p>
-                        {item.description && <p className="text-xs text-gray-500 truncate">{item.description}</p>}
-                        {item.fileUrl && (
-                          <a href={item.fileUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#FF9933] font-semibold hover:underline flex items-center gap-1 mt-0.5">
-                            <Upload className="w-3 h-3" /> File uploaded
-                          </a>
-                        )}
+                    <div key={item.id}>
+                      <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <span className="w-7 h-7 rounded bg-[#eff6ff] flex items-center justify-center text-xs font-bold text-[#1e40af] flex-shrink-0">{i + 1}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-800 truncate">{item.title}</p>
+                          {item.description && <p className="text-xs text-gray-500 truncate">{item.description}</p>}
+                          {item.fileUrl && (
+                            <a href={item.fileUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#FF9933] font-semibold hover:underline flex items-center gap-1 mt-0.5">
+                              <Upload className="w-3 h-3" /> File uploaded
+                            </a>
+                          )}
+                        </div>
+                        <div className="flex gap-1 flex-shrink-0">
+                          <button
+                            onClick={() => (editingId === item.id ? resetForm() : startEdit(item))}
+                            className="p-2 rounded-md hover:bg-amber-50 text-gray-400 hover:text-amber-600 transition-colors"
+                            title="Edit"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+                          <button onClick={() => handleDelete(item.id)} className="p-2 rounded-md hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors" title="Delete">
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
-                      <div className="flex gap-1 flex-shrink-0">
-                        <button onClick={() => startEdit(item)} className="p-2 rounded-md hover:bg-amber-50 text-gray-400 hover:text-amber-600 transition-colors" title="Edit">
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button onClick={() => handleDelete(item.id)} className="p-2 rounded-md hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors" title="Delete">
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+
+                      {/* Inline edit form — appears right under the item being edited */}
+                      {editingId === item.id && (
+                        <Card className="border-[#FF9933]/30 bg-[#fffdf5] mt-2">
+                          <CardContent className="p-6">
+                            <h3 className="font-bold text-[#1e40af] mb-4">Edit Item</h3>
+                            {renderForm()}
+                          </CardContent>
+                        </Card>
+                      )}
                     </div>
                   ))}
                 </div>
