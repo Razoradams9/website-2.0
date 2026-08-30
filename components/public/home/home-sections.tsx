@@ -324,12 +324,11 @@ interface Testimonial {
 }
 
 export function Testimonials({ items }: { items: Testimonial[] }) {
-  const fallback = [
-    { id: "1", name: "Mr. Rakesh Yadav", role: "Parent, Class 3 Student", content: "We are very happy with the school. The teachers give personal attention to each child and the campus is clean and safe. My son looks forward to going to school every morning.", rating: 5, avatarUrl: null },
-    { id: "2", name: "Mrs. Sunita Pandey", role: "Parent, Class 1 Student", content: "I was looking for a good CBSE school nearby and Guru Gorakshnath Gyanasthali exceeded my expectations. The staff is caring, the environment is disciplined, and my daughter is learning so well.", rating: 5, avatarUrl: null },
-    { id: "3", name: "Mr. Ashok Verma", role: "Parent, Class 5 Student", content: "The school may be new but the quality of education is excellent. Teachers are experienced and genuinely invested in the children's growth. Very satisfied with our decision to enroll here.", rating: 5, avatarUrl: null },
-  ]
-  const data = items.length ? items : fallback
+  // Only show real testimonials from the database. If there are none, hide
+  // the section entirely rather than showing placeholder/fake parents.
+  if (!items.length) return null
+
+  const data = items
 
   return (
     <section className="py-20 bg-white">

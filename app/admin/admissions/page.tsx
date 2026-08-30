@@ -1,19 +1,21 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+"use client"
+import React, { useState } from "react"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ClipboardList, Search, Download, Eye, CheckCircle, XCircle, Clock, Filter, Users } from "lucide-react"
+import { ClipboardList, Search, Download, Eye, CheckCircle, XCircle, Clock, Users } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
-export const metadata = { title: "Admission Enquiries" }
-
-const enquiries = [
-  { id: "1", appNo: "APP2025001", name: "Aarav Sharma", class: "Class 6", father: "Ramesh Sharma", phone: "9876543001", status: "SUBMITTED", date: "Aug 19, 2025" },
-  { id: "2", appNo: "APP2025002", name: "Priya Gupta", class: "Class 1", father: "Vikash Gupta", phone: "9876543002", status: "UNDER_REVIEW", date: "Aug 18, 2025" },
-  { id: "3", appNo: "APP2025003", name: "Rohit Verma", class: "Class 9", father: "Sunil Verma", phone: "9876543003", status: "SHORTLISTED", date: "Aug 16, 2025" },
-  { id: "4", appNo: "APP2025004", name: "Ananya Singh", class: "Class 11 (Sci)", father: "Manoj Singh", phone: "9876543004", status: "APPROVED", date: "Aug 14, 2025" },
-  { id: "5", appNo: "APP2025005", name: "Karan Patel", class: "Class 4", father: "Deepak Patel", phone: "9876543005", status: "REJECTED", date: "Aug 12, 2025" },
-  { id: "6", appNo: "APP2025006", name: "Meera Joshi", class: "Nursery", father: "Rajesh Joshi", phone: "9876543006", status: "ENROLLED", date: "Aug 10, 2025" },
-]
+interface Enquiry {
+  id: string
+  appNo: string
+  name: string
+  class: string
+  father: string
+  phone: string
+  status: string
+  date: string
+}
 
 const statusConfig: Record<string, { variant: string; icon: any }> = {
   SUBMITTED: { variant: "info", icon: Clock },
@@ -25,6 +27,26 @@ const statusConfig: Record<string, { variant: string; icon: any }> = {
 }
 
 export default function AdminAdmissionsPage() {
+  // Starts empty — real enquiries arrive from the public admission form.
+  const [enquiries] = useState<Enquiry[]>([])
+  const [query, setQuery] = useState("")
+  const [statusFilter, setStatusFilter] = useState("")
+  const [classFilter, setClassFilter] = useState("")
+
+  const filtered = enquiries.filter((e) => {
+    const q = query.trim().toLowerCase()
+    const matchesQuery =
+      !q ||
+      e.name.toLowerCase().includes(q) ||
+      e.appNo.toLowerCase().includes(q) ||
+      e.phone.includes(q)
+    const matchesStatus = !statusFilter || e.status === statusFilter
+    const matchesClass = !classFilter || e.class.includes(classFilter)
+    return matchesQuery && matchesStatus && matchesClass
+  })
+
+  const countBy = (status: string) => enquiries.filter((e) => e.status === status).length
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -35,7 +57,7 @@ export default function AdminAdmissionsPage() {
           </h1>
           <p className="text-sm text-gray-500 mt-0.5">Review and manage admission applications.</p>
         </div>
-        <Button variant="outline" className="flex-shrink-0">
+        <Button variant="outline" className="flex-shrink-0" disabled={enquiries.length === 0}>
           <Download className="w-4 h-4" /> Export to Excel
         </Button>
       </div>
@@ -43,12 +65,12 @@ export default function AdminAdmissionsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
         {[
-          { label: "Total", value: "23", color: "bg-gray-50 text-gray-700" },
-          { label: "Submitted", value: "8", color: "bg-blue-50 text-blue-700" },
-          { label: "Under Review", value: "5", color: "bg-amber-50 text-amber-700" },
-          { label: "Shortlisted", value: "4", color: "bg-[#FF9933]/10 text-[#FF9933]" },
-          { label: "Approved", value: "4", color: "bg-emerald-50 text-emerald-700" },
-          { label: "Enrolled", value: "2", color: "bg-[#1e40af]/10 text-[#1e40af]" },
+          { label: "Total", value: enquiries.length, color: "bg-gray-50 text-gray-700" },
+          { label: "Submitted", value: countBy("SUBMITTED"), color: "bg-blue-50 text-blue-700" },
+          { label: "Under Review", value: countBy("UNDER_REVIEW"), color: "bg-amber-50 text-amber-700" },
+          { label: "Shortlisted", value: countBy("SHORTLISTED"), color: "bg-[#FF9933]/10 text-[#FF9933]" },
+          { label: "Approved", value: countBy("APPROVED"), color: "bg-emerald-50 text-emerald-700" },
+          { label: "Enrolled", value: countBy("ENROLLED"), color: "bg-[#1e40af]/10 text-[#1e40af]" },
         ].map((s) => (
           <div key={s.label} className={`rounded-xl p-3 text-center ${s.color}`}>
             <p className="text-xl font-black">{s.value}</p>
@@ -63,9 +85,18 @@ export default function AdminAdmissionsPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <Input placeholder="Search by name, application no, phone..." className="pl-9" />
+              <Input
+                placeholder="Search by name, application no, phone..."
+                className="pl-9"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
             </div>
-            <select className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700">
+            <select
+              className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
               <option value="">All Status</option>
               <option value="SUBMITTED">Submitted</option>
               <option value="UNDER_REVIEW">Under Review</option>
@@ -74,7 +105,11 @@ export default function AdminAdmissionsPage() {
               <option value="REJECTED">Rejected</option>
               <option value="ENROLLED">Enrolled</option>
             </select>
-            <select className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700">
+            <select
+              className="h-10 px-3 rounded-lg border border-gray-200 text-sm bg-white text-gray-700"
+              value={classFilter}
+              onChange={(e) => setClassFilter(e.target.value)}
+            >
               <option value="">All Classes</option>
               <option value="Nursery">Nursery</option>
               <option value="Class 1">Class 1</option>
@@ -89,64 +124,63 @@ export default function AdminAdmissionsPage() {
       {/* Table */}
       <Card>
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="border-b border-gray-100 bg-gray-50/50">
-                <tr>
-                  <th className="text-left px-5 py-3 font-semibold text-gray-600">App No.</th>
-                  <th className="text-left px-3 py-3 font-semibold text-gray-600">Student Name</th>
-                  <th className="text-center px-3 py-3 font-semibold text-gray-600">Class</th>
-                  <th className="text-left px-3 py-3 font-semibold text-gray-600">Father</th>
-                  <th className="text-center px-3 py-3 font-semibold text-gray-600">Phone</th>
-                  <th className="text-center px-3 py-3 font-semibold text-gray-600">Status</th>
-                  <th className="text-center px-3 py-3 font-semibold text-gray-600">Date</th>
-                  <th className="text-center px-3 py-3 font-semibold text-gray-600">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {enquiries.map((e) => {
-                  const config = statusConfig[e.status] || statusConfig["SUBMITTED"]
-                  return (
-                    <tr key={e.id} className="hover:bg-[#f5f9ff] transition-colors">
-                      <td className="px-5 py-3">
-                        <span className="text-xs font-mono font-medium text-[#1e40af]">{e.appNo}</span>
-                      </td>
-                      <td className="px-3 py-3 font-medium text-gray-800">{e.name}</td>
-                      <td className="text-center px-3 py-3 text-gray-600">{e.class}</td>
-                      <td className="px-3 py-3 text-gray-600">{e.father}</td>
-                      <td className="text-center px-3 py-3 text-gray-500 text-xs">{e.phone}</td>
-                      <td className="text-center px-3 py-3">
-                        <Badge variant={config.variant as any} className="text-[10px]">{e.status.replace("_", " ")}</Badge>
-                      </td>
-                      <td className="text-center px-3 py-3 text-xs text-gray-500">{e.date}</td>
-                      <td className="text-center px-3 py-3">
-                        <div className="flex items-center justify-center gap-1">
-                          <button className="p-1.5 rounded-md hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors" title="View Details">
-                            <Eye className="w-3.5 h-3.5" />
-                          </button>
-                          <button className="p-1.5 rounded-md hover:bg-emerald-50 text-gray-400 hover:text-emerald-600 transition-colors" title="Approve">
-                            <CheckCircle className="w-3.5 h-3.5" />
-                          </button>
-                          <button className="p-1.5 rounded-md hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors" title="Reject">
-                            <XCircle className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
-            <p className="text-xs text-gray-500">Showing 1–6 of 23 enquiries</p>
-            <div className="flex gap-1">
-              <button className="px-3 py-1.5 rounded-md text-xs font-medium bg-[#1e40af] text-white">1</button>
-              <button className="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:bg-gray-100">2</button>
-              <button className="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:bg-gray-100">3</button>
-              <button className="px-3 py-1.5 rounded-md text-xs font-medium text-gray-500 hover:bg-gray-100">4</button>
+          {filtered.length === 0 ? (
+            <div className="text-center py-16 text-gray-400">
+              <ClipboardList className="w-12 h-12 mx-auto mb-3 opacity-30" />
+              <p className="text-sm">No admission enquiries yet.</p>
+              <p className="text-xs mt-1">Applications submitted through the website will appear here.</p>
             </div>
-          </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="border-b border-gray-100 bg-gray-50/50">
+                  <tr>
+                    <th className="text-left px-5 py-3 font-semibold text-gray-600">App No.</th>
+                    <th className="text-left px-3 py-3 font-semibold text-gray-600">Student Name</th>
+                    <th className="text-center px-3 py-3 font-semibold text-gray-600">Class</th>
+                    <th className="text-left px-3 py-3 font-semibold text-gray-600">Father</th>
+                    <th className="text-center px-3 py-3 font-semibold text-gray-600">Phone</th>
+                    <th className="text-center px-3 py-3 font-semibold text-gray-600">Status</th>
+                    <th className="text-center px-3 py-3 font-semibold text-gray-600">Date</th>
+                    <th className="text-center px-3 py-3 font-semibold text-gray-600">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {filtered.map((e) => {
+                    const config = statusConfig[e.status] || statusConfig["SUBMITTED"]
+                    return (
+                      <tr key={e.id} className="hover:bg-[#f5f9ff] transition-colors">
+                        <td className="px-5 py-3">
+                          <span className="text-xs font-mono font-medium text-[#1e40af]">{e.appNo}</span>
+                        </td>
+                        <td className="px-3 py-3 font-medium text-gray-800">{e.name}</td>
+                        <td className="text-center px-3 py-3 text-gray-600">{e.class}</td>
+                        <td className="px-3 py-3 text-gray-600">{e.father}</td>
+                        <td className="text-center px-3 py-3 text-gray-500 text-xs">{e.phone}</td>
+                        <td className="text-center px-3 py-3">
+                          <Badge variant={config.variant as any} className="text-[10px]">{e.status.replace("_", " ")}</Badge>
+                        </td>
+                        <td className="text-center px-3 py-3 text-xs text-gray-500">{e.date}</td>
+                        <td className="text-center px-3 py-3">
+                          <div className="flex items-center justify-center gap-1">
+                            <button className="p-1.5 rounded-md hover:bg-blue-50 text-gray-400 hover:text-blue-600 transition-colors" title="View Details">
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+                            <button className="p-1.5 rounded-md hover:bg-emerald-50 text-gray-400 hover:text-emerald-600 transition-colors" title="Approve">
+                              <CheckCircle className="w-3.5 h-3.5" />
+                            </button>
+                            <button className="p-1.5 rounded-md hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors" title="Reject">
+                              <XCircle className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
