@@ -68,8 +68,11 @@ export function HeroSlider() {
 
   return (
     <section className="relative min-h-[90vh] flex flex-col overflow-hidden">
-      {/* No hero background here — the fixed campus photo in the public
-          layout shows through. Prevents the image doubling/overlap on scroll. */}
+      {/* Campus photo — homepage hero only */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/campus-hero.jpg')" }}
+      />
 
       {/* Content */}
       <div className="relative flex-1 flex items-center">
